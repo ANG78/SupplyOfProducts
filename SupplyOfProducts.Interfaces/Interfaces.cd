@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Interface Name="SupplyOfProducts.Interfaces.BusinessLogic.Entities.ICode">
+    <Position X="6" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>BusinessLogic.Entities\ICode.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SupplyOfProducts.Interfaces.BusinessLogic.Entities.IPartNumberProduct">
+    <Position X="11" Y="11.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>BusinessLogic.Entities\IPartNumberProduct.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SupplyOfProducts.Interfaces.BusinessLogic.Entities.IProduct">
+    <Position X="6.25" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>BusinessLogic.Entities\IProduct.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SupplyOfProducts.Interfaces.BusinessLogic.Entities.IPackage">
+    <Position X="6.25" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>BusinessLogic.Entities\IProduct.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SupplyOfProducts.Interfaces.BusinessLogic.Entities.IProductStock">
+    <Position X="10" Y="17" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAQAAAAAAAAAAABAAAAAAAAIAAAAA=</HashCode>
+      <FileName>BusinessLogic.Entities\IProductStock.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SupplyOfProducts.Interfaces.BusinessLogic.Entities.IPackageStock">
+    <Position X="10" Y="20.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>BusinessLogic.Entities\IProductStock.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Parts" />
+    </ShowAsAssociation>
+  </Interface>
+  <Interface Name="SupplyOfProducts.Interfaces.BusinessLogic.Entities.ISupplyPeriod">
+    <Position X="3.75" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>BusinessLogic.Entities\ISupplyPeriod.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SupplyOfProducts.Interfaces.BusinessLogic.Entities.IWorker">
+    <Position X="4" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>BusinessLogic.Entities\IWorker.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SupplyOfProducts.Interfaces.BusinessLogic.Entities.IWorkerInWorkPlace">
+    <Position X="3.75" Y="17.75" Width="1.5" />
+    <InheritanceLine Type="SupplyOfProducts.Interfaces.BusinessLogic.IRequestMustBeCompleted" ManuallyRouted="true">
+      <Path>
+        <Point X="19.5" Y="12.288" />
+        <Point X="19.5" Y="13.74" />
+        <Point X="11.75" Y="13.74" />
+        <Point X="11.75" Y="16.27" />
+        <Point X="4.5" Y="16.27" />
+        <Point X="4.5" Y="17.75" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>BusinessLogic.Entities\IWorkerInWorkPlace.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SupplyOfProducts.Interfaces.BusinessLogic.Entities.IWorkPlace">
+    <Position X="8.5" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>BusinessLogic.Entities\IWorkPlace.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SupplyOfProducts.Interfaces.BusinessLogic.IConfigSupply">
+    <Position X="26" Y="14.25" Width="1.5" />
+    <InheritanceLine Type="SupplyOfProducts.Interfaces.BusinessLogic.IRequestMustBeCompleted" ManuallyRouted="true">
+      <Path>
+        <Point X="19.5" Y="12.288" />
+        <Point X="19.5" Y="13.663" />
+        <Point X="24.917" Y="13.663" Type="JumpStart" />
+        <Point X="25.083" Y="13.663" Type="JumpEnd" />
+        <Point X="26.75" Y="13.663" />
+        <Point X="26.75" Y="14.25" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAASAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>BusinessLogic\IConfigSupply.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SupplyOfProducts.Interfaces.BusinessLogic.IContainDatePeriodProperty">
+    <Position X="24.25" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAAAAAAAAAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>BusinessLogic\IContainDatePeriodProperty.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SupplyOfProducts.Interfaces.BusinessLogic.IContainProductProperty">
+    <Position X="28.25" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>BusinessLogic\IContainProductProperty.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SupplyOfProducts.Interfaces.BusinessLogic.IContainWorkerInWorkPlaceProperty">
+    <Position X="31.75" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAABAAAACAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>BusinessLogic\IContainWorkerInWorkPlaceProperty.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SupplyOfProducts.Interfaces.BusinessLogic.IContainWorkerProperty">
+    <Position X="19.5" Y="14.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>BusinessLogic\IContainWorkerProperty.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SupplyOfProducts.Interfaces.BusinessLogic.IContainWorkPlaceProperty">
+    <Position X="22.5" Y="15" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAEAAAAAAAAA=</HashCode>
+      <FileName>BusinessLogic\IContainWorkPlaceProperty.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SupplyOfProducts.Interfaces.BusinessLogic.IProductSupplied">
+    <Position X="34.25" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAACAAAABAAAAAAAAABAIAAAAAAAAABAAAAAAAQA=</HashCode>
+      <FileName>BusinessLogic\IProductSupplied.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SupplyOfProducts.Interfaces.BusinessLogic.IProductSupply">
+    <Position X="16.75" Y="17.5" Width="1.5" />
+    <InheritanceLine Type="SupplyOfProducts.Interfaces.BusinessLogic.IRequestMustBeCompleted" ManuallyRouted="true">
+      <Path>
+        <Point X="19.5" Y="12.288" />
+        <Point X="19.5" Y="13.763" />
+        <Point X="17.5" Y="13.763" />
+        <Point X="17.5" Y="17.5" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAEACAAAAAAAAAA=</HashCode>
+      <FileName>BusinessLogic\IProductSupply.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SupplyOfProducts.Interfaces.BusinessLogic.IRequestMustBeCompleted">
+    <Position X="18.75" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>BusinessLogic\IRequestMustBeCompleted.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SupplyOfProducts.Interfaces.BusinessLogic.IResultBooking">
+    <Position X="35" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>BusinessLogic\IResultBooking.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SupplyOfProducts.Interfaces.BusinessLogic.IStep&lt;T&gt;">
+    <Position X="36" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAgAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>BusinessLogic\IStep.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SupplyOfProducts.Interfaces.BusinessLogic.ISupplyScheduled">
+    <Position X="29.5" Y="15" Width="1.5" />
+    <InheritanceLine Type="SupplyOfProducts.Interfaces.BusinessLogic.IRequestMustBeCompleted" ManuallyRouted="true">
+      <Path>
+        <Point X="19.5" Y="12.288" />
+        <Point X="19.5" Y="13.743" />
+        <Point X="24.917" Y="13.743" Type="JumpStart" />
+        <Point X="25.083" Y="13.743" Type="JumpEnd" />
+        <Point X="28.917" Y="13.743" Type="JumpStart" />
+        <Point X="29.083" Y="13.743" Type="JumpEnd" />
+        <Point X="30.25" Y="13.743" />
+        <Point X="30.25" Y="15" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAIAAAAAAAAAACAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>BusinessLogic\ISupplyScheduled.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SupplyOfProducts.Interfaces.BusinessLogic.IWorkerInfo">
+    <Position X="21.25" Y="17.5" Width="1.5" />
+    <InheritanceLine Type="SupplyOfProducts.Interfaces.BusinessLogic.IRequestMustBeCompleted" ManuallyRouted="true">
+      <Path>
+        <Point X="19.5" Y="12.288" />
+        <Point X="19.5" Y="13.715" />
+        <Point X="22" Y="13.715" />
+        <Point X="22" Y="17.5" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAQEAAAAAAAAAAAA=</HashCode>
+      <FileName>BusinessLogic\IWorkerInfo.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="System.Collections.Generic.IList&lt;T&gt;" Collapsed="true">
+    <Position X="13.5" Y="20.5" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Font Name="Tahoma" Size="8.25" />
+</ClassDiagram>
