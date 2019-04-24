@@ -5,13 +5,13 @@ El módulo está compuesto por llos siguientes proyectos y dlls
 
 * SupplyOfProducts.API: proyecto web
 
-* SupplyOfProducts.BusinessLogic: Lógica de Negocio
+* SupplyOfProducts.BusinessLogic: Lógica de Negocio (dll)
 
-* SupplyOfProducts.Entities: Entidades del sistema
+* SupplyOfProducts.Entities: Entidades del sistema (dll)
 
-* SupplyOfProducts.Interfaces: Todas las interfaces del sistema, desde las de negocio, las de modelo/entidad, hasta los repositorios,etc 
+* SupplyOfProducts.Interfaces: Todas las interfaces del sistema, desde las de negocio, las de modelo/entidad, hasta los repositorios,etc (dll)
 
-* SupplyOfProducts.Persistence: implementa la peristencia del sistema (en memoria)
+* SupplyOfProducts.Persistence: implementa la peristencia del sistema (en memoria) (dll)
 
 * SupplyOfProducts.Test: Test unitarios para agilizar el desarrollo y testing.
 
@@ -94,7 +94,7 @@ nota: Esta modificación del fichero de Startup se podría subsanar con una conf
 
 ## Patrón: Método Template
 
-Cada paso o clase de la cadena de responsabilidad, sigue un algoritmo-patrón que de no implementarse con el patrón método template habría que ir replicando en cada clase con los inconvenientes que ello tiene.
+Cada paso o clase de la cadena de responsabilidad, sigue un algoritmo-soporte que de no implementarse usando patrón "método template" habría que ir replicando en cada clase con los inconvenientes que ello tiene en cuanto a mantenimiento.
 
  (Para mirar más detalles del patrón, hacer click aquí..) [https://es.wikipedia.org/wiki/Patr%C3%B3n_de_m%C3%A9todo_de_la_plantilla]
 
@@ -151,12 +151,32 @@ Esta validación es reutilizada en otras interfaces como la ya existente IProduc
 Con esta abstracción, si una futura interfaz que represente a otra request, tiene que validar un código de producto, tan sólo tendria que heredar de ambas interfaces como así hace `IConfigSupply`.
 
 ## SupplyOfProducts.BusinessLogic
-(por completar)
+
+Es la capa de la lógica de negocio donde estarán alojados:
+
+- Los código de error de la aplicación
+- La implementación de los Servicios
+- La implementación de los Steps que componen la cadena de responsabilidad
+
 ## SupplyOfProducts.Entities
-(por completar)
+
+Es la capa que define las entidades de dominio, divida en los bloques
+
+- Configuration
+- Provision
+
 ## SupplyOfProducts.Interfaces
-(por completar)
+
+Es la dll que define las interfaces del sistema a todos los niveles.
+
+- interfaces de Negocio
+- interfaces de Repositorio
+- interfaces de Modelo
+
 ## SupplyOfProducts.Persistence
-(por completar)
+
+Es la capa que implementa las interfaces de repositorio
+
 ## SupplyOfProducts.Test
-(por completar)
+
+Test unitarios.
