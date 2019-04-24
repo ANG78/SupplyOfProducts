@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="SupplyOfProducts.BusinessLogic.Steps.ValidateAndCompleteProduct">
+    <Position X="1.75" Y="3.5" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAABAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Steps\ValidateAndCompleteProduct.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SupplyOfProducts.BusinessLogic.Steps.Common.StepDecoratorTemplateGeneric&lt;T&gt;">
+    <Position X="1" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAABAAAAAAgAARAAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Steps\Common\StepDecoratorTemplateGeneric.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Font Name="Tahoma" Size="8.25" />
+</ClassDiagram>

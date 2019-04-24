@@ -5,7 +5,6 @@ using SupplyOfProducts.BusinessLogic.Mappers;
 using SupplyOfProducts.Entities.BusinessLogic.Entities.Configuration;
 using SupplyOfProducts.Interfaces.BusinessLogic;
 using SupplyOfProducts.Interfaces.BusinessLogic.Entities;
-using SupplyOfProducts.Interfaces.BusinessLogic.Services;
 
 
 namespace SupplyOfProducts.Api.Controllers

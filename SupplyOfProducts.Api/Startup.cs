@@ -89,7 +89,7 @@ namespace SupplyOfProducts.Api
             services.AddTransient<ISupplyScheduledService, SupplyScheduledService>();
             services.AddTransient<IWorkPlaceService, WorkPlaceService>();
 
-            // common steps to validate and complete the request
+            // common steps in order to validate and complete the request
             services.AddTransient(sp =>
                     HelperStepConfigurator(
                             new List<IStep<IRequestMustBeCompleted>>()
