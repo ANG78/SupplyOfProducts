@@ -38,7 +38,7 @@ Estos controladores, siguen un patrón básico en la implementación de sus mét
     3) Invocar a la capa de negocio, definida por la siguiente interfaz
 
 
-![supplyController](IStep.png)
+![IStep](IStep.png)
 
    
     4) Mapear la interfaz de negocio a su correspondiente Json resultado.
@@ -110,7 +110,7 @@ Cada paso o clase de la cadena de responsabilidad, sigue un algoritmo-patrón qu
 
 La interfaz `IConfigSupply` se cogerá como ejemplo de cómo se han segregado las interfaces. 
 
-![supplyController](IConfigSupply.png)
+![IConfigSupply](IConfigSupply.png)
 
 Los pasos o clases iniciales implementan la interfaz `IStep<IRequestMustBeCompleted>`.Como se puede apreciar, la interfaz no aporta ningún método o propiedad.
 
