@@ -38,7 +38,7 @@ Estos controladores, siguen un patrón básico en la implementación de sus mét
     3) Invocar a la capa de negocio, definida por la siguiente interfaz
 
 
-![IStep](IStep.png)
+![IStep](IStep.PNG)
 
    
     4) Mapear la interfaz de negocio a su correspondiente Json resultado.
