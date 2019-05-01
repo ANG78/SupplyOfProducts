@@ -180,3 +180,29 @@ Es la capa que implementa las interfaces de repositorio
 ## SupplyOfProducts.Test
 
 Test unitarios.
+
+
+# Futuro Roadmap del supuesto y objetivos personales
+
+## Implementaciones
+
+1) Implementar capa de persistencia con SQL Server
+2) Implementar “Unit of Work” e integración en la Cadena de Responsabilidad
+3) Implementar una interfaz Async / await para lanzar pasos/validaciones independientes entre si
+  3.1)  Terminar de documentar conclusiones del supuesto Async/Await y aplicarlo en este
+  
+  
+  [Async/Await](https://github.com/ANG78/Proof-Of-Concept-Async/blob/master/README.md)
+  
+4) Implementar a modo de ejemplo,  ventajas de Implementar la cadena de responsabilidad
+5) Serializar el acceso a ciertos pasos de la Cadena de Responsabilidad
+
+
+## Documentar las siguientes cuestiones de Diseño y a ciertos paradigmas
+
+1) Cadena de Responsabilidad embebida en los servicios Vs o capa de Servicios que invoca a la  
+2) Trabajar contra interfaces en las propiedades de las Entidades de Negocio
+3) EF:  Como mapear FK en el caso de Product / Package
+4) Seguir documentando ventajas de Cadena de Responsabilidad.
+4.1) Reflejar las posibilidades de configuración y como mejorar el performance
+4.2) Cómo diseñar casos de test por cada posible flujo o concurrencia.
