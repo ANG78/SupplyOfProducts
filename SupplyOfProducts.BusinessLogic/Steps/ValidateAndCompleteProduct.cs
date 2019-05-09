@@ -2,6 +2,7 @@
 using SupplyOfProducts.BusinessLogic.Steps.Common;
 using SupplyOfProducts.Interfaces.BusinessLogic;
 using SupplyOfProducts.Interfaces.BusinessLogic.Services;
+using SupplyOfProducts.Interfaces.BusinessLogic.Services.Request;
 
 namespace SupplyOfProducts.BusinessLogic.Steps
 {
@@ -30,11 +31,11 @@ namespace SupplyOfProducts.BusinessLogic.Steps
                 if (productObject != null)
                 {
                     objCasted.Product = productObject;
-                    objCasted.IdProduct = productObject.Id;
+                    objCasted.ProductId = productObject.Id;
                 }
 
 
-                if (objCasted.Product == null || objCasted.IdProduct == 0)
+                if (objCasted.Product == null || objCasted.ProductId == 0)
                 {
                     return new Result(EnumResultBL.ERROR_PRODUCT_REQUIRED);
                 }

@@ -1,4 +1,5 @@
 ﻿using SupplyOfProducts.Interfaces.BusinessLogic;
+using SupplyOfProducts.Interfaces.BusinessLogic.Services.Request;
 using SupplyOfProducts.Interfaces.Repository;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace SupplyOfProducts.Persistance
         
         public IProductSupply Get(int id)
         {
-            return Context.ProductsSupply.FirstOrDefault(p => p.IdWorkerInWorkPlace == id);
+            return Context.ProductsSupply.FirstOrDefault(p => p.WorkerInWorkPlaceId == id);
         }
 
         public void Save(IProductSupply obj)
@@ -32,9 +33,9 @@ namespace SupplyOfProducts.Persistance
                     Context.ProductsSupplied.Add(obj.ProductSupplied);
                 }
 
-                obj.ProductSupplied.IdProductSupply = obj.IdWorkerInWorkPlace;
-                obj.ProductSupplied.IdProductStock = obj.ProductSupplied.ProductStock.Id;
-                obj.IdProductSupplied = obj.ProductSupplied.Id;
+                obj.ProductSupplied.ProductSupplyId = obj.WorkerInWorkPlaceId;
+                obj.ProductSupplied.ProductStockId = obj.ProductSupplied.ProductStock.Id;
+                obj.ProductSuppliedId = obj.ProductSupplied.Id;
             }
         }
 
@@ -59,7 +60,7 @@ namespace SupplyOfProducts.Persistance
         
         public IProductSupplied GetByProductSupply(int idProductSupply)
         {
-            return Context.ProductsSupplied.FirstOrDefault(x => x.ProductSupply.IdWorkerInWorkPlace == idProductSupply);
+            return Context.ProductsSupplied.FirstOrDefault(x => x.ProductSupply.WorkerInWorkPlaceId == idProductSupply);
         }
 
         public IList<IProductSupply> GetProductSuppliedToWorker(string sCodeWorker)
@@ -69,8 +70,8 @@ namespace SupplyOfProducts.Persistance
 
         public IProductSupply Get(int idWorkerInWorkPlace, int idProduct, DateTime PeriodStartDate)
         {
-            return Context.ProductsSupply.FirstOrDefault(p => p.IdProduct == idProduct &&
-                                                             p.IdWorkerInWorkPlace == idWorkerInWorkPlace &&
+            return Context.ProductsSupply.FirstOrDefault(p => p.ProductId == idProduct &&
+                                                             p.WorkerInWorkPlaceId == idWorkerInWorkPlace &&
                                                              p.PeriodDate == PeriodStartDate);
 
         }

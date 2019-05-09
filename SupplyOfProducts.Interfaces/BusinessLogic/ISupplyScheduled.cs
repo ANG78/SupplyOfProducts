@@ -2,12 +2,11 @@
 
 namespace SupplyOfProducts.Interfaces.BusinessLogic
 {
-    public interface ISupplyScheduled:  IRequestMustBeCompleted, 
-                                        IContainWorkerInWorkPlaceProperty, 
+    public interface ISupplyScheduled:  IContainWorkerInWorkPlaceProperty, 
                                         IContainProductProperty
     {
         int Id { get; set; }
-        uint Amount { get; set; }
+        int Amount { get; set; }
         DateTime PeriodDate { get; set; }
     }
 }

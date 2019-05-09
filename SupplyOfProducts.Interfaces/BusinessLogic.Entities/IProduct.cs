@@ -6,10 +6,12 @@ namespace SupplyOfProducts.Interfaces.BusinessLogic.Entities
     {
         int Id { get; set; }
         string Type { get; set; }
-    }
+      
+    } 
 
     public interface IPackage : IProduct
     {
-        IList<IProduct> Parts { get; set; }
+        void Add(IProduct product);
+        IEnumerable<IProduct> Parts { get; }
     }
 }

@@ -6,6 +6,7 @@ using SupplyOfProducts.Interfaces.BusinessLogic.Entities;
 using System.Collections.Generic;
 using SupplyOfProducts.Entities.BusinessLogic.Entities.Provision;
 using System.Linq;
+using SupplyOfProducts.Interfaces.BusinessLogic.Services.Request;
 
 namespace SupplyOfProducts.BusinessLogic.Mappers
 {
@@ -26,7 +27,7 @@ namespace SupplyOfProducts.BusinessLogic.Mappers
             return configSupply;
         }
 
-        public static ProductSupply Get(RequestSupplyViewModel request)
+        public static IProductSupplyRequest Get(RequestSupplyViewModel request)
         {
             ProductSupply requestProduct = new ProductSupply
             {
@@ -50,7 +51,7 @@ namespace SupplyOfProducts.BusinessLogic.Mappers
             };
         }
 
-        public static ResponseSuppliedViewModel Get(IProductSupply request)
+        public static ResponseSuppliedViewModel Get(IProductSupplyRequest request)
         {
             ResponseSuppliedViewModel requestSupplied = new ResponseSuppliedViewModel
             {
@@ -84,7 +85,7 @@ namespace SupplyOfProducts.BusinessLogic.Mappers
             return requestSupplied;
         }
 
-        public static ResponseConfigViewModel Get(IConfigSupply request)
+        public static ResponseConfigViewModel Get(IConfigSupplyRequest request)
         {
             ResponseConfigViewModel result = new ResponseConfigViewModel
             {
@@ -102,7 +103,7 @@ namespace SupplyOfProducts.BusinessLogic.Mappers
 
 
 
-        public static ResponseWorkerViewModel Get(IWorkerInfo requestWorkerReport)
+        public static ResponseWorkerViewModel Get(IWorkerInfoRequest requestWorkerReport)
         {
             var result = new ResponseWorkerViewModel
             {

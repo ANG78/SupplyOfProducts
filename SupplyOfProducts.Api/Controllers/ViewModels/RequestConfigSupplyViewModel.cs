@@ -9,7 +9,7 @@ namespace SupplyOfProducts.Api.Controllers.ViewModels
         public string CodeProduct { get; set; }
         public string CodeWorkPlace { get; set; }
         public DateTime? Date { get; set; }
-        public uint Amount { get; set; }
+        public int Amount { get; set; }
 
     }
 

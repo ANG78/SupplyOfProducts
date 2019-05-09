@@ -5,11 +5,11 @@ namespace SupplyOfProducts.Interfaces.BusinessLogic
     public interface IProductSupplied
     {
         int Id { get; set; }
-        int IdProductSupply { get; set; }
-        int IdProductStock { get; set; }
+        int ProductSupplyId { get; set; }
+        int ProductStockId { get; set; }
+        int ParentProductSuppliedId { get; set; }
         IProductSupply ProductSupply { get; set; }
-        IProductStock ProductStock { get; set; }
-        int IdParentProductSupplied { get; set; }
+        IProductStock ProductStock { get; set; } 
         IProductSupplied ParentProductSupplied { get; set; }
     }
 }

@@ -1,14 +1,12 @@
 ﻿namespace SupplyOfProducts.Interfaces.BusinessLogic
 {
 
-    public interface IProductSupply : IRequestMustBeCompleted, 
-                                      IContainDatePeriodProperty,
+    public interface IProductSupply : IContainDatePeriodProperty,
                                       IContainWorkerInWorkPlaceProperty, 
                                       IContainProductProperty
     {
         int Id { get; set; }
         IProductSupplied ProductSupplied { get; set; }
-        int IdProductSupplied { get; set; }
+        int ProductSuppliedId { get; set; }
     }
-
 }

@@ -2,6 +2,7 @@
 using SupplyOfProducts.BusinessLogic.Steps.Common;
 using SupplyOfProducts.Interfaces.BusinessLogic;
 using SupplyOfProducts.Interfaces.BusinessLogic.Services;
+using SupplyOfProducts.Interfaces.BusinessLogic.Services.Request;
 
 namespace SupplyOfProducts.BusinessLogic.Steps
 {
@@ -25,20 +26,27 @@ namespace SupplyOfProducts.BusinessLogic.Steps
         {
             if (obj is IContainWorkerProperty)
             {
-                var objCasted = (IContainWorkerProperty)obj;
-                var resWorkerObject = _workerRepository.Get(objCasted.Worker.Code);
-                if (resWorkerObject.ComputeResult().IsError())
-                {
-                    return resWorkerObject;
-                }
-                objCasted.Worker = resWorkerObject.GetItem();
-                objCasted.IdWorker = resWorkerObject.GetItem().Id;
+                return ExecuteTemplate((IContainWorkerProperty)obj);
             }
             else if (obj is IContainWorkerInWorkPlaceProperty)
             {
                 var objCasted = (IContainWorkerInWorkPlaceProperty)obj;
                 return ExecuteTemplate(objCasted.WorkerInWorkPlace);
             }
+
+            return Result.Ok;
+        }
+
+        private IResult ExecuteTemplate(IContainWorkerProperty obj)
+        {
+            var objCasted = (IContainWorkerProperty)obj;
+            var resWorkerObject = _workerRepository.Get(objCasted.Worker.Code);
+            if (resWorkerObject.ComputeResult().IsError())
+            {
+                return resWorkerObject;
+            }
+            objCasted.Worker = resWorkerObject.GetItem();
+            objCasted.WorkerId = resWorkerObject.GetItem().Id;
 
             return Result.Ok;
         }

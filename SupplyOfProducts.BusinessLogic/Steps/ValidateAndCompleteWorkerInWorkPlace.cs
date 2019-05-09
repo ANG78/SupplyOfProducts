@@ -2,6 +2,7 @@
 using SupplyOfProducts.BusinessLogic.Steps.Common;
 using SupplyOfProducts.Interfaces.BusinessLogic;
 using SupplyOfProducts.Interfaces.BusinessLogic.Services;
+using SupplyOfProducts.Interfaces.BusinessLogic.Services.Request;
 using System.Linq;
 
 namespace SupplyOfProducts.BusinessLogic.Steps
@@ -9,11 +10,12 @@ namespace SupplyOfProducts.BusinessLogic.Steps
     public class ValidateAndCompleteWorkerInWorkPlace : StepDecoratorTemplateGeneric<IRequestMustBeCompleted>
     {
         readonly IWorkerService _workerService;
+        readonly IWorkerInWorkPlaceService _workerInWorkPlaceService;
 
-        public ValidateAndCompleteWorkerInWorkPlace(IWorkerService workerService,
+        public ValidateAndCompleteWorkerInWorkPlace(IWorkerInWorkPlaceService workerInWorkPlaceService,
                                                     IStep<IRequestMustBeCompleted> next = null) : base(next)
         {
-            _workerService = workerService;
+            _workerInWorkPlaceService = workerInWorkPlaceService;
         }
 
         public override string Description()
@@ -27,7 +29,7 @@ namespace SupplyOfProducts.BusinessLogic.Steps
             {
                 var objCasted = (IContainWorkerInWorkPlaceProperty)obj;
                 var objDateCasted = (IContainDatePeriodProperty)obj;
-                var placesWhereHaveWorkedInThisDate = _workerService.GetWorkPlaceWhereWorkedTheWorker(objCasted.WorkerInWorkPlace.Worker.Code, objDateCasted.Date);
+                var placesWhereHaveWorkedInThisDate = _workerInWorkPlaceService.GetWorkPlaceWhereWorkedTheWorker(objCasted.WorkerInWorkPlace.Worker.Code, objDateCasted.Date);
 
                 var placesWhereHaveWorkedInThisDateBeingWorkPlace = placesWhereHaveWorkedInThisDate.Where(x => x.WorkPlace.Code == objCasted.WorkerInWorkPlace.WorkPlace.Code).ToList();
                 if (placesWhereHaveWorkedInThisDateBeingWorkPlace.Count != 1)
@@ -36,7 +38,7 @@ namespace SupplyOfProducts.BusinessLogic.Steps
                 }
 
                 objCasted.WorkerInWorkPlace = placesWhereHaveWorkedInThisDateBeingWorkPlace[0];
-                objCasted.IdWorkerInWorkPlace = placesWhereHaveWorkedInThisDateBeingWorkPlace[0].Id;
+                objCasted.WorkerInWorkPlaceId = placesWhereHaveWorkedInThisDateBeingWorkPlace[0].Id;
 
             }
 

@@ -26,9 +26,9 @@ namespace SupplyOfProducts.BusinessLogic.Services
                 return new ResultObject<DateTime>(EnumResultBL.ERROR_NUM_YEARS_BY_PERIOD_IS_ZERO, date, period.DateStart);
             }
 
-            var numDays = (uint)(date - period.DateStart).TotalDays;
+            var numDays = (int)(date - period.DateStart).TotalDays;
 
-            uint numDaysPeriod = 365 * period.NumYearsByPeriod;
+            int numDaysPeriod = 365 * period.NumYearsByPeriod;
 
             var numPeriod = (int)Math.Truncate((double) numDays / numDaysPeriod);
 

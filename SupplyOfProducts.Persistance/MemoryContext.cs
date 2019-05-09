@@ -1,5 +1,6 @@
 ﻿using SupplyOfProducts.Entities.BusinessLogic.Entities.Configuration;
 using SupplyOfProducts.Entities.BusinessLogic.Entities.Provision;
+using SupplyOfProducts.Entities.BusinessLogic.Entities.Store;
 using SupplyOfProducts.Interfaces.BusinessLogic;
 using SupplyOfProducts.Interfaces.BusinessLogic.Entities;
 using System;
@@ -81,20 +82,16 @@ namespace SupplyOfProducts.Persistance
 
             };
 
-            Products.Add(new KitProduct
+            Products.Add(new PackageProduct
             {
                 Id = IdInternal,
                 Code = sP05,
-                Type = "Kit1",
-                Parts = new List<IProduct>
-                    {
-                        Get(sP01, Products),
-                        Get(sP02, Products)
-                    }
+                Type = "Kit1",               
             });
 
-
-
+            Products.Add(Get(sP01, Products));
+            Products.Add(Get(sP02, Products));
+            
 
             Workers = new List<IWorker>
             {
@@ -127,19 +124,19 @@ namespace SupplyOfProducts.Persistance
                 }
             }
 
-            WorkerWorkPlaces.Add(new WorkerInWorkPlace { Id = IdInternal, Worker = Get(sW01, Workers), IdWorker = Get(sW01, Workers).Id, WorkPlace = Get(sWP01, WorkPlaces), IdWorkPlace = Get(sWP01, WorkPlaces).Id, DateStart = new DateTime(2010, 1, 1), NumYearsByPeriod = 3, DateFinish = new DateTime(2015, 1, 1) });
-            WorkerWorkPlaces.Add(new WorkerInWorkPlace { Id = IdInternal, Worker = Get(sW01, Workers), IdWorker = Get(sW01, Workers).Id, WorkPlace = Get(sWP02, WorkPlaces), IdWorkPlace = Get(sWP02, WorkPlaces).Id, DateStart = new DateTime(2012, 1, 1), NumYearsByPeriod = 2 });
-            WorkerWorkPlaces.Add(new WorkerInWorkPlace { Id = IdInternal, Worker = Get(sW02, Workers), IdWorker = Get(sW02, Workers).Id, WorkPlace = Get(sWP01, WorkPlaces), IdWorkPlace = Get(sWP01, WorkPlaces).Id, DateStart = new DateTime(2010, 1, 1), NumYearsByPeriod = 1 });
+            WorkerWorkPlaces.Add(new WorkerInWorkPlace { Id = IdInternal, Worker = Get(sW01, Workers), WorkerId = Get(sW01, Workers).Id, WorkPlace = Get(sWP01, WorkPlaces), WorkPlaceId = Get(sWP01, WorkPlaces).Id, DateStart = new DateTime(2010, 1, 1), NumYearsByPeriod = 3, DateEnd = new DateTime(2015, 1, 1) });
+            WorkerWorkPlaces.Add(new WorkerInWorkPlace { Id = IdInternal, Worker = Get(sW01, Workers), WorkerId = Get(sW01, Workers).Id, WorkPlace = Get(sWP02, WorkPlaces), WorkPlaceId = Get(sWP02, WorkPlaces).Id, DateStart = new DateTime(2012, 1, 1), NumYearsByPeriod = 2 });
+            WorkerWorkPlaces.Add(new WorkerInWorkPlace { Id = IdInternal, Worker = Get(sW02, Workers), WorkerId = Get(sW02, Workers).Id, WorkPlace = Get(sWP01, WorkPlaces), WorkPlaceId = Get(sWP01, WorkPlaces).Id, DateStart = new DateTime(2010, 1, 1), NumYearsByPeriod = 1 });
 
             SuppliesScheduled = new List<ISupplyScheduled>();
             foreach (var it in WorkerWorkPlaces)
             {
                 for (uint i = 1; i <= 2; i++)
                 {
-                    SuppliesScheduled.Add(new SupplyScheduled() { Id = IdInternal, Amount = 1, Product = Get(sP05, Products), IdProduct = Get(sP05, Products).Id, WorkerInWorkPlace = it, IdWorkerInWorkPlace = it.Id, PeriodDate = it.DateStart });
-                    SuppliesScheduled.Add(new SupplyScheduled() { Id = IdInternal, Amount = 2, Product = Get(sP01, Products), IdProduct = Get(sP01, Products).Id, WorkerInWorkPlace = it, IdWorkerInWorkPlace = it.Id, PeriodDate = it.DateStart });
-                    SuppliesScheduled.Add(new SupplyScheduled() { Id = IdInternal, Amount = 1, Product = Get(sP02, Products), IdProduct = Get(sP02, Products).Id, WorkerInWorkPlace = it, IdWorkerInWorkPlace = it.Id, PeriodDate = it.DateStart });
-                    SuppliesScheduled.Add(new SupplyScheduled() { Id = IdInternal, Amount = 3, Product = Get(sP03, Products), IdProduct = Get(sP03, Products).Id, WorkerInWorkPlace = it, IdWorkerInWorkPlace = it.Id, PeriodDate = it.DateStart });
+                    SuppliesScheduled.Add(new SupplyScheduled() { Id = IdInternal, Amount = 1, Product = Get(sP05, Products), ProductId = Get(sP05, Products).Id, WorkerInWorkPlace = it, WorkerInWorkPlaceId = it.Id, PeriodDate = it.DateStart });
+                    SuppliesScheduled.Add(new SupplyScheduled() { Id = IdInternal, Amount = 2, Product = Get(sP01, Products), ProductId = Get(sP01, Products).Id, WorkerInWorkPlace = it, WorkerInWorkPlaceId = it.Id, PeriodDate = it.DateStart });
+                    SuppliesScheduled.Add(new SupplyScheduled() { Id = IdInternal, Amount = 1, Product = Get(sP02, Products), ProductId = Get(sP02, Products).Id, WorkerInWorkPlace = it, WorkerInWorkPlaceId = it.Id, PeriodDate = it.DateStart });
+                    SuppliesScheduled.Add(new SupplyScheduled() { Id = IdInternal, Amount = 3, Product = Get(sP03, Products), ProductId = Get(sP03, Products).Id, WorkerInWorkPlace = it, WorkerInWorkPlaceId = it.Id, PeriodDate = it.DateStart });
                 }
             }
 
@@ -159,3 +156,5 @@ namespace SupplyOfProducts.Persistance
         }
     }
 }
+
+

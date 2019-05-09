@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SupplyOfProducts.Interfaces.BusinessLogic
+namespace SupplyOfProducts.Interfaces.BusinessLogic.Services.Request
 {
     public interface IRequestMustBeCompleted
     {

@@ -1,4 +1,5 @@
 ﻿using SupplyOfProducts.Interfaces.BusinessLogic.Entities;
+using System.Collections.Generic;
 
 namespace SupplyOfProducts.Entities.BusinessLogic.Entities.Configuration
 {
@@ -7,6 +8,7 @@ namespace SupplyOfProducts.Entities.BusinessLogic.Entities.Configuration
         public int Id { get; set; }
         public string Code { get; set; }
         public string Name { get; set; } 
+
     }
 
 }

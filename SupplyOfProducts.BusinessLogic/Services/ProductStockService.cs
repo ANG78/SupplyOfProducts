@@ -1,5 +1,6 @@
 ﻿using SupplyOfProducts.BusinessLogic.Common;
 using SupplyOfProducts.Entities.BusinessLogic.Entities.Provision;
+using SupplyOfProducts.Entities.BusinessLogic.Entities.Store;
 using SupplyOfProducts.Interfaces.BusinessLogic;
 using SupplyOfProducts.Interfaces.BusinessLogic.Entities;
 using SupplyOfProducts.Interfaces.BusinessLogic.Services;
@@ -53,19 +54,19 @@ namespace SupplyOfProducts.BusinessLogic.Services
 
         public IResultBooking BookingRequest(IProductStock product, int idBooking)
         {
-            if (idBooking != 0 && product.IdBooking != 0)
+            if (idBooking != 0 && product.BookingId != null)
             {
                 return new ResultBooking(EnumResultBL.ERROR_PRODUCT_IN_STOCK_WAS_ALREADY_BOOKED);
             }
 
-            product.IdBooking = idBooking;
+            product.BookingId = idBooking;
 
             if (product is IPackageStock)
             {
                 IPackageStock package = (IPackageStock) product;
                 foreach (var prod in package.Parts)
                 {
-                    prod.IdBooking = idBooking;
+                    prod.BookingId = idBooking;
                 }
             }
                       

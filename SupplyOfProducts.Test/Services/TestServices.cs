@@ -1,8 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SupplyOfProducts.Api.Controllers.ViewModels;
-using SupplyOfProducts.BusinessLogic.Mappers;
-using SupplyOfProducts.Interfaces.BusinessLogic;
 using SupplyOfProducts.Interfaces.BusinessLogic.Services;
 using System;
 
@@ -18,7 +15,7 @@ namespace SupplyOfProducts.Test.Services
         {
             Reset();
 
-            IWorkerService workerService = Provider.GetService<IWorkerService>();
+            IWorkerInWorkPlaceService workerService = Provider.GetService<IWorkerInWorkPlaceService>();
             var currentDate = DateTime.Now;
 
             var wks = workerService.GetWorkPlaceWhereWorkedTheWorker(userMocked, currentDate);
@@ -26,7 +23,7 @@ namespace SupplyOfProducts.Test.Services
             foreach (var it in wks)
             {
                 Assert.IsTrue(it.DateStart < DateTime.Now, "DateStart < DateTime.Now");
-                Assert.IsTrue(!it.DateFinish.HasValue || it.DateFinish.Value > currentDate, "DateFinish.HasValue || it.DateFinish.Value >  DateTime.Now");
+                Assert.IsTrue(!it.DateEnd.HasValue || it.DateEnd.Value > currentDate, "DateFinish.HasValue || it.DateFinish.Value >  DateTime.Now");
                 Assert.IsTrue(it.NumYearsByPeriod > 0, "NumYearsByPeriod > 0");
             }
             

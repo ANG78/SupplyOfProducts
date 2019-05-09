@@ -12,12 +12,16 @@ namespace SupplyOfProducts.Persistance
 
         public IProductStock Get(string partNumber)
         {
-            return Context.ProductsStock.FirstOrDefault(x=>x.PartNumber == partNumber);
+            return Context.ProductsStock
+                            .Where(x=>x.PartNumber == partNumber)
+                            .FirstOrDefault();
         }
 
         public IProductStock GetAvailable(string codProduct)
         {
-            return Context.ProductsStock.FirstOrDefault(x => x.Product.Code == codProduct && x.IdBooking == 0);
+            return Context.ProductsStock
+                        .Where(x => x.Product.Code == codProduct && x.BookingId == null )
+                        .FirstOrDefault();
         }
 
         public void Save(IProductStock product)

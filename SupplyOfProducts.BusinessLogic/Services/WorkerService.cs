@@ -16,11 +16,6 @@ namespace SupplyOfProducts.BusinessLogic.Services
             _workerRepository = workerRepository;
         }
 
-        public IList<IWorkerInWorkPlace> GetWorkPlaceWhereWorkedTheWorker(string workerCode, DateTime? date)
-        {
-           return _workerRepository.GetWorkPlace(workerCode, date);
-        }
-
         public IResultObject<IWorker> Get(string code)
         {
             var worker = _workerRepository.Get(code);
@@ -32,4 +27,19 @@ namespace SupplyOfProducts.BusinessLogic.Services
         }
     }
 
+
+    public class WorkerInWorkPlaceService : IWorkerInWorkPlaceService
+    {
+        readonly IWorkerInWorkPlaceRepository _workerRepository;
+        public WorkerInWorkPlaceService(IWorkerInWorkPlaceRepository workerRepository)
+        {
+            _workerRepository = workerRepository;
+        }
+
+        public IList<IWorkerInWorkPlace> GetWorkPlaceWhereWorkedTheWorker(string workerCode, DateTime? date)
+        {
+            return _workerRepository.GetWorkPlace(workerCode, date);
+        }
+
+    }
 }

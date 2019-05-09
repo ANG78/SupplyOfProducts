@@ -2,17 +2,18 @@
 using SupplyOfProducts.BusinessLogic.Steps.Common;
 using SupplyOfProducts.Interfaces.BusinessLogic;
 using SupplyOfProducts.Interfaces.BusinessLogic.Services;
+using SupplyOfProducts.Interfaces.BusinessLogic.Services.Request;
 
 namespace SupplyOfProducts.BusinessLogic.Steps.ConfigSupply
 {
-    public class ValidateAndCompleteWorkerCanBeConfigured : StepDecoratorTemplateGeneric<IConfigSupply>
+    public class ValidateAndCompleteWorkerCanBeConfigured : StepDecoratorTemplateGeneric<IConfigSupplyRequest>
     {
         readonly IProductSupplyService _productSupplyService;
         readonly ISupplyScheduledService _supplyScheduledService;
 
         public ValidateAndCompleteWorkerCanBeConfigured(IProductSupplyService productSupplyService,
                                                         ISupplyScheduledService supplyScheduledService,
-                                                        IStep<IConfigSupply> next = null) : base(next)
+                                                        IStep<IConfigSupplyRequest> next = null) : base(next)
         {
             _productSupplyService = productSupplyService;
             _supplyScheduledService = supplyScheduledService;
@@ -23,12 +24,12 @@ namespace SupplyOfProducts.BusinessLogic.Steps.ConfigSupply
             return "Check that the Worker can be configured with the request data.";
         }
 
-        protected override IResult ExecuteTemplate(IConfigSupply obj)
+        protected override IResult ExecuteTemplate(IConfigSupplyRequest obj)
         {
             var supplyScheduled = _supplyScheduledService.Get(obj.Product.Code, obj.WorkerInWorkPlace.Worker.Code, obj.WorkerInWorkPlace.WorkPlace.Code, obj.PeriodDate);
             if (supplyScheduled != null && supplyScheduled.Amount == obj.Amount)
             {
-                obj.Result = supplyScheduled;
+                obj.SupplyScheduled = supplyScheduled;
                 return OkAndFinish("The Configuration is the same as the one already registered in the system");
             }
 
@@ -38,7 +39,7 @@ namespace SupplyOfProducts.BusinessLogic.Steps.ConfigSupply
                 return new Result(EnumResultBL.ERROR_THE_NEW_AMOUNT_MEANT_TO_BE_SET_IS_SMALLER_THAN_THE_ONE_ALREADY_SUPPLIED, obj.WorkerInWorkPlace.Worker.Code, supplyScheduled.Amount, obj.Product.Code, obj.WorkerInWorkPlace.WorkPlace.Code, obj.PeriodDate);
             }
 
-            obj.Result = supplyScheduled;
+            obj.SupplyScheduled = supplyScheduled;
 
             return Result.Ok;
         }

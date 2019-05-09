@@ -15,13 +15,17 @@ using SupplyOfProducts.BusinessLogic.Steps.ConfigSupply;
 using System.Collections.Generic;
 using System.Linq;
 using SupplyOfProducts.BusinessLogic.Steps.WorkerInfo;
+using Swashbuckle.AspNetCore.Filters;
+using SupplyOfProducts.Api.Controllers.Examples;
+using Microsoft.EntityFrameworkCore;
+using SupplyOfProducts.PersistanceDDBB.Configuration;
+using SupplyOfProducts.PersistanceDDBB;
+using SupplyOfProducts.Interfaces.BusinessLogic.Services.Request;
 
 namespace SupplyOfProducts.Api
 {
     public class Startup
     {
-        //public IServiceProvider ServicesProvider { get; set; }
-
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -61,6 +65,9 @@ namespace SupplyOfProducts.Api
                 // c.IncludeXmlComments(xmlPath);
             });
 
+            services.AddSwaggerExamplesFromAssemblyOf<ExampleRequestConfigSupplyViewModel>();
+            services.AddSwaggerExamplesFromAssemblyOf<ExampleRequestSupplyViewModel>();
+
             //services.AddDbContext<SupplyOfProductsContext>(options =>
             //    options.UseMySql(Configuration.GetConnectionString("DefaultConnection"))
             //    );
@@ -71,14 +78,28 @@ namespace SupplyOfProducts.Api
 
         public void ConfigureRepositoryServices(IServiceCollection services)
         {
+
+            // Add Repositories. 
+            //if (_usingDDBB)
+            {
+                new PersistanceDDBB.StartupWeb(Configuration).ConfigureRepositoryServices(services);
+            }
+          //  else
+            {
+            //    new Persistance.Startup(_configuration).ConfigureRepositoryServices(services);
+            }
+            /*
             // Add Repositories. 
             services.AddSingleton<MemoryContext, MemoryContext>();
-            services.AddTransient<IProductRepository, ProductRepository>();
+            services.AddTransient<SupplyOfProductsContext, SupplyOfProductsContext>();
+            // services.AddTransient<IProductRepository, ProductRepository>();
+            services.AddTransient<IProductRepository, SupplyOfProducts.PersistanceDDBB.Repository.ProductRepository>();
             services.AddTransient<IProductSupplyRepository, ProductSupplyRepository>();
             services.AddTransient<IWorkerRepository, WorkerRepository>();
             services.AddTransient<IWorkPlaceRepository, WorkPlaceRepository>();
             services.AddTransient<IProductStockRepository, ProductStockRepository>();
             services.AddTransient<ISupplyScheduledRepository, SupplyScheduledRepository>();
+            */
 
             // add Services
             services.AddTransient<IPeriodConfigurationService, PeriodConfigurationService>();
@@ -97,25 +118,25 @@ namespace SupplyOfProducts.Api
                                 new ValidateAndCompleteWorker(sp.GetService<IWorkerService>()),
                                 new ValidateAndCompleteProduct(sp.GetService<IProductService>()),
                                 new ValidateAndCompleteWorkPlace(sp.GetService<IWorkPlaceService>()),
-                                new ValidateAndCompleteWorkerInWorkPlace(sp.GetService<IWorkerService>()),
+                                new ValidateAndCompleteWorkerInWorkPlace(sp.GetService<IWorkerInWorkPlaceService>()),
                                 new ValidateAndCompleteDatePeriod(sp.GetService<IPeriodConfigurationService>())
                                 }));
 
 
             services.AddTransient(sp =>
                     HelperStepConfigurator(
-                            new List<IStep<IProductSupply>>()
+                            new List<IStep<IProductSupplyRequest>>()
                             {
-                                new ValidateRequestAndComplete<IProductSupply>(sp.GetService<IStep<IRequestMustBeCompleted>>() ),
+                                new ValidateRequestAndComplete<IProductSupplyRequest>(sp.GetService<IStep<IRequestMustBeCompleted>>() ),
                                 new ValidateWorkerCanBeSupplied(sp.GetService<IProductSupplyService>(), sp.GetService<ISupplyScheduledService>()),
                                 new AssignProductToWorker(sp.GetService<IProductSupplyService>(), sp.GetService<IProductStockService>())
                             }));
 
             services.AddTransient(sp =>
                   HelperStepConfigurator(
-                          new List<IStep<IConfigSupply>>()
+                          new List<IStep<IConfigSupplyRequest>>()
                           {
-                                new ValidateRequestAndComplete<IConfigSupply>(sp.GetService<IStep<IRequestMustBeCompleted>>()),
+                                new ValidateRequestAndComplete<IConfigSupplyRequest>(sp.GetService<IStep<IRequestMustBeCompleted>>()),
                                 new ValidateAndCompleteWorkerCanBeConfigured(sp.GetService<IProductSupplyService>(), sp.GetService<ISupplyScheduledService>()),
                                 new ScheduleConfigurationToWorker(sp.GetService<ISupplyScheduledService>())
                           }));
@@ -123,11 +144,16 @@ namespace SupplyOfProducts.Api
             /*IWorkerInfo*/
             services.AddTransient(sp =>
                   HelperStepConfigurator(
-                          new List<IStep<IWorkerInfo>>()
+                          new List<IStep<IWorkerInfoRequest>>()
                           {
-                              new ValidateRequestAndComplete<IWorkerInfo>(sp.GetService<IStep<IRequestMustBeCompleted>>()),
-                              new GenerateWorkerReport(sp.GetService<IWorkerService> (), sp.GetService<IProductSupplyService>()),
+                              new ValidateRequestAndComplete<IWorkerInfoRequest>(sp.GetService<IStep<IRequestMustBeCompleted>>()),
+                              new GenerateWorkerReport(sp.GetService<IWorkerInWorkPlaceService> (), sp.GetService<IProductSupplyService>()),
                           }));
+
+
+            services.AddDbContext<SupplyOfProductsContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")
+               ));
 
 
 

@@ -22,8 +22,8 @@ namespace SupplyOfProducts.BusinessLogic.Services
         {
             if (prodSupply.Id == 0)
             {
-                return _productSupplyRepository.Get(prodSupply.IdWorkerInWorkPlace, 
-                                                    prodSupply.IdProduct, 
+                return _productSupplyRepository.Get(prodSupply.WorkerInWorkPlaceId, 
+                                                    prodSupply.ProductId, 
                                                     prodSupply.PeriodDate);
 
             }

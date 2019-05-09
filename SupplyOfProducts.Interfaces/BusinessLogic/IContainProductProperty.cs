@@ -4,7 +4,7 @@ namespace SupplyOfProducts.Interfaces.BusinessLogic
 {
     public interface IContainProductProperty
     {
-        int IdProduct { get; set; }
+        int ProductId { get; set; }
         IProduct Product { get; set; }
     }
 }

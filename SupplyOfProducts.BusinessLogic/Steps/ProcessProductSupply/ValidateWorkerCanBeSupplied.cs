@@ -2,17 +2,18 @@
 using SupplyOfProducts.BusinessLogic.Steps.Common;
 using SupplyOfProducts.Interfaces.BusinessLogic;
 using SupplyOfProducts.Interfaces.BusinessLogic.Services;
+using SupplyOfProducts.Interfaces.BusinessLogic.Services.Request;
 
 namespace SupplyOfProducts.BusinessLogic.Steps.ProcessProductSupply
 {
-    public class ValidateWorkerCanBeSupplied : StepDecoratorTemplateGeneric<IProductSupply>
+    public class ValidateWorkerCanBeSupplied : StepDecoratorTemplateGeneric<IProductSupplyRequest>
     {
         readonly IProductSupplyService _productSupplyService;
         readonly ISupplyScheduledService _supplyScheduledService;
 
         public ValidateWorkerCanBeSupplied(IProductSupplyService productSupplyService,
                                      ISupplyScheduledService supplyScheduledService,
-                                     IStep<IProductSupply> next = null) : base(next)
+                                     IStep<IProductSupplyRequest> next = null) : base(next)
         {
             _productSupplyService = productSupplyService;
             _supplyScheduledService = supplyScheduledService;
@@ -23,7 +24,7 @@ namespace SupplyOfProducts.BusinessLogic.Steps.ProcessProductSupply
             return "Check that the Worker can be supplied the product involved in the request taking into account its Supply Setting and the products already supplied in the period";
         }
 
-        protected override IResult ExecuteTemplate(IProductSupply obj)
+        protected override IResult ExecuteTemplate(IProductSupplyRequest obj)
         {
             var supplyScheduled = _supplyScheduledService.Get(obj.Product.Code, obj.WorkerInWorkPlace.Worker.Code, obj.WorkerInWorkPlace.WorkPlace.Code, obj.PeriodDate);
             if (supplyScheduled == null)

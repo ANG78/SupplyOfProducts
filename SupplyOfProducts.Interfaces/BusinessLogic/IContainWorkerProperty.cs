@@ -4,7 +4,7 @@ namespace SupplyOfProducts.Interfaces.BusinessLogic
 {
     public interface IContainWorkerProperty
     {
-        int IdWorker { get; set; }
+        int WorkerId { get; set; }
         IWorker Worker { get; set; }
     }
 

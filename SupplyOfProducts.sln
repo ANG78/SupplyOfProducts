@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SupplyOfProducts.BusinessLo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SupplyOfProducts.Test", "SupplyOfProducts.Test\SupplyOfProducts.Test.csproj", "{335D1E71-8D48-4981-961F-3E68383D10FA}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SupplyOfProducts.PersistanceDDBB", "SupplyOfProducts.PersistanceDDBB\SupplyOfProducts.PersistanceDDBB.csproj", "{B5C3D468-1213-4DB9-A885-4BAB34224AAF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{335D1E71-8D48-4981-961F-3E68383D10FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{335D1E71-8D48-4981-961F-3E68383D10FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{335D1E71-8D48-4981-961F-3E68383D10FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5C3D468-1213-4DB9-A885-4BAB34224AAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5C3D468-1213-4DB9-A885-4BAB34224AAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5C3D468-1213-4DB9-A885-4BAB34224AAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5C3D468-1213-4DB9-A885-4BAB34224AAF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

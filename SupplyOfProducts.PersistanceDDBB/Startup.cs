@@ -1,0 +1,66 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using SupplyOfProducts.Interfaces.Repository;
+using SupplyOfProducts.PersistanceDDBB.Repository;
+
+namespace SupplyOfProducts.PersistanceDDBB
+{
+    public class Startup
+    {
+        public IConfigurationRoot Configuration { get; }
+        
+        public Startup(IConfigurationRoot configuration)
+        {
+            Configuration = configuration;
+        }
+
+        public void ConfigureRepositoryServices(IServiceCollection services)
+        {
+
+            services.AddDbContext<SupplyOfProductsContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")
+            ));
+
+            // Add Repositories. 
+            services.AddSingleton<IGenericContext, SupplyOfProductsContext>();
+            services.AddTransient<IProductRepository, ProductRepository>();
+            services.AddTransient<IProductSupplyRepository, ProductSupplyRepository>();
+            services.AddTransient<IWorkerRepository, WorkerRepository>();
+            services.AddTransient<IWorkerInWorkPlaceRepository, WorkerInWorkPlaceRepository>();
+            services.AddTransient<IWorkPlaceRepository, WorkPlaceRepository>();
+            services.AddTransient<IProductStockRepository, ProductStockRepository>();
+            services.AddTransient<ISupplyScheduledRepository, SupplyScheduledRepository>();
+
+        }
+    }
+
+    public class StartupWeb
+    {
+        public IConfiguration Configuration { get; }
+
+        public StartupWeb(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
+        public void ConfigureRepositoryServices(IServiceCollection services)
+        {
+
+            services.AddDbContext<SupplyOfProductsContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")
+            ));
+
+            // Add Repositories. 
+            services.AddTransient<IGenericContext, SupplyOfProductsContext>();
+            services.AddTransient<IProductRepository, ProductRepository>();
+            services.AddTransient<IProductSupplyRepository, ProductSupplyRepository>();
+            services.AddTransient<IWorkerRepository, WorkerRepository>();
+            services.AddTransient<IWorkerInWorkPlaceRepository, WorkerInWorkPlaceRepository>();
+            services.AddTransient<IWorkPlaceRepository, WorkPlaceRepository>();
+            services.AddTransient<IProductStockRepository, ProductStockRepository>();
+            services.AddTransient<ISupplyScheduledRepository, SupplyScheduledRepository>();
+
+        }
+    }
+}

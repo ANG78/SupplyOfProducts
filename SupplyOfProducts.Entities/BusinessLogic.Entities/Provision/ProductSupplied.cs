@@ -8,9 +8,9 @@ namespace SupplyOfProducts.Entities.BusinessLogic.Entities.Provision
     public class ProductSupplied : IProductSupplied
     {
         public int Id { get; set; }
-        public int IdProductSupply { get; set; }
-        public int IdProductStock { get; set; }
-        public int IdParentProductSupplied { get; set; }
+        public int ProductSupplyId { get; set; }
+        public int ProductStockId { get; set; }
+        public int ParentProductSuppliedId { get; set; }
         public IProductSupply ProductSupply { get; set; }
         public IProductStock ProductStock { get; set; }    
         public IProductSupplied ParentProductSupplied { get; set; }

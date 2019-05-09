@@ -33,8 +33,8 @@ namespace SupplyOfProducts.Persistance
                 Context.SuppliesScheduled.Add(objSch);
             }
 
-            objSch.IdProduct = objSch.Product.Id;
-            objSch.IdWorkerInWorkPlace = objSch.WorkerInWorkPlace.Id;
+            objSch.ProductId = objSch.Product.Id;
+            objSch.WorkerInWorkPlaceId = objSch.WorkerInWorkPlace.Id;
             
         }
     }
