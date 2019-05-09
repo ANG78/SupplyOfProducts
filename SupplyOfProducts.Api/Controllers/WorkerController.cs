@@ -1,71 +1,71 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using SupplyOfProducts.Api.Controllers.ViewModels;
-using SupplyOfProducts.BusinessLogic.Mappers;
-using SupplyOfProducts.Entities.BusinessLogic.Entities.Configuration;
-using SupplyOfProducts.Interfaces.BusinessLogic;
 using SupplyOfProducts.Interfaces.BusinessLogic.Entities;
-using SupplyOfProducts.Interfaces.BusinessLogic.Services.Request;
+using SupplyOfProducts.Interfaces.BusinessLogic.Services;
 
 namespace SupplyOfProducts.Api.Controllers
 {
     [Route("api/[controller]")]
-    public class WorkerController : Controller
+    [ApiController]
+    public class WorkerController : ControllerBase
     {
-        readonly IStep<IWorkerInfoRequest> _supplyBusinessLogic;
+        readonly IWorkerService _supplyBusinessLogic;
 
-        public WorkerController(IStep<IWorkerInfoRequest> supplyBusinessLogic)
+        public WorkerController(IWorkerService supplyBusinessLogic)
         {
             _supplyBusinessLogic = supplyBusinessLogic;
         }
 
-        public class WorkerInfoRequest : IWorkerInfoRequest
-        {
-            public int WorkerId { get ; set ; }
-            public IWorker Worker { get ; set ; }
-            public IList<IWorkerInWorkPlace> WorkPlaces { get ; set ; }
-            public IList<IProductSupply> ProductSupplies { get ; set ; }
-        }
 
-
-        // GET api/<controller>
+        // GET: api/Worker
         [HttpGet]
-        public ResponseWorkerViewModel GetWorkerInfo(string sCode)
+        public IEnumerable<string> Get()
         {
-            WorkerInfoRequest request = new WorkerInfoRequest
-            {
-                Worker = new Worker { Code = sCode }
-            };
-
-            var resProductSupplied = _supplyBusinessLogic.Execute(request);
-            if (resProductSupplied.ComputeResult().IsError())
-            {
-                return Mappers.SetStatusProperty(new ResponseWorkerViewModel(), resProductSupplied);
-            }
-
-            return Mappers.Get(request);
+            return new string[] { "value1", "value2" };
         }
 
+        // GET: api/Worker/5
+       // [HttpGet("{id}", Name = "Get")]
+      //  public string Get(int id)
+      //  {
+            //    WorkerInfoRequest request = new WorkerInfoRequest
+            //      {
+            //         Worker = new Worker { Code = sCode }
+            //   };
 
-        // GET api/<controller>
-        [HttpGet]
-        public ResponseWorkerViewModel Get(string sCode)
+            //    var resProductSupplied = _supplyBusinessLogic.Execute(request);
+            //    if (resProductSupplied.ComputeResult().IsError())
+            //    {
+            //        return Mappers.SetStatusProperty(new ResponseWorkerViewModel(), resProductSupplied);
+            //    }
+
+            //    return Mappers.Get(request);
+        //    return "";
+      //  }
+
+        [HttpGet("{code}", Name = "Get")]
+        public IWorker Get(string code)
         {
-            WorkerInfoRequest request = new WorkerInfoRequest
-            {
-                Worker = new Worker { Code = sCode }
-            };
+            return _supplyBusinessLogic.Get(code).GetItem();
 
-            var resProductSupplied = _supplyBusinessLogic.Execute(request);
-            if (resProductSupplied.ComputeResult().IsError())
-            {
-                return Mappers.SetStatusProperty(new ResponseWorkerViewModel(), resProductSupplied);
-            }
-
-            return Mappers.Get(request);
         }
 
+        // POST: api/Worker
+        [HttpPost]
+        public void Post([FromBody] IWorker value)
+        {
+        }
+
+        // PUT: api/Worker/5
+        [HttpPut("{id}")]
+        public void Put(int id, [FromBody] string value)
+        {
+        }
+
+        // DELETE: api/ApiWithActions/5
+        [HttpDelete("{id}")]
+        public void Delete(int id)
+        {
+        }
     }
-
-    
 }
