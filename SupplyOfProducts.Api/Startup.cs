@@ -25,10 +25,10 @@ using System;
 namespace SupplyOfProducts.Api
 {
 
-    public class HelperStepConfigurator
+    public class HelperStepConf
     {
         readonly IServiceProvider _service;
-        public HelperStepConfigurator(IServiceProvider service)
+        public HelperStepConf(IServiceProvider service)
         {
             _service = service;
         }
@@ -138,7 +138,7 @@ namespace SupplyOfProducts.Api
 
             // common steps in order to validate and complete the request
             services.AddScoped(sp =>
-                    new HelperStepConfigurator(sp).Get(
+                    new HelperStepConf(sp).Get(
                             new List<IStep<IRequestMustBeCompleted>>()
                             {
                                 new ValidateAndCompleteWorker(sp.GetService<IWorkerService>()),
@@ -150,7 +150,7 @@ namespace SupplyOfProducts.Api
 
 
             services.AddScoped(sp =>
-                     new HelperStepConfigurator(sp).Get(
+                     new HelperStepConf(sp).Get(
                             new List<IStep<IProductSupplyRequest>>()
                             {
                                 new ValidateRequestAndComplete<IProductSupplyRequest>(sp.GetService<IStep<IRequestMustBeCompleted>>() ),
@@ -160,7 +160,7 @@ namespace SupplyOfProducts.Api
 
             services.AddScoped(sp =>
             {
-                var helper = new HelperStepConfigurator(sp);
+                var helper = new HelperStepConf(sp);
                 return helper.Get(
                               new List<IStep<IConfigSupplyRequest>>()
                                   {
@@ -173,7 +173,7 @@ namespace SupplyOfProducts.Api
             /*IWorkerInfo*/
             services.AddScoped(sp =>
             {
-                var helper = new HelperStepConfigurator(sp);
+                var helper = new HelperStepConf(sp);
                 return helper.Get(
                                  new List<IStep<IWorkerInfoRequest>>()
                                  {
@@ -187,7 +187,7 @@ namespace SupplyOfProducts.Api
             /*IWorker*/
             services.AddScoped(sp =>
                 {
-                    var helper = new HelperStepConfigurator(sp);
+                    var helper = new HelperStepConf(sp);
                     return helper.Get(
                              new List<IStep<IManagementModelRequest<IWorker>>>()
                              {
@@ -195,6 +195,19 @@ namespace SupplyOfProducts.Api
                               ,new StepSaveModel < IWorker > ( helper.GetService<IWorkerService>() )
                              });
                 }
+                );
+
+            /*IWorker*/
+            services.AddScoped(sp =>
+            {
+                var helper = new HelperStepConf(sp);
+                return helper.Get(
+                         new List<IStep<IManagementModelRequest<IWorkPlace>>>()
+                         {
+                              new StepUnitOfWork < IManagementModelRequest<IWorkPlace> > ( helper.GetService<IGenericContext> () )
+                              ,new StepSaveModel < IWorkPlace > ( helper.GetService<IWorkPlaceService>() )
+                         });
+            }
                 );
 
         }

@@ -1,13 +1,10 @@
 ﻿using SupplyOfProducts.Interfaces.BusinessLogic.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SupplyOfProducts.Interfaces.Repository
 {
-    public interface IWorkPlaceRepository
+    public interface IWorkPlaceRepository : IGenericRepository<IWorkPlace>
     {
-        IWorkPlace Get(string code);
+       
     }
 
 }

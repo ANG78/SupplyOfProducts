@@ -40,7 +40,7 @@ namespace SupplyOfProducts.BusinessLogic.Steps
         {
  
                 var objCasted = obj;
-                var resWorkPlaceObject = _workplaceService.Get(objCasted.WorkPlace.Code);
+                var resWorkPlaceObject = _workplaceService.CheckExist(objCasted.WorkPlace.Code);
 
                 if (resWorkPlaceObject.ComputeResult().IsError())
                 {

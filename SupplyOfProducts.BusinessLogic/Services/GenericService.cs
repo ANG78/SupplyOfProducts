@@ -63,7 +63,7 @@ namespace SupplyOfProducts.BusinessLogic.Services
                     return new Result(EnumResultBL.ERROR_ALREADY_EXIST_WITH_THIS_CODE, worker.Code);
                 }
 
-                _repository.Add(res);
+                _repository.Add(worker);
             }
             catch (Exception ex)
             {
