@@ -1,7 +1,7 @@
 ﻿namespace SupplyOfProducts.Interfaces.BusinessLogic.Entities
 {
-    public interface ICode
+    public interface IId
     {
-        string Code { get; set; }
+        int Id { get; set; }
     }
 }

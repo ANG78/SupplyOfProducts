@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace SupplyOfProducts.Interfaces.BusinessLogic.Entities
+﻿namespace SupplyOfProducts.Interfaces.BusinessLogic.Entities
 {
     public interface IProduct : ICode
     {
@@ -8,10 +6,4 @@ namespace SupplyOfProducts.Interfaces.BusinessLogic.Entities
         string Type { get; set; }
       
     } 
-
-    public interface IPackage : IProduct
-    {
-        void Add(IProduct product);
-        IEnumerable<IProduct> Parts { get; }
-    }
 }

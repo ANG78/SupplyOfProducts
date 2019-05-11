@@ -20,7 +20,7 @@ namespace SupplyOfProducts.Entities.BusinessLogic.Entities.Configuration
         
     }
 
-    public class PackageProduct : AbstractProduct , IPackage
+    public class PackageProduct : AbstractProduct , IProductPackage
     {
         private List<IProduct> _parts { get; } = new List<IProduct>();
 

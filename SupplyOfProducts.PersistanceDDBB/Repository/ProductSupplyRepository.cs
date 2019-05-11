@@ -50,7 +50,9 @@ namespace SupplyOfProducts.PersistanceDDBB.Repository
 
         public IList<IProductSupply> GetProductSuppliedToWorker(string sCodeWorker)
         {
-            return _Current.Where(x => x.WorkerInWorkPlace.Worker.Code == sCodeWorker).OrderByDescending(x => x.PeriodDate).Select(d=>(IProductSupply)d).ToList();
+            return _Current.Where(x => x.WorkerInWorkPlace.Worker.Code == sCodeWorker)
+                .OrderByDescending(x => x.PeriodDate)
+                .Select(d=>(IProductSupply)d).ToList();
         }
 
         public IProductSupply Get(int idWorkerInWorkPlace, int idProduct, DateTime PeriodStartDate)

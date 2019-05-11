@@ -1,4 +1,5 @@
-﻿using SupplyOfProducts.Entities.BusinessLogic.Entities.Configuration;
+﻿using Microsoft.EntityFrameworkCore;
+using SupplyOfProducts.Entities.BusinessLogic.Entities.Configuration;
 using SupplyOfProducts.Interfaces.BusinessLogic.Entities;
 using SupplyOfProducts.Interfaces.Repository;
 using System;
@@ -16,14 +17,20 @@ namespace SupplyOfProducts.PersistanceDDBB.Repository
         {
             if (!date.HasValue)
             {
-                var result = _Current.Where(x => x.Worker.Code == sCodeWorker).Select(y => (IWorkerInWorkPlace)y).ToList();
+                var result = _Current
+                                .Include(x=>x.Worker)
+                                .Include(x => x.WorkPlace)
+                                .Where(x => x.Worker.Code == sCodeWorker)
+                                .Select(y => (IWorkerInWorkPlace)y).ToList();
                 return result;
             }
             else
             {
                 var dateCompare = new DateTime(date.Value.Year, date.Value.Month, date.Value.Day);
 
-                return _Current.Where(x => x.Worker.Code == sCodeWorker &&
+                return _Current.Include(x => x.Worker)
+                                .Include(x => x.WorkPlace)
+                                .Where(x => x.Worker.Code == sCodeWorker &&
                                                       x.DateStart < dateCompare &&
                                                       (!x.DateEnd.HasValue || x.DateEnd.Value >= dateCompare)).Select(x=> (IWorkerInWorkPlace) x).ToList();
             }

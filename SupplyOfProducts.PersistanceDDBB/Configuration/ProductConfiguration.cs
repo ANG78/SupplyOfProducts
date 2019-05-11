@@ -11,6 +11,7 @@ namespace SupplyOfProducts.PersistanceDDBB.Configuration
         {
             builder.ToTable("Product");
             builder.HasKey(c => c.Id);
+            builder.Property(c => c.Id).ValueGeneratedOnAdd();
             builder.Property(c => c.Code).IsRequired().HasMaxLength(10);
             builder.Property(c => c.Type).IsRequired().HasMaxLength(10);
             builder.Property(c => c.ParentProductId);

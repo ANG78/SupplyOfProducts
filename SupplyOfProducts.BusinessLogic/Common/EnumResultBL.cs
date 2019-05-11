@@ -30,8 +30,8 @@ namespace SupplyOfProducts.BusinessLogic.Common
         [Description("Valid Workplace is required")]
         ERROR_WORKPLACE_REQUIRED,
 
-        [Description("Unexpected Error When Save Product Supply: {0}")]
-        ERROR_EXCEPTION_PERSISTANCE_PRODUCT_SUPPLY,
+        [Description("Unexpected Error When Saving: {0}")]
+        ERROR_EXCEPTION_PERSISTANCE,
 
         [Description("Unexpected Exception: {0}")]
         ERROR_UNEXPECTED_EXCEPTION,
@@ -58,12 +58,18 @@ namespace SupplyOfProducts.BusinessLogic.Common
 
         ERROR_PRODUCT_IN_STOCK_WAS_ALREADY_BOOKED,
 
-        ERROR_PRODUCT_SUPPLIED_NOT_COMPLETED
+        ERROR_PRODUCT_SUPPLIED_NOT_COMPLETED,
+
+
+        [Description("The code {0} is already used")]
+        ERROR_ALREADY_EXIST_WITH_THIS_CODE,
+
+        [Description("The code {0} doesn´t exist")]
+        ERROR_CODE_NOT_EXIST,
     }
 
-   
+  
 
-   
 
-    
+
 }

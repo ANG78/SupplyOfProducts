@@ -20,7 +20,7 @@ namespace SupplyOfProducts.Test.Services
             Reset();
             IWorkerService service = Provider.GetService<IWorkerService>();
             string codW = userMocked;
-            var resWorker = service.Get(codW);
+            var resWorker = service.CheckExist(codW);
             Assert.IsTrue(resWorker != null && resWorker.ComputeResult().IsOk());
             Assert.IsTrue(resWorker.GetItem().Code == codW);
         }

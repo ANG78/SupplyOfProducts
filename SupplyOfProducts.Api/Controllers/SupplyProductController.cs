@@ -2,7 +2,6 @@
 using SupplyOfProducts.Interfaces.BusinessLogic;
 using SupplyOfProducts.BusinessLogic.Mappers;
 using SupplyOfProducts.Api.Controllers.ViewModels;
-using SupplyOfProducts.Interfaces.BusinessLogic.Services;
 using System.Collections.Generic;
 using Swashbuckle.AspNetCore.Annotations;
 

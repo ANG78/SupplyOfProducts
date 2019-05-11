@@ -26,7 +26,12 @@ namespace SupplyOfProducts.BusinessLogic.Steps.Common
                 }
                 catch (Exception ex)
                 {
-                    return new Result(EnumResultBL.ERROR_UNEXPECTED_EXCEPTION, this.GetType().ToString() + "::" + Description() + " :" + ex.Message);
+                    return new Result(EnumResultBL.ERROR_UNEXPECTED_EXCEPTION, "STEP::" + 
+                                    this.GetType().ToString() + 
+                                    " => " + 
+                                    Description() + 
+                                    " :" + 
+                                    ex.Message);
                 }
 
                 if (resultCurrent == null)
@@ -64,6 +69,4 @@ namespace SupplyOfProducts.BusinessLogic.Steps.Common
 
 
     }
-    
-
 }

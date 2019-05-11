@@ -9,6 +9,19 @@ namespace SupplyOfProducts.PersistanceDDBB
         /// </summary>
         /// <returns>The <see cref="IEnumerable{TEntity}"/></returns>
         IEnumerable<TEntity> GetAll();
+
+        /// <summary>
+        /// The Add
+        /// </summary>
+        /// <param name="entity">The entity<see cref="TEntity"/></param>
+        void Add(TEntity entity);
+
+
+        /// <summary>
+        /// The Edit
+        /// </summary>
+        /// <param name="entity">The entity<see cref="TEntity"/></param>
+        void Edit(TEntity entity);
         /*
         /// <summary>
         /// The GetById
@@ -17,11 +30,7 @@ namespace SupplyOfProducts.PersistanceDDBB
         /// <returns>The <see cref="TEntity"/></returns>
         TEntity GetById(TIdKey id);
      
-        /// <summary>
-        /// The Add
-        /// </summary>
-        /// <param name="entity">The entity<see cref="TEntity"/></param>
-        void Add(TEntity entity);
+       
 
         /// <summary>
         /// The Delete
@@ -29,11 +38,6 @@ namespace SupplyOfProducts.PersistanceDDBB
         /// <param name="entity">The entity<see cref="TEntity"/></param>
         void Delete(TEntity entity);
 
-        /// <summary>
-        /// The Edit
-        /// </summary>
-        /// <param name="entity">The entity<see cref="TEntity"/></param>
-        void Edit(TEntity entity);
 
        */
     }

@@ -2,9 +2,8 @@
 
 namespace SupplyOfProducts.Interfaces.Repository
 {
-    public interface IWorkerRepository
+
+    public interface IWorkerRepository : IGenericRepository<IWorker>
     {
-        IWorker Get(string code);
-        
     }
 }

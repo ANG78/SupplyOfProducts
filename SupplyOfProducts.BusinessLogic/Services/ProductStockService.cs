@@ -26,14 +26,14 @@ namespace SupplyOfProducts.BusinessLogic.Services
 
         public IProductStock GetAvailable(IProduct product)
         {
-            if (product is IPackage)
+            if (product is IProductPackage)
             {
                 PackageStock package = new PackageStock
                 {
                     PartNumber = "PACK-" +  DateTime.Now.Ticks,
                     Product = product
                 };
-                var pack = (IPackage)product;
+                var pack = (IProductPackage)product;
                 foreach (var prod in pack.Parts)
                 {
                     var ProdStock = _repository.GetAvailable(prod.Code);

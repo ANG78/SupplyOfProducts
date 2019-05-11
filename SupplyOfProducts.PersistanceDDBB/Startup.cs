@@ -52,14 +52,14 @@ namespace SupplyOfProducts.PersistanceDDBB
             ));
 
             // Add Repositories. 
-            services.AddTransient<IGenericContext, SupplyOfProductsContext>();
-            services.AddTransient<IProductRepository, ProductRepository>();
-            services.AddTransient<IProductSupplyRepository, ProductSupplyRepository>();
-            services.AddTransient<IWorkerRepository, WorkerRepository>();
-            services.AddTransient<IWorkerInWorkPlaceRepository, WorkerInWorkPlaceRepository>();
-            services.AddTransient<IWorkPlaceRepository, WorkPlaceRepository>();
-            services.AddTransient<IProductStockRepository, ProductStockRepository>();
-            services.AddTransient<ISupplyScheduledRepository, SupplyScheduledRepository>();
+            services.AddScoped<IGenericContext, SupplyOfProductsContext>();
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IProductSupplyRepository, ProductSupplyRepository>();
+            services.AddScoped<IWorkerRepository, WorkerRepository>();
+            services.AddScoped<IWorkerInWorkPlaceRepository, WorkerInWorkPlaceRepository>();
+            services.AddScoped<IWorkPlaceRepository, WorkPlaceRepository>();
+            services.AddScoped<IProductStockRepository, ProductStockRepository>();
+            services.AddScoped<ISupplyScheduledRepository, SupplyScheduledRepository>();
 
         }
     }

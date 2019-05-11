@@ -10,6 +10,5 @@ namespace SupplyOfProducts.Interfaces.BusinessLogic
         IResult Execute(T condept);
         string Description();
     }
-
 }
  

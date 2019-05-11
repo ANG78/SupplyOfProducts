@@ -24,9 +24,9 @@ namespace SupplyOfProducts.BusinessLogic.Steps
 
         protected override IResult ExecuteTemplate(IRequestMustBeCompleted obj)
         {
-            if (obj is IContainWorkerProperty)
+            if (obj is IContainWorkPlaceProperty)
             {
-                return ExecuteTemplate((IContainWorkerProperty)obj);
+                return ExecuteTemplate((IContainWorkPlaceProperty)obj);
             }
             else if (obj is IContainWorkerInWorkPlaceProperty)
             {
@@ -36,10 +36,10 @@ namespace SupplyOfProducts.BusinessLogic.Steps
             return Result.Ok;
         }
 
-        private IResult ExecuteTemplate(IContainWorkerProperty obj)
+        private IResult ExecuteTemplate(IContainWorkPlaceProperty obj)
         {
  
-                var objCasted = (IContainWorkPlaceProperty)obj;
+                var objCasted = obj;
                 var resWorkPlaceObject = _workplaceService.Get(objCasted.WorkPlace.Code);
 
                 if (resWorkPlaceObject.ComputeResult().IsError())

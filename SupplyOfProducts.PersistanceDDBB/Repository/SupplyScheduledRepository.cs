@@ -30,7 +30,12 @@ namespace SupplyOfProducts.PersistanceDDBB.Repository
 
         public IList<ISupplyScheduled> Get(string sWorkerCode)
         {
-            return _Current.Where(x => x.WorkerInWorkPlace.Worker.Code == sWorkerCode).Select(y=>(ISupplyScheduled)y).ToList();
+            return _Current
+                .Include(x => x.Product)
+                    .Include(x => x.WorkerInWorkPlace)
+                    .Include(x => x.WorkerInWorkPlace.Worker)
+                    .Include(x => x.WorkerInWorkPlace.WorkPlace)
+                .Where(x => x.WorkerInWorkPlace.Worker.Code == sWorkerCode).Select(y=>(ISupplyScheduled)y).ToList();
         }
 
         public void Save(ISupplyScheduled objSch)
@@ -39,10 +44,12 @@ namespace SupplyOfProducts.PersistanceDDBB.Repository
             {
                 Add((SupplyScheduled)objSch);
             }
+            else
+            {
+                Edit((SupplyScheduled)objSch);
+            }
 
-            objSch.ProductId = objSch.Product.Id;
-            objSch.WorkerInWorkPlaceId = objSch.WorkerInWorkPlace.Id;
-
+            DbContext.SaveChanges();
         }
     }
 }

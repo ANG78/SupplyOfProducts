@@ -11,7 +11,6 @@ namespace SupplyOfProducts.PersistanceDDBB
         /// <param name="options">The options<see cref="DbContextOptions{SupplyOfProductsContext}"/></param>
         public SupplyOfProductsContext(DbContextOptions<SupplyOfProductsContext> options) : base(options)
         {
-      
         }
 
 
@@ -71,7 +70,18 @@ namespace SupplyOfProducts.PersistanceDDBB
                 throw new ApplicationException("DbEntityValidationException thrown during SaveChanges: " + e.Message, e);
             }
         }
-        
+
+        public void Rollback()
+        {
+            try
+            {
+                base.Dispose();
+            }
+            catch (Exception)
+            {
+
+            }
+        }
     }
 
 
