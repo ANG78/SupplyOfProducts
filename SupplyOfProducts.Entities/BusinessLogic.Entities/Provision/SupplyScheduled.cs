@@ -1,6 +1,7 @@
 ﻿using SupplyOfProducts.Interfaces.BusinessLogic;
 using SupplyOfProducts.Interfaces.BusinessLogic.Entities;
 using System;
+using System.Collections.Generic;
 
 namespace SupplyOfProducts.Entities.BusinessLogic.Entities.Provision
 {
@@ -16,6 +17,7 @@ namespace SupplyOfProducts.Entities.BusinessLogic.Entities.Provision
         public IWorkerInWorkPlace WorkerInWorkPlace { get; set; }
         public IProduct Product { get; set; }
 
-       
+        public IList<IConfigSupply> ConfiguratedBy { get; set; } = new List<IConfigSupply>();
+        
     }
 }

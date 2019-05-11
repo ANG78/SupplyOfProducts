@@ -164,9 +164,10 @@ namespace SupplyOfProducts.Api
                 return helper.Get(
                               new List<IStep<IConfigSupplyRequest>>()
                                   {
-                                new ValidateRequestAndComplete<IConfigSupplyRequest>(helper.GetService<IStep<IRequestMustBeCompleted>>()),
-                                new ValidateAndCompleteWorkerCanBeConfigured(helper.GetService<IProductSupplyService>(), helper.GetService<ISupplyScheduledService>()),
-                                new ScheduleConfigurationToWorker(helper.GetService<ISupplyScheduledService>())
+                                new StepUnitOfWork < IConfigSupplyRequest > ( helper.GetService<IGenericContext> () )
+                                ,new ValidateRequestAndComplete<IConfigSupplyRequest>(helper.GetService<IStep<IRequestMustBeCompleted>>())
+                                ,new ValidateAndCompleteWorkerCanBeConfigured(helper.GetService<IProductSupplyService>(), helper.GetService<ISupplyScheduledService>())
+                                ,new ScheduleConfigurationToWorker(helper.GetService<ISupplyScheduledService>())
                                    });
             });
 
@@ -197,7 +198,7 @@ namespace SupplyOfProducts.Api
                 }
                 );
 
-            /*IWorker*/
+            /*IWorkPlace*/
             services.AddScoped(sp =>
             {
                 var helper = new HelperStepConf(sp);

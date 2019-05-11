@@ -48,8 +48,6 @@ namespace SupplyOfProducts.PersistanceDDBB.Repository
             {
                 Edit((SupplyScheduled)objSch);
             }
-
-            DbContext.SaveChanges();
         }
     }
 }

@@ -42,6 +42,7 @@ namespace SupplyOfProducts.BusinessLogic.Steps.ConfigSupply
                 };
             }
 
+            obj.SupplyScheduled.ConfiguratedBy.Add(obj);
             _supplyScheduledService.Save(obj.SupplyScheduled);
 
             return Result.Ok;

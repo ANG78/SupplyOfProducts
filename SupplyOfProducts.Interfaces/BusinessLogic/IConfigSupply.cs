@@ -13,5 +13,6 @@ namespace SupplyOfProducts.Interfaces.BusinessLogic
 
         int Id { get; set; }
         int Amount { get; set; }
+                
     }
 }

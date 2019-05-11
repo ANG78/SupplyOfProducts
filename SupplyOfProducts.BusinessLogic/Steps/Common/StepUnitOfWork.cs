@@ -52,7 +52,7 @@ namespace SupplyOfProducts.BusinessLogic.Steps.Common
                                 " => " +
                                 Description() +
                                 " :" +
-                                ex.Message);
+                                ex.Message + "." + ex.InnerException?? ex.InnerException.Message);
             }
         }
     }
