@@ -13,6 +13,8 @@ El módulo está compuesto por llos siguientes proyectos y dlls
 
 * SupplyOfProducts.Persistence: implementa la peristencia del sistema (en memoria) (dll)
 
+* SupplyOfProducts.PersistenceDDBB: implementa la peristencia del sistema (en base de datos) (dll)
+
 * SupplyOfProducts.Test: Test unitarios para agilizar el desarrollo y testing.
 
 
@@ -186,8 +188,8 @@ Test unitarios.
 
 ## Implementaciones
 
-1) Implementar capa de persistencia con SQL Server
-2) Implementar “Unit of Work” e integración en la Cadena de Responsabilidad
+1) Implementar capa de persistencia con SQL Server (60%)
+2) Implementar “Unit of Work” e integración en la Cadena de Responsabilidad (90%)
 3) Implementar una interfaz Async / await para lanzar pasos/validaciones independientes entre si
   3.1)  Terminar de documentar conclusiones del supuesto Async/Await y aplicarlo en este
   
@@ -200,8 +202,8 @@ Test unitarios.
 
 ## Documentar las siguientes cuestiones de Diseño y a ciertos paradigmas
 
-1) Cadena de Responsabilidad embebida en los servicios Vs o capa de Servicios que invoca a la  
-2) Trabajar contra interfaces en las propiedades de las Entidades de Negocio
+1) Cadena de Responsabilidad embebida en los servicios Vs o capa de Servicios que invoca a la cadena  
+2) Trabajar contra interfaces en las propiedades de las Entidades de Negocio: PROS y CONTRAS
 3) EF:  Como mapear FK en el caso de Product / Package
 4) Seguir documentando ventajas de Cadena de Responsabilidad.
 4.1) Reflejar las posibilidades de configuración y como mejorar el performance
