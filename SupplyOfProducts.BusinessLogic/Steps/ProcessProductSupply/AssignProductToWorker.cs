@@ -35,12 +35,12 @@ namespace SupplyOfProducts.BusinessLogic.Steps.ProcessProductSupply
             if (productStock == null)
                 return new Result(EnumResultBL.ERROR_NO_PRODUCT_AVAILABE, obj.Product.Code);
 
-            obj.ProductSupplied = new ProductSupplied { ProductSupply = obj, ProductStock = productStock };
+            obj.ProductsSupplied.Add(  new ProductSupplied { ProductSupply = obj, ProductStock = productStock });
 
-            var resultBooking = _productStockService.BookingRequest(obj.ProductSupplied.ProductStock, obj.WorkerInWorkPlaceId);
+            var resultBooking = _productStockService.BookingRequest(productStock, obj.WorkerInWorkPlaceId);
             if (resultBooking.ComputeResult().IsError())
             {
-                _productStockService.BookingRequest(obj.ProductSupplied.ProductStock, 0);
+                _productStockService.BookingRequest(productStock, 0);
 
                 if (!resultBooking.TryAgain)
                 {
@@ -48,7 +48,7 @@ namespace SupplyOfProducts.BusinessLogic.Steps.ProcessProductSupply
                 }
                 return ExecuteTemplate(obj);
             }
-
+           
             _productSupplyService.Save(obj);
 
             return Result.Ok;

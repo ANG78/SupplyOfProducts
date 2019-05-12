@@ -1,4 +1,6 @@
-﻿namespace SupplyOfProducts.Interfaces.BusinessLogic
+﻿using System.Collections.Generic;
+
+namespace SupplyOfProducts.Interfaces.BusinessLogic
 {
 
     public interface IProductSupply : IContainDatePeriodProperty,
@@ -6,7 +8,6 @@
                                       IContainProductProperty
     {
         int Id { get; set; }
-        IProductSupplied ProductSupplied { get; set; }
-        int ProductSuppliedId { get; set; }
+        IList<IProductSupplied> ProductsSupplied { get; set; } 
     }
 }

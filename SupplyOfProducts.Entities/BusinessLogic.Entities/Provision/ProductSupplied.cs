@@ -14,5 +14,7 @@ namespace SupplyOfProducts.Entities.BusinessLogic.Entities.Provision
         public IProductSupply ProductSupply { get; set; }
         public IProductStock ProductStock { get; set; }    
         public IProductSupplied ParentProductSupplied { get; set; }
+
+       
     }
 }

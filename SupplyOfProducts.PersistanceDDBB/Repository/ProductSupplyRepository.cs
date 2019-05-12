@@ -43,10 +43,11 @@ namespace SupplyOfProducts.PersistanceDDBB.Repository
             Edit((ProductSupply)obj.ProductSupply);
         }
 
-        public IProductSupplied GetByProductSupply(int idProductSupply)
-        {
-            return _Current.FirstOrDefault(x => x.Id == idProductSupply)?.ProductSupplied;
-        }
+        //public IList<IProductSupplied> GetByProductSupply(int idProductSupply)
+        //{
+        //    return _Current.SelectMany(p => p.ProductsSupplied)
+        //            .Where(x => x.Id == idProductSupply).ToList();
+        //}
 
         public IList<IProductSupply> GetProductSuppliedToWorker(string sCodeWorker)
         {
@@ -57,21 +58,23 @@ namespace SupplyOfProducts.PersistanceDDBB.Repository
 
         public IProductSupply Get(int idWorkerInWorkPlace, int idProduct, DateTime PeriodStartDate)
         {
-            return _Current.FirstOrDefault(p => p.ProductId == idProduct &&
-                                                             p.WorkerInWorkPlaceId == idWorkerInWorkPlace &&
-                                                             p.PeriodDate == PeriodStartDate);
+            return _Current.FirstOrDefault( p => p.ProductId == idProduct &&
+                                            p.WorkerInWorkPlaceId == idWorkerInWorkPlace &&
+                                            p.PeriodDate == PeriodStartDate);
 
         }
 
         public IList<IProductSupplied> GetProductSuppliedToWorker(string sCodeProduct, string sCodeWorker, string sCodWorkPlace, DateTime date)
         {
-            return _Current.Where(p => p.ProductSupplied.ParentProductSupplied == null &&
-                                                p.ProductSupplied.ProductStock.Product.Code == sCodeProduct &&
-                                                p.ProductSupplied.ProductSupply.WorkerInWorkPlace.Worker.Code == sCodeWorker &&
-                                                p.ProductSupplied.ProductSupply.WorkerInWorkPlace.WorkPlace.Code == sCodWorkPlace &&
-                                                p.ProductSupplied.ProductSupply.WorkerInWorkPlace.DateStart == date)
-                                                .Select(s=>s.ProductSupplied)
-                                                .ToList();
+            return  _Current.SelectMany(p => p.ProductsSupplied)
+                            .Where(
+                                    p => p.ParentProductSupplied == null &&
+                                    p.ProductStock.Product.Code == sCodeProduct &&
+                                    p.ProductSupply.WorkerInWorkPlace.Worker.Code == sCodeWorker &&
+                                    p.ProductSupply.WorkerInWorkPlace.WorkPlace.Code == sCodWorkPlace &&
+                                    p.ProductSupply.WorkerInWorkPlace.DateStart == date
+                                  ).ToList();
+                            
         }
     }
 }

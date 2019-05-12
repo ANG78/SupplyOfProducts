@@ -11,9 +11,41 @@ using SupplyOfProducts.BusinessLogic.Steps.WorkerInfo;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using SupplyOfProducts.Interfaces.BusinessLogic.Services.Request;
+using SupplyOfProducts.BusinessLogic.Steps.Common;
+using SupplyOfProducts.PersistanceDDBB;
+using System;
+using SupplyOfProducts.Interfaces.BusinessLogic.Entities;
 
 namespace SupplyOfProducts.Test
 {
+    public class HelperStepConf
+    {
+        readonly IServiceProvider _service;
+        public HelperStepConf(IServiceProvider service)
+        {
+            _service = service;
+        }
+
+        public IStep<T> Get<T>(IList<IStep<T>> list)
+        {
+            var result = list.First();
+            list = list.Reverse().ToList();
+            var current = list.FirstOrDefault();
+            for (int i = 1; i < list.Count; i++)
+            {
+                list[i].Next = current;
+                current = list[i];
+            }
+            return result;
+        }
+
+        public T GetService<T>()
+        {
+            return _service.GetRequiredService<T>();
+        }
+    }
+
+
     public class Startup
     {
 
@@ -41,19 +73,19 @@ namespace SupplyOfProducts.Test
           
 
             // add Services
-            services.AddTransient<IPeriodConfigurationService, PeriodConfigurationService>();
-            services.AddTransient<IProductService, ProductService>();
-            services.AddTransient<IProductSupplyService, ProductSupplyService>();
-            services.AddTransient<IWorkerService, WorkerService>();
-            services.AddTransient<IWorkerInWorkPlaceService, WorkerInWorkPlaceService>();
-            services.AddTransient<IProductStockService, ProductStockService>();
-            services.AddTransient<ISupplyScheduledService, SupplyScheduledService>();
-            services.AddTransient<IWorkPlaceService, WorkPlaceService>();
+            services.AddScoped<IPeriodConfigurationService, PeriodConfigurationService>();
+            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IProductSupplyService, ProductSupplyService>();
+            services.AddScoped<IWorkerService, WorkerService>();
+            services.AddScoped<IWorkerInWorkPlaceService, WorkerInWorkPlaceService>();
+            services.AddScoped<IProductStockService, ProductStockService>();
+            services.AddScoped<ISupplyScheduledService, SupplyScheduledService>();
+            services.AddScoped<IWorkPlaceService, WorkPlaceService>();
 
 
-            // common steps to validate and complete the request
-            services.AddTransient(sp =>
-                    HelperStepConfigurator(
+            // common steps in order to validate and complete the request
+            services.AddScoped(sp =>
+                    new HelperStepConf(sp).Get(
                             new List<IStep<IRequestMustBeCompleted>>()
                             {
                                 new ValidateAndCompleteWorker(sp.GetService<IWorkerService>()),
@@ -63,49 +95,73 @@ namespace SupplyOfProducts.Test
                                 new ValidateAndCompleteDatePeriod(sp.GetService<IPeriodConfigurationService>())
                                 }));
 
-            /*IProductSupplyRequest*/
-            services.AddTransient(sp =>
-                    HelperStepConfigurator(
+
+            services.AddScoped(sp =>
+                     new HelperStepConf(sp).Get(
                             new List<IStep<IProductSupplyRequest>>()
                             {
-                                new ValidateRequestAndComplete<IProductSupplyRequest>(sp.GetService<IStep<IRequestMustBeCompleted>>() ),
-                                new ValidateWorkerCanBeSupplied(sp.GetService<IProductSupplyService>(), sp.GetService<ISupplyScheduledService>()),
-                                new AssignProductToWorker(sp.GetService<IProductSupplyService>(), sp.GetService<IProductStockService>())
+                                new StepUnitOfWork < IProductSupplyRequest > ( sp.GetService<IGenericContext> () )
+                                ,new ValidateRequestAndComplete<IProductSupplyRequest>(sp.GetService<IStep<IRequestMustBeCompleted>>() )
+                                ,new ValidateWorkerCanBeSupplied(sp.GetService<IProductSupplyService>(), sp.GetService<ISupplyScheduledService>())
+                                ,new AssignProductToWorker(sp.GetService<IProductSupplyService>(), sp.GetService<IProductStockService>())
                             }));
 
-            /*IConfigSupplyRequest*/
-            services.AddTransient(sp =>
-                  HelperStepConfigurator(
-                          new List<IStep<IConfigSupplyRequest>>()
-                          {
-                                new ValidateRequestAndComplete<IConfigSupplyRequest>(sp.GetService<IStep<IRequestMustBeCompleted>>()),
-                                new ValidateAndCompleteWorkerCanBeConfigured(sp.GetService<IProductSupplyService>(), sp.GetService<ISupplyScheduledService>()),
-                                new ScheduleConfigurationToWorker(sp.GetService<ISupplyScheduledService>())
-                          }));
-
-            /*IWorkerInfoRequest*/
-            services.AddTransient(sp =>
-                  HelperStepConfigurator(
-                          new List<IStep<IWorkerInfoRequest>>()
-                          {
-                              new ValidateRequestAndComplete<IWorkerInfoRequest>(sp.GetService<IStep<IRequestMustBeCompleted>>()),
-                              new GenerateWorkerReport(sp.GetService<IWorkerInWorkPlaceService> (), sp.GetService<IProductSupplyService>()),
-                          }));
-
-        }
-
-        public IStep<T> HelperStepConfigurator<T>(IList<IStep<T>> list)
-        {
-            var result = list.First();
-            list = list.Reverse().ToList();
-            var current = list.FirstOrDefault();
-            for (int i = 1; i < list.Count; i++)
+            services.AddScoped(sp =>
             {
-                list[i].Next = current;
-                current = list[i];
+                var helper = new HelperStepConf(sp);
+                return helper.Get(
+                              new List<IStep<IConfigSupplyRequest>>()
+                                  {
+                                new StepUnitOfWork < IConfigSupplyRequest > ( helper.GetService<IGenericContext> () )
+                                ,new ValidateRequestAndComplete<IConfigSupplyRequest>(helper.GetService<IStep<IRequestMustBeCompleted>>())
+                                ,new ValidateAndCompleteWorkerCanBeConfigured(helper.GetService<IProductSupplyService>(), helper.GetService<ISupplyScheduledService>())
+                                ,new ScheduleConfigurationToWorker(helper.GetService<ISupplyScheduledService>())
+                                   });
+            });
+
+            /*IWorkerInfo*/
+            services.AddScoped(sp =>
+            {
+                var helper = new HelperStepConf(sp);
+                return helper.Get(
+                                 new List<IStep<IWorkerInfoRequest>>()
+                                 {
+                                      new ValidateRequestAndComplete<IWorkerInfoRequest>(helper.GetService<IStep<IRequestMustBeCompleted>>()),
+                                      new GenerateWorkerReport(helper.GetService<IWorkerInWorkPlaceService> (),
+                                                               helper.GetService<IProductSupplyService>())
+                                 });
+            });
+
+
+            /*IWorker*/
+            services.AddScoped(sp =>
+            {
+                var helper = new HelperStepConf(sp);
+                return helper.Get(
+                         new List<IStep<IManagementModelRequest<IWorker>>>()
+                         {
+                              new StepUnitOfWork < IManagementModelRequest<IWorker> > ( helper.GetService<IGenericContext> () )
+                              ,new StepSaveModel < IWorker > ( helper.GetService<IWorkerService>() )
+                         });
             }
-            return result;
+                );
+
+            /*IWorkPlace*/
+            services.AddScoped(sp =>
+            {
+                var helper = new HelperStepConf(sp);
+                return helper.Get(
+                         new List<IStep<IManagementModelRequest<IWorkPlace>>>()
+                         {
+                              new StepUnitOfWork < IManagementModelRequest<IWorkPlace> > ( helper.GetService<IGenericContext> () )
+                              ,new StepSaveModel < IWorkPlace > ( helper.GetService<IWorkPlaceService>() )
+                         });
+            }
+                );
+
         }
+
+       
 
     }
 }

@@ -153,9 +153,10 @@ namespace SupplyOfProducts.Api
                      new HelperStepConf(sp).Get(
                             new List<IStep<IProductSupplyRequest>>()
                             {
-                                new ValidateRequestAndComplete<IProductSupplyRequest>(sp.GetService<IStep<IRequestMustBeCompleted>>() ),
-                                new ValidateWorkerCanBeSupplied(sp.GetService<IProductSupplyService>(), sp.GetService<ISupplyScheduledService>()),
-                                new AssignProductToWorker(sp.GetService<IProductSupplyService>(), sp.GetService<IProductStockService>())
+                                new StepUnitOfWork < IProductSupplyRequest > ( sp.GetService<IGenericContext> () )
+                                ,new ValidateRequestAndComplete<IProductSupplyRequest>(sp.GetService<IStep<IRequestMustBeCompleted>>() )
+                                ,new ValidateWorkerCanBeSupplied(sp.GetService<IProductSupplyService>(), sp.GetService<ISupplyScheduledService>())
+                                ,new AssignProductToWorker(sp.GetService<IProductSupplyService>(), sp.GetService<IProductStockService>())
                             }));
 
             services.AddScoped(sp =>

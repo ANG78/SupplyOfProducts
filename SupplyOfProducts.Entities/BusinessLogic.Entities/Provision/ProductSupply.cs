@@ -2,6 +2,7 @@
 using SupplyOfProducts.Interfaces.BusinessLogic.Entities;
 using SupplyOfProducts.Interfaces.BusinessLogic.Services.Request;
 using System;
+using System.Collections.Generic;
 
 namespace SupplyOfProducts.Entities.BusinessLogic.Entities.Provision
 {
@@ -15,8 +16,8 @@ namespace SupplyOfProducts.Entities.BusinessLogic.Entities.Provision
         public DateTime Date { get; set; }
         public DateTime PeriodDate { get; set; }  
         public IWorkerInWorkPlace WorkerInWorkPlace { get ; set ; }
-        public IProductSupplied ProductSupplied { get; set; }
-        public int ProductSuppliedId { get; set; }
+
+        public IList<IProductSupplied> ProductsSupplied { get; set; } = new List<IProductSupplied>();
     }
 
 }

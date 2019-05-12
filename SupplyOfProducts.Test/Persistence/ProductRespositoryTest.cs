@@ -7,7 +7,7 @@ namespace SupplyOfProducts.Test.Persistence
 {
 
     [TestClass]
-    public class ProductRespositoryTest : UnitTestBase
+    public partial class ProductRespositoryTest : UnitTestBase
     {
 
         [TestMethod]
@@ -19,7 +19,7 @@ namespace SupplyOfProducts.Test.Persistence
    
 
         }
-        
+
     }
 
 

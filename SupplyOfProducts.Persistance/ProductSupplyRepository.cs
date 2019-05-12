@@ -1,5 +1,4 @@
 ﻿using SupplyOfProducts.Interfaces.BusinessLogic;
-using SupplyOfProducts.Interfaces.BusinessLogic.Services.Request;
 using SupplyOfProducts.Interfaces.Repository;
 using System;
 using System.Collections.Generic;
@@ -11,7 +10,7 @@ namespace SupplyOfProducts.Persistance
     {
         public ProductSupplyRepository(MemoryContext context) : base(context)
         { }
-        
+
         public IProductSupply Get(int id)
         {
             return Context.ProductsSupply.FirstOrDefault(p => p.WorkerInWorkPlaceId == id);
@@ -25,6 +24,7 @@ namespace SupplyOfProducts.Persistance
                 Context.ProductsSupply.Add(obj);
             }
 
+            /*
             if (obj.ProductSupplied != null)
             {
                 if (obj.ProductSupplied.Id == 0)
@@ -37,6 +37,7 @@ namespace SupplyOfProducts.Persistance
                 obj.ProductSupplied.ProductStockId = obj.ProductSupplied.ProductStock.Id;
                 obj.ProductSuppliedId = obj.ProductSupplied.Id;
             }
+            */
         }
 
         public void Remove(IProductSupply obj)
@@ -46,9 +47,19 @@ namespace SupplyOfProducts.Persistance
                 Context.ProductsSupply.Remove(obj);
             }
 
-            if (obj.ProductSupplied != null && obj.ProductSupplied.Id > 0)
+            if (obj.ProductsSupplied != null && obj.ProductsSupplied.Count > 0)
             {
-                Context.ProductsSupplied.Remove(obj.ProductSupplied);
+                foreach (var x in obj.ProductsSupplied)
+                {
+                    var ind = Context.ProductsSupplied.IndexOf(x);
+                    if (ind >= 0)
+                    {
+                        Context.ProductsSupplied.RemoveAt(ind);
+                    }
+                     
+                }
+
+                obj.ProductsSupplied.Clear();
             }
         }
 
@@ -57,11 +68,7 @@ namespace SupplyOfProducts.Persistance
             obj.Id = MemoryContext.IdInternal;
             Context.ProductsSupplied.Add(obj);
         }
-        
-        public IProductSupplied GetByProductSupply(int idProductSupply)
-        {
-            return Context.ProductsSupplied.FirstOrDefault(x => x.ProductSupply.WorkerInWorkPlaceId == idProductSupply);
-        }
+               
 
         public IList<IProductSupply> GetProductSuppliedToWorker(string sCodeWorker)
         {
@@ -78,11 +85,14 @@ namespace SupplyOfProducts.Persistance
 
         public IList<IProductSupplied> GetProductSuppliedToWorker(string sCodeProduct, string sCodeWorker, string sCodWorkPlace, DateTime date)
         {
-            return Context.ProductsSupplied.Where(p => p.ParentProductSupplied== null &&
+            return Context.ProductsSupplied.Where(p => p.ParentProductSupplied == null &&
                                                        p.ProductStock.Product.Code == sCodeProduct &&
                                                        p.ProductSupply.WorkerInWorkPlace.Worker.Code == sCodeWorker &&
                                                        p.ProductSupply.WorkerInWorkPlace.WorkPlace.Code == sCodWorkPlace &&
                                                        p.ProductSupply.WorkerInWorkPlace.DateStart == date).ToList();
         }
+
+        //IList<IProductSupplied> GetByProductSupply(int idProductSupply)
+        //{ }
     }
 }

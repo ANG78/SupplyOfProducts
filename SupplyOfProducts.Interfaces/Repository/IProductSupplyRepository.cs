@@ -14,7 +14,7 @@ namespace SupplyOfProducts.Interfaces.Repository
         IProductSupply Get(int idWorkerInWorkPlace, int idProduct, DateTime PeriodStartDate);
         IProductSupply Get(int id);
 
-        IProductSupplied GetByProductSupply(int idProductSupply);
+      //  IList<IProductSupplied> GetByProductSupply(int idProductSupply);
         IList<IProductSupply> GetProductSuppliedToWorker(string sCodeWorker);
         IList<IProductSupplied> GetProductSuppliedToWorker(string sProduct, string sCodeWorker, string sCodWorkPlace, DateTime date);
     }

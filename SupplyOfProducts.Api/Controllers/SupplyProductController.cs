@@ -4,6 +4,7 @@ using SupplyOfProducts.BusinessLogic.Mappers;
 using SupplyOfProducts.Api.Controllers.ViewModels;
 using System.Collections.Generic;
 using Swashbuckle.AspNetCore.Annotations;
+using SupplyOfProducts.Interfaces.BusinessLogic.Services.Request;
 
 namespace SupplyOfProducts.Api.Controllers
 {
@@ -11,9 +12,9 @@ namespace SupplyOfProducts.Api.Controllers
     [ApiController]
     public class SupplyProductController : ControllerBase
     {
-        readonly IStep<IProductSupply> supplyBusinessLogic;
+        readonly IStep<IProductSupplyRequest > supplyBusinessLogic;
 
-        public SupplyProductController(IStep<IProductSupply> psupplyBusinessLogic)
+        public SupplyProductController(IStep<IProductSupplyRequest> psupplyBusinessLogic)
         {
             this.supplyBusinessLogic = psupplyBusinessLogic;
         }

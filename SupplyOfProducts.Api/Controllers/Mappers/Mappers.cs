@@ -64,11 +64,11 @@ namespace SupplyOfProducts.BusinessLogic.Mappers
 
             };
 
-            requestSupplied.Request.ProductSupplied = Get(request.ProductSupplied);
+            requestSupplied.Request.ProductSupplied = Get(request.ProductsSupplied[0]);
 
-            if (request.ProductSupplied?.ProductStock is IPackageStock)
+            if (request.ProductsSupplied[0]?.ProductStock is IPackageStock)
             {
-                IPackageStock pack = (IPackageStock)request.ProductSupplied?.ProductStock;
+                IPackageStock pack = (IPackageStock)request.ProductsSupplied[0]?.ProductStock;
                 requestSupplied.Request.ProductSupplied.Parts = new List<ProductSuppliedViewModel>();
                 foreach (var pr in pack.Parts)
                 {
@@ -132,8 +132,10 @@ namespace SupplyOfProducts.BusinessLogic.Mappers
                     iteratorPlace = suppliesGroupByWorkPlace[workPlace];
                 }
 
-
-                iteratorPlace.ProductSupplied.Add(Get(it.ProductSupplied));
+                if (it.ProductsSupplied.Count > 0)
+                {
+                    iteratorPlace.ProductSupplied.Add(Get(it.ProductsSupplied[0]));
+                }
                 
             }
             

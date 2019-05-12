@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SupplyOfProducts.Entities.BusinessLogic.Entities.Configuration;
 using SupplyOfProducts.Entities.BusinessLogic.Entities.Provision;
+using System.Collections.Generic;
 
 namespace SupplyOfProducts.PersistanceDDBB.Configuration
 {
@@ -16,8 +17,6 @@ namespace SupplyOfProducts.PersistanceDDBB.Configuration
 
             builder.HasOne(x => (Product)x.Product).WithMany().HasForeignKey(x => x.ProductId).IsRequired();
             builder.HasOne(x => (WorkerInWorkPlace)x.WorkerInWorkPlace).WithMany().HasForeignKey(x => x.WorkerInWorkPlaceId).IsRequired();
-            builder.HasOne(x => (ProductSupplied)x.ProductSupplied).WithMany().HasForeignKey(x => x.ProductSuppliedId).IsRequired();
-            
         }
     }
 }
