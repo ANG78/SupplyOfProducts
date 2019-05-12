@@ -3,7 +3,7 @@ Author:
 
 Pequeño proyecto, a modo de prueba de conceptos, donde intento dar un enfoque orientado a los principios SOLID, interfaces y otras inquietudes técnicas.
 
-Quizás la funcionalidad del mismo es lo de menos en sí, pero con la idea de que la teoría se aplique a un supuesto "real", he visto interesante implementar este pequeño.
+Quizás la funcionalidad del mismo es lo de menos en sí, pero con la idea de que la teoría se aplique a un supuesto "real", he visto interesante implementar este pequeño supuesto.
 
 # Tags y Requerimientos para ejecutar el módulo
 
