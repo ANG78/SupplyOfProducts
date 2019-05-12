@@ -1,19 +1,17 @@
 ## Requisitos de información y funcionales 
 
-La aplicación se encargará de la gestión de:
+La aplicación (Backend) se encargará de la gestión de:
 
 * la configuración del suministro de productos o paquetes a trabajadores
 * la solicitud de productos o paquetes por parte de los trabajadores
+* Lugares de trabajo (WorkPlace) 
+* información de los trabajadores (Worker)
 
-# Requerimientos fuera del alcance del módulo
+# Requerimientos (a día de hoy) fuera del alcance del módulo
 
  * La información de la definición de productos (Product) que pueden ser suministrados.
     Se tendrán definidos productos y paquetes de productos.
-    
- * Lugares de trabajo (WorkPlace)
- 
- * información de los trabajadores (Worker)
- 
+  
  * La relación entre Worker y los WorkPlaces, vendrá configurada por 
  
    * fecha de Comienzo de la pertenencia al centro de trabajo
