@@ -179,6 +179,8 @@ Es la dll que define las interfaces del sistema a todos los niveles.
 
 Es la capa que implementa las interfaces de repositorio
 
+![base de datos](database.png)
+
 ## SupplyOfProducts.Test
 
 Test unitarios.
