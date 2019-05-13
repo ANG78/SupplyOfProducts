@@ -64,17 +64,16 @@ namespace SupplyOfProducts.PersistanceDDBB.Repository
 
         }
 
-        public IList<IProductSupplied> GetProductSuppliedToWorker(string sCodeProduct, string sCodeWorker, string sCodWorkPlace, DateTime date)
+        public IList<IProductSupplied> GetProductSuppliedToWorkerOnThisPeriod(string sCodeProduct, string sCodeWorker, string sCodWorkPlace, DateTime date)
         {
-            return  _Current.SelectMany(p => p.ProductsSupplied)
+            return _Current.SelectMany(p => p.ProductsSupplied)
                             .Where(
                                     p => p.ParentProductSupplied == null &&
                                     p.ProductStock.Product.Code == sCodeProduct &&
                                     p.ProductSupply.WorkerInWorkPlace.Worker.Code == sCodeWorker &&
                                     p.ProductSupply.WorkerInWorkPlace.WorkPlace.Code == sCodWorkPlace &&
-                                    p.ProductSupply.WorkerInWorkPlace.DateStart == date
-                                  ).ToList();
-                            
+                                    p.ProductSupply.PeriodDate == date).ToList();
+                                     
         }
     }
 }

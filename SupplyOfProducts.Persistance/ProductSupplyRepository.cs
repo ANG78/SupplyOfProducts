@@ -83,7 +83,7 @@ namespace SupplyOfProducts.Persistance
 
         }
 
-        public IList<IProductSupplied> GetProductSuppliedToWorker(string sCodeProduct, string sCodeWorker, string sCodWorkPlace, DateTime date)
+        public IList<IProductSupplied> GetProductSuppliedToWorkerOnThisPeriod(string sCodeProduct, string sCodeWorker, string sCodWorkPlace, DateTime date)
         {
             return Context.ProductsSupplied.Where(p => p.ParentProductSupplied == null &&
                                                        p.ProductStock.Product.Code == sCodeProduct &&
@@ -92,7 +92,6 @@ namespace SupplyOfProducts.Persistance
                                                        p.ProductSupply.WorkerInWorkPlace.DateStart == date).ToList();
         }
 
-        //IList<IProductSupplied> GetByProductSupply(int idProductSupply)
-        //{ }
+
     }
 }

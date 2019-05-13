@@ -49,7 +49,7 @@ namespace SupplyOfProducts.BusinessLogic.Services
 
         public IList<IProductSupplied> GetProductSuppliedToWorker(string sProduct, string sCodeWorker, string sCodWorkPlace, DateTime date)
         {
-            return _productSupplyRepository.GetProductSuppliedToWorker(sProduct, sCodeWorker, sCodWorkPlace, date);
+            return _productSupplyRepository.GetProductSuppliedToWorkerOnThisPeriod(sProduct, sCodeWorker, sCodWorkPlace, date);
         }
 
        

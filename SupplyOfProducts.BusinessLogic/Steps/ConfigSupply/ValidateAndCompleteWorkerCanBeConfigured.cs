@@ -44,4 +44,7 @@ namespace SupplyOfProducts.BusinessLogic.Steps.ConfigSupply
             return Result.Ok;
         }
     }
+
+
+
 }
