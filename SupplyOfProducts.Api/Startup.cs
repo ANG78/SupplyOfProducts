@@ -21,6 +21,7 @@ using SupplyOfProducts.Interfaces.BusinessLogic.Services.Request;
 using SupplyOfProducts.Interfaces.BusinessLogic.Entities;
 using SupplyOfProducts.BusinessLogic.Steps.Common;
 using System;
+using AutoMapper;
 
 namespace SupplyOfProducts.Api
 {
@@ -103,6 +104,9 @@ namespace SupplyOfProducts.Api
 
         public void ConfigureRepositoryServices(IServiceCollection services)
         {
+
+            services.AddAutoMapper();
+
 
             // Add Repositories. 
             //if (_usingDDBB)
@@ -211,6 +215,20 @@ namespace SupplyOfProducts.Api
                          });
             }
                 );
+
+            /*IProduct*/
+            services.AddScoped(sp =>
+            {
+                var helper = new HelperStepConf(sp);
+                return helper.Get(
+                         new List<IStep<IManagementModelRequest<IProduct>>>()
+                         {
+                              new StepUnitOfWork < IManagementModelRequest<IProduct> > ( helper.GetService<IGenericContext> () )
+                              ,new StepSaveModel < IProduct > ( helper.GetService<IProductService>() )
+                         });
+            }
+                );
+
 
         }
 

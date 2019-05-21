@@ -2,8 +2,8 @@
 
 namespace SupplyOfProducts.Interfaces.Repository
 {
-    public interface IProductRepository
+    public interface IProductRepository :  IGenericRepository<IProduct>
     {
-        IProduct Get(string code);
+        
     }
 }

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace SupplyOfProducts.Entities.BusinessLogic.Entities.Provision
 {
-    public class SupplyScheduled : ISupplyScheduled
+    public partial class SupplyScheduled : ISupplyScheduled
     {
         public int Id { get; set; }
         public int ProductId { get; set; }

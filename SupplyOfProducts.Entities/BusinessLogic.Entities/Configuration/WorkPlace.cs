@@ -2,7 +2,7 @@
 
 namespace SupplyOfProducts.Entities.BusinessLogic.Entities.Configuration
 {
-    public class WorkPlace: IWorkPlace
+    public partial class WorkPlace: IWorkPlace
     {
         public int Id { get; set; }
         public string Code { get; set; }

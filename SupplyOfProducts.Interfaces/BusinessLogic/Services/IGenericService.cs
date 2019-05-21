@@ -6,7 +6,7 @@ namespace SupplyOfProducts.Interfaces.BusinessLogic.Services
     {
         T Get(string code);
         IEnumerable<T> GetAll();
-        IResult Save(T worker);
+        IResult Add(T worker);
         IResult Edit(T worker);
     }
 }

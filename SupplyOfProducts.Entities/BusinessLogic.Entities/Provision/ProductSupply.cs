@@ -7,7 +7,7 @@ using System.Collections.Generic;
 namespace SupplyOfProducts.Entities.BusinessLogic.Entities.Provision
 {
 
-    public class ProductSupply : IProductSupplyRequest
+    public partial class ProductSupply : IProductSupplyRequest
     {
         public int Id { get; set; }
         public int WorkerInWorkPlaceId { get; set; }

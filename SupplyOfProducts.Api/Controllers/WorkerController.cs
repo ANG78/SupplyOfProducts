@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using SupplyOfProducts.Api.Controllers.ViewModels;
 using SupplyOfProducts.BusinessLogic.Steps.Common;
-using SupplyOfProducts.Entities.BusinessLogic.Entities.Configuration;
 using SupplyOfProducts.Interfaces.BusinessLogic;
 using SupplyOfProducts.Interfaces.BusinessLogic.Entities;
 using SupplyOfProducts.Interfaces.BusinessLogic.Services;
@@ -9,19 +10,22 @@ using SupplyOfProducts.Interfaces.BusinessLogic.Services.Request;
 
 namespace SupplyOfProducts.Api.Controllers
 {
- 
+
     [Route("api/[controller]")]
     [ApiController]
     public class WorkerController : ControllerBase
     {
         readonly IWorkerService _serviceBusinessLogic;
-        readonly IStep< IManagementModelRequest<IWorker> > _businessLogic;
+        readonly IStep<IManagementModelRequest<IWorker>> _businessLogic;
+        private readonly IMapper _mapper;
 
-        public WorkerController(IWorkerService serviceBusinessLogic, 
+        public WorkerController(IMapper mapper,
+                                IWorkerService serviceBusinessLogic,
                                 IStep<IManagementModelRequest<IWorker>> businessLogic)
         {
             _serviceBusinessLogic = serviceBusinessLogic;
             _businessLogic = businessLogic;
+            _mapper = mapper;
         }
 
         // GET: api/Worker
@@ -36,15 +40,15 @@ namespace SupplyOfProducts.Api.Controllers
         {
             return _serviceBusinessLogic.Get(code);
         }
-        
+
         // POST: api/Worker
         [HttpPost]
-        public string Post([FromBody] Worker value)
+        public string Post([FromBody] WorkerViewModel value)
         {
 
             var request = new ManagementModelRequest<IWorker>
             {
-                Item = value,
+                Item = _mapper.Map<IWorker>(value),
                 Type = TypeManagement.NEW
             };
 
@@ -54,11 +58,11 @@ namespace SupplyOfProducts.Api.Controllers
 
         // PUT: api/Worker/5
         [HttpPut("{id}")]
-        public string Put(int id, [FromBody] Worker value)
+        public string Put(int id, [FromBody] WorkerViewModel value)
         {
             var request = new ManagementModelRequest<IWorker>
             {
-                Item = value,
+                Item = _mapper.Map<IWorker>(value),
                 Type = TypeManagement.EDITION
             };
 
@@ -67,6 +71,6 @@ namespace SupplyOfProducts.Api.Controllers
             var result = _businessLogic.Execute(request);
             return result.Message();
         }
-       
+
     }
 }

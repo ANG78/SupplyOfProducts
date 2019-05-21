@@ -21,6 +21,7 @@ namespace SupplyOfProducts.PersistanceDDBB
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new ProductConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductPartsConfiguration());
             modelBuilder.ApplyConfiguration(new WorkerConfiguration());
             modelBuilder.ApplyConfiguration(new WorkPlaceConfiguration());
             modelBuilder.ApplyConfiguration(new WorkerInWorkPlaceConfiguracion());

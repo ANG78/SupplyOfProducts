@@ -14,7 +14,7 @@ namespace SupplyOfProducts.PersistanceDDBB.Repository
 
         public virtual void Add(IWorker worker)
         {
-            if (worker is IWorker)
+            if (worker is Worker)
             {
                 base.Add((Worker)worker);
             }

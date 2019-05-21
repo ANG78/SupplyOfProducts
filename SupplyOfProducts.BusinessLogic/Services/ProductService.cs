@@ -5,19 +5,16 @@ using SupplyOfProducts.Interfaces.Repository;
 
 namespace SupplyOfProducts.BusinessLogic.Services
 {
-    public class ProductService : IProductService
+    public class ProductService : GenericService<IProduct>, IProductService
     {
-        readonly IProductRepository productRepository;
+   
 
-        public ProductService(IProductRepository pproductRepository)
+        public ProductService(IProductRepository pproductRepository) : base(pproductRepository)
         {
-            productRepository = pproductRepository;
+           
         }
 
-        public IProduct Get(string code)
-        {
-            return productRepository.Get(code);
-        }
+      
     }
 
 

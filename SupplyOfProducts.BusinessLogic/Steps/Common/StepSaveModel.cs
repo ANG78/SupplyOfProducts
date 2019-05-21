@@ -23,7 +23,7 @@ namespace SupplyOfProducts.BusinessLogic.Steps.Common
         {
             if (obj.Type == TypeManagement.NEW)
             {
-               return _service.Save(obj.Item);
+               return _service.Add(obj.Item);
             }
             else if (obj.Type == TypeManagement.EDITION)
             {

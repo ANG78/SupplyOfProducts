@@ -3,7 +3,7 @@ using System;
 
 namespace SupplyOfProducts.Entities.BusinessLogic.Entities.Configuration
 {
-    public class WorkerInWorkPlace : IWorkerInWorkPlace
+    public partial class WorkerInWorkPlace : IWorkerInWorkPlace
     {
         public int Id { get; set; }
         public int WorkerId { get; set; }

@@ -52,7 +52,7 @@ namespace SupplyOfProducts.BusinessLogic.Services
         /// </summary>
         /// <param name="worker"></param>
         /// <returns></returns>
-        public IResult Save(T worker)
+        public IResult Add(T worker)
         {
             try
             {

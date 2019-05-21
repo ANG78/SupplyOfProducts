@@ -5,7 +5,7 @@ using System;
 namespace SupplyOfProducts.Entities.BusinessLogic.Entities.Provision
 {
 
-    public class ProductSupplied : IProductSupplied
+    public partial class ProductSupplied : IProductSupplied
     {
         public int Id { get; set; }
         public int ProductSupplyId { get; set; }

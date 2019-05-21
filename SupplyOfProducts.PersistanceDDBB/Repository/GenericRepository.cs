@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using SupplyOfProducts.PersistanceDDBB.Configuration;
 using Microsoft.EntityFrameworkCore;
-
+using AutoMapper;
 
 namespace SupplyOfProducts.PersistanceDDBB.Repository
 {
-    
+
     public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
     {
 

@@ -1,10 +1,9 @@
 ﻿using SupplyOfProducts.Interfaces.BusinessLogic.Entities;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SupplyOfProducts.Entities.BusinessLogic.Entities.Store
 {
-    public abstract class ProductStockAbstract
+    public  abstract partial class ProductStockAbstract
     {
         public int Id { get; set; }
      
@@ -15,11 +14,11 @@ namespace SupplyOfProducts.Entities.BusinessLogic.Entities.Store
         public bool IsAvailable { get { return BookingId == 0; } }
     }
 
-    public class ProductStock : ProductStockAbstract, IProductStock
+    public partial class ProductStock : ProductStockAbstract, IProductStock
     {
     }
 
-    public class PackageStock : ProductStockAbstract, IPackageStock
+    public partial class PackageStock : ProductStockAbstract, IPackageStock
     {
        public IList<IProductStock> Parts { get; set; } = new List<IProductStock>();
     }

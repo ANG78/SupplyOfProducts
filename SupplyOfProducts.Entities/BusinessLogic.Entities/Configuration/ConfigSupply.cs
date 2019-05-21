@@ -7,7 +7,7 @@ namespace SupplyOfProducts.Entities.BusinessLogic.Entities.Configuration
 {
 
 
-    public class ConfigSupply : IConfigSupplyRequest
+    public partial class ConfigSupply : IConfigSupplyRequest
     {
         public int Id { get; set; }
         public DateTime Date { get; set; }

@@ -2,9 +2,9 @@
 
 namespace SupplyOfProducts.Interfaces.BusinessLogic.Services
 {
-    public interface IProductService
+    public interface IProductService : IGenericService<IProduct>
     {
-        IProduct Get(string code);
+        
     }
 
 }
