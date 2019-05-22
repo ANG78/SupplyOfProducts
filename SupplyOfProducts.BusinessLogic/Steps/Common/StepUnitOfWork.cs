@@ -6,10 +6,10 @@ namespace SupplyOfProducts.BusinessLogic.Steps.Common
 {
     public class StepUnitOfWork<T> : IStep<T>
     {
-        readonly IUnitOfWork _currentContext;
-        public StepUnitOfWork(IUnitOfWork context)
+        readonly ICreateUoW _currentUoW;
+        public StepUnitOfWork(ICreateUoW context)
         {
-            _currentContext = context;
+            _currentUoW = context;
         }
 
         public IStep<T> Next { get; set; }
@@ -30,18 +30,28 @@ namespace SupplyOfProducts.BusinessLogic.Steps.Common
 
             try
             {
-                resultCurrent = Next.Execute(obj);
-
-                if (resultCurrent.ComputeResult().IsOk())
+                using (IUnitOfWork trans = _currentUoW.CreateUoW())
                 {
-                    int resNum = _currentContext.SaveChanges();
+                    resultCurrent = Next.Execute(obj);
 
+                    if (resultCurrent.ComputeResult().IsOk())
+                    {
+                        int resNum = trans.SaveChanges();
+                    }
+                    else
+                    {
+                        try
+                        {
+                            trans.Rollback();
+                        }
+                        catch (Exception)
+                        { }
+                        return resultCurrent;
+                    }
+
+                    
                 }
-                else
-                {
-                    _currentContext.Rollback();
-                    return resultCurrent;
-                }
+                
 
                 return Result.Ok;
             }

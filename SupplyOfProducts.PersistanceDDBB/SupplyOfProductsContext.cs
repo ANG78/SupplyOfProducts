@@ -1,11 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using SupplyOfProducts.Interfaces.BusinessLogic;
 using SupplyOfProducts.PersistanceDDBB.Configuration;
 using System;
+using System.Transactions;
 
 namespace SupplyOfProducts.PersistanceDDBB
 {
-    
+
     public class SupplyOfProductsContext : DbContext, IGenericContext
     {
         /// <param name="options">The options<see cref="DbContextOptions{SupplyOfProductsContext}"/></param>
@@ -43,8 +45,8 @@ namespace SupplyOfProducts.PersistanceDDBB
         {
             return Entry(entity);
         }
-        
-       
+
+
         /// <summary>
         /// The GetSet
         /// </summary>
@@ -55,15 +57,36 @@ namespace SupplyOfProducts.PersistanceDDBB
             return Set<TEntity>();
         }
 
+        public IUnitOfWork CreateUoW()
+        {
+            return new ScopeTransaction(this);
+        }
+    }
+
+
+    public class ScopeTransaction : IUnitOfWork
+    {
+        protected DbContext _context;
+        protected TransactionScope _transaction;
+
+        public ScopeTransaction(DbContext context, IsolationLevel level = IsolationLevel.ReadCommitted)
+        {
+            _context = context;
+            _transaction = new TransactionScope(TransactionScopeOption.Required,
+                          new TransactionOptions { IsolationLevel = level });
+        }
+
         /// <summary>
         /// The SaveChanges
         /// </summary>
         /// <returns>The <see cref="int"/></returns>
-        public override int SaveChanges()
+        public int SaveChanges()
         {
             try
             {
-                return base.SaveChanges();
+                int res = _context.SaveChanges();
+                _transaction.Complete();
+                return res;
             }
             catch (Exception e)
             {
@@ -76,14 +99,25 @@ namespace SupplyOfProducts.PersistanceDDBB
         {
             try
             {
-                base.Dispose();
+                _context.Dispose();
+                _transaction.Dispose();
             }
             catch (Exception)
             {
 
             }
         }
+
+        public void Dispose()
+        {
+            _transaction = null;
+            _context = null;
+        }
     }
+
+
+
+
 
 
 }

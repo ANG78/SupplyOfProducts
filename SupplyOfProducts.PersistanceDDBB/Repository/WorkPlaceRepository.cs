@@ -1,4 +1,5 @@
-﻿using SupplyOfProducts.Entities.BusinessLogic.Entities.Configuration;
+﻿using AutoMapper;
+using SupplyOfProducts.Entities.BusinessLogic.Entities.Configuration;
 using SupplyOfProducts.Interfaces.BusinessLogic.Entities;
 using SupplyOfProducts.Interfaces.Repository;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ namespace SupplyOfProducts.PersistanceDDBB.Repository
 {
     public class WorkPlaceRepository : GenericRepository<WorkPlace>, IWorkPlaceRepository
     {
-        public WorkPlaceRepository(IGenericContext dbContext) : base(dbContext)
+        public WorkPlaceRepository(IGenericContext dbContext, IMapper mapper) : base(dbContext, mapper)
         { }
 
         public virtual IWorkPlace Get(string code)
@@ -24,7 +25,8 @@ namespace SupplyOfProducts.PersistanceDDBB.Repository
             }
             else
             {
-                base.Add(new WorkPlace(worker));
+                var mapped = Mapper.Map<WorkPlace>(worker);
+                base.Add(mapped);
             }
         }
 

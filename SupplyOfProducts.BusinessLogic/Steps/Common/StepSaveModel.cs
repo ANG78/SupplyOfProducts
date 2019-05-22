@@ -21,11 +21,11 @@ namespace SupplyOfProducts.BusinessLogic.Steps.Common
 
         protected override IResult ExecuteTemplate( IManagementModelRequest<T> obj)
         {
-            if (obj.Type == TypeManagement.NEW)
+            if (obj.Type == Operation.NEW)
             {
                return _service.Add(obj.Item);
             }
-            else if (obj.Type == TypeManagement.EDITION)
+            else if (obj.Type == Operation.EDITION)
             {
                 return _service.Edit(obj.Item);
             }

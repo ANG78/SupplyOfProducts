@@ -1,6 +1,8 @@
-﻿namespace SupplyOfProducts.Interfaces.BusinessLogic
+﻿using System;
+
+namespace SupplyOfProducts.Interfaces.BusinessLogic
 {
-    public interface IUnitOfWork
+    public interface IUnitOfWork : IDisposable
     {
         int SaveChanges();
         void Rollback();

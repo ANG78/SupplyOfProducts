@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SupplyOfProducts.Interfaces.BusinessLogic;
 using SupplyOfProducts.Interfaces.Repository;
 using SupplyOfProducts.PersistanceDDBB.Repository;
 
@@ -36,7 +37,7 @@ namespace SupplyOfProducts.PersistanceDDBB
         }
     }
 
-    public class StartupWeb
+    public partial class StartupWeb
     {
         public IConfiguration Configuration { get; }
 
@@ -54,6 +55,8 @@ namespace SupplyOfProducts.PersistanceDDBB
 
             // Add Repositories. 
             services.AddScoped<IGenericContext, SupplyOfProductsContext>();
+            services.AddScoped<ICreateUoW, DecoratorICreateUoW>();
+
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IProductSupplyRepository, ProductSupplyRepository>();
             services.AddScoped<IWorkerRepository, WorkerRepository>();
@@ -63,5 +66,6 @@ namespace SupplyOfProducts.PersistanceDDBB
             services.AddScoped<ISupplyScheduledRepository, SupplyScheduledRepository>();
 
         }
+
     }
 }

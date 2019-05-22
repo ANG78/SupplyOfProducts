@@ -157,7 +157,7 @@ namespace SupplyOfProducts.Api
                      new HelperStepConf(sp).Get(
                             new List<IStep<IProductSupplyRequest>>()
                             {
-                                new StepUnitOfWork < IProductSupplyRequest > ( sp.GetService<IGenericContext> () )
+                                new StepUnitOfWork < IProductSupplyRequest > ( sp.GetService<ICreateUoW> () )
                                 ,new ValidateRequestAndComplete<IProductSupplyRequest>(sp.GetService<IStep<IRequestMustBeCompleted>>() )
                                 ,new ValidateWorkerCanBeSupplied(sp.GetService<IProductSupplyService>(), sp.GetService<ISupplyScheduledService>())
                                 ,new AssignProductToWorker(sp.GetService<IProductSupplyService>(), sp.GetService<IProductStockService>())
@@ -169,7 +169,7 @@ namespace SupplyOfProducts.Api
                 return helper.Get(
                               new List<IStep<IConfigSupplyRequest>>()
                                   {
-                                new StepUnitOfWork < IConfigSupplyRequest > ( helper.GetService<IGenericContext> () )
+                                new StepUnitOfWork < IConfigSupplyRequest > ( helper.GetService<ICreateUoW> () )
                                 ,new ValidateRequestAndComplete<IConfigSupplyRequest>(helper.GetService<IStep<IRequestMustBeCompleted>>())
                                 ,new ValidateAndCompleteWorkerCanBeConfigured(helper.GetService<IProductSupplyService>(), helper.GetService<ISupplyScheduledService>())
                                 ,new ScheduleConfigurationToWorker(helper.GetService<ISupplyScheduledService>())
@@ -197,7 +197,7 @@ namespace SupplyOfProducts.Api
                     return helper.Get(
                              new List<IStep<IManagementModelRequest<IWorker>>>()
                              {
-                              new StepUnitOfWork < IManagementModelRequest<IWorker> > ( helper.GetService<IGenericContext> () )
+                              new StepUnitOfWork < IManagementModelRequest<IWorker> > ( helper.GetService<ICreateUoW> () )
                               ,new StepSaveModel < IWorker > ( helper.GetService<IWorkerService>() )
                              });
                 }
@@ -210,7 +210,7 @@ namespace SupplyOfProducts.Api
                 return helper.Get(
                          new List<IStep<IManagementModelRequest<IWorkPlace>>>()
                          {
-                              new StepUnitOfWork < IManagementModelRequest<IWorkPlace> > ( helper.GetService<IGenericContext> () )
+                              new StepUnitOfWork < IManagementModelRequest<IWorkPlace> > ( helper.GetService<ICreateUoW> () )
                               ,new StepSaveModel < IWorkPlace > ( helper.GetService<IWorkPlaceService>() )
                          });
             }
@@ -223,7 +223,7 @@ namespace SupplyOfProducts.Api
                 return helper.Get(
                          new List<IStep<IManagementModelRequest<IProduct>>>()
                          {
-                              new StepUnitOfWork < IManagementModelRequest<IProduct> > ( helper.GetService<IGenericContext> () )
+                              new StepUnitOfWork < IManagementModelRequest<IProduct> > ( helper.GetService<ICreateUoW> () )
                               ,new StepSaveModel < IProduct > ( helper.GetService<IProductService>() )
                          });
             }

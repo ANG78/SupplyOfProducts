@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using SupplyOfProducts.Api.Controllers.ViewModels;
 using SupplyOfProducts.BusinessLogic.Steps.Common;
 using SupplyOfProducts.Entities.BusinessLogic.Entities.Configuration;
 using SupplyOfProducts.Interfaces.BusinessLogic;
@@ -17,12 +19,15 @@ namespace SupplyOfProducts.Api.Controllers
     {
         readonly IWorkPlaceService _service;
         readonly IStep<IManagementModelRequest<IWorkPlace>> _businessLogic;
+        private readonly IMapper _mapper;
 
         public WorkPlaceController(IWorkPlaceService serviceBusinessLogic,
-                                   IStep<IManagementModelRequest<IWorkPlace>> businessLogic)
+                                   IStep<IManagementModelRequest<IWorkPlace>> businessLogic,
+                                   IMapper mapper)
         {
             _service = serviceBusinessLogic;
             _businessLogic = businessLogic;
+            _mapper = mapper;
         }
 
         // GET: api/WorkPlace
@@ -40,13 +45,13 @@ namespace SupplyOfProducts.Api.Controllers
 
         // POST: api/WorkPlace
         [HttpPost]
-        public string Post([FromBody] WorkPlace value)
+        public string Post([FromBody] WorkPlaceViewModel value)
         {
 
             var request = new ManagementModelRequest<IWorkPlace>
             {
-                Item = value,
-                Type = TypeManagement.NEW
+                Item = _mapper.Map<WorkPlace>(value),
+                Type = Operation.NEW
             };
 
             var result = _businessLogic.Execute(request);
@@ -55,12 +60,12 @@ namespace SupplyOfProducts.Api.Controllers
 
         // PUT: api/WorkPlace/5
         [HttpPut("{id}")]
-        public string Put(int id, [FromBody] WorkPlace value)
+        public string Put(int id, [FromBody] WorkPlaceViewModel value)
         {
             var request = new ManagementModelRequest<IWorkPlace>
             {
-                Item = value,
-                Type = TypeManagement.EDITION
+                Item = _mapper.Map<WorkPlace>(value),
+                Type = Operation.EDITION
             };
 
             value.Id = id;

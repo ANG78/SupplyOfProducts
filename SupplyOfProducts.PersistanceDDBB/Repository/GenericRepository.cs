@@ -10,23 +10,34 @@ namespace SupplyOfProducts.PersistanceDDBB.Repository
     public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
     {
 
-        public delegate void ProcedureDelegate(TEntity entity);
-
         /// <summary>
         /// Defines the DbContext
         /// </summary>
         protected readonly IGenericContext DbContext;
-        
+
         /// <summary>
         /// Defines the _objectSet
         /// </summary>
         protected DbSet<TEntity> _Current;
 
         /// <summary>
+        /// 
+        /// </summary>
+        protected readonly IMapper mapper;
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="entity"></param>
+        public delegate void ProcedureDelegate(TEntity entity);
+
+        
+        /// <summary>
         /// Initializes a new instance of the <see cref="GenericRepository{TEntity}"/> class.
         /// </summary>
         /// <param name="dbContext">The dbContext<see cref="SupplyOfProductsContext"/></param>
-        public GenericRepository(IGenericContext dbContext)
+        public GenericRepository(IGenericContext dbContext, IMapper mapper = null)
         {
             DbContext = dbContext;
             _Current = DbContext.Set<TEntity>();

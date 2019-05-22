@@ -49,7 +49,7 @@ namespace SupplyOfProducts.Api.Controllers
             var request = new ManagementModelRequest<IWorker>
             {
                 Item = _mapper.Map<IWorker>(value),
-                Type = TypeManagement.NEW
+                Type = Operation.NEW
             };
 
             var result = _businessLogic.Execute(request);
@@ -63,7 +63,7 @@ namespace SupplyOfProducts.Api.Controllers
             var request = new ManagementModelRequest<IWorker>
             {
                 Item = _mapper.Map<IWorker>(value),
-                Type = TypeManagement.EDITION
+                Type = Operation.EDITION
             };
 
             value.Id = id;
