@@ -24,6 +24,15 @@ namespace SupplyOfProducts.BusinessLogic.Steps
 
         protected override IResult ExecuteTemplate(IRequestMustBeCompleted obj)
         {
+
+            IContainWorkPlaceProperty objToProces = null;
+            obj.HelperCast(obj, ref objToProces);
+
+            if (objToProces != null)
+            {
+                return ExecuteTemplate(objToProces);
+            }
+
             if (obj is IContainWorkPlaceProperty)
             {
                 return ExecuteTemplate((IContainWorkPlaceProperty)obj);

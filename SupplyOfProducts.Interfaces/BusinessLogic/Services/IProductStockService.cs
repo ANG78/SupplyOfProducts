@@ -4,9 +4,8 @@ using System.Collections.Generic;
 namespace SupplyOfProducts.Interfaces.BusinessLogic.Services
 {
     
-    public interface IProductStockService
+    public interface IProductStockService : IGenericService<IProductStock>
     {
-        IProductStock Get(string pairNumber);
 
         IProductStock GetAvailable(IProduct product);
 

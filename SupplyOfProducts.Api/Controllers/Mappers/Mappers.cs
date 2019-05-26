@@ -44,7 +44,7 @@ namespace SupplyOfProducts.BusinessLogic.Mappers
             return new ProductSuppliedViewModel
             {
                 Id = obj.Id,
-                PartNumber = obj.ProductStock?.PartNumber,
+                PartNumber = obj.ProductStock?.Code,
                 ProductCode = obj.ProductStock?.Product?.Code,
                 Type = obj.ProductStock?.Product?.Type,
 
@@ -66,21 +66,21 @@ namespace SupplyOfProducts.BusinessLogic.Mappers
 
             requestSupplied.Request.ProductSupplied = Get(request.ProductsSupplied[0]);
 
-            if (request.ProductsSupplied[0]?.ProductStock is IPackageStock)
-            {
-                IPackageStock pack = (IPackageStock)request.ProductsSupplied[0]?.ProductStock;
-                requestSupplied.Request.ProductSupplied.Parts = new List<ProductSuppliedViewModel>();
-                foreach (var pr in pack.Parts)
-                {
-                    var prNew = new ProductSuppliedViewModel
-                    {
-                        Id = pr.Id,
-                        PartNumber = pr.PartNumber,
-                        ProductCode = pr.Product?.Code
-                    };
-                    requestSupplied.Request.ProductSupplied.Parts.Add(prNew);
-                }
-            }
+            //if (request.ProductsSupplied[0]?.ProductStock is IPackageStock)
+            //{
+            //    IPackageStock pack = (IPackageStock)request.ProductsSupplied[0]?.ProductStock;
+            //    requestSupplied.Request.ProductSupplied.Parts = new List<ProductSuppliedViewModel>();
+            //    foreach (var pr in pack.Parts)
+            //    {
+            //        var prNew = new ProductSuppliedViewModel
+            //        {
+            //            Id = pr.Id,
+            //            PartNumber = pr.Code,
+            //            ProductCode = pr.Product?.Code
+            //        };
+            //        requestSupplied.Request.ProductSupplied.Parts.Add(prNew);
+            //    }
+            //}
 
             return requestSupplied;
         }

@@ -2,12 +2,11 @@
 using SupplyOfProducts.Api.Controllers.ViewModels;
 using SupplyOfProducts.Entities.BusinessLogic.Entities.Configuration;
 using SupplyOfProducts.Interfaces.BusinessLogic.Entities;
-using System;
-using System.Collections.Generic;
 
 namespace SupplyOfProducts.BusinessLogic.Mappers
 {
-    public class ProductProfile : Profile
+
+    public partial class ProductProfile : Profile
     {
         public ProductProfile()
         {
@@ -34,15 +33,17 @@ namespace SupplyOfProducts.BusinessLogic.Mappers
                     }
                     return ctx.Mapper.Map<Product>(x);
                 });
-            
+
             CreateMap<ProductViewModel, Product>();
 
             CreateMap<ProductViewModel, PackageProduct>()
                 .ForMember(prod => prod.Parts, opt => opt.MapFrom(s => s.Parts));
 
-          
+
         }
 
-
     }
+
 }
+
+    

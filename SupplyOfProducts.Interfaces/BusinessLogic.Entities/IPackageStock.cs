@@ -2,8 +2,8 @@
 
 namespace SupplyOfProducts.Interfaces.BusinessLogic.Entities
 {
-    public interface IPackageStock : IProductStock
-    {
-        IList<IProductStock> Parts { get; set; }
-    }
+    //public interface IPackageStock : IProductStock
+    //{
+    //    IList<IProductStock> Parts { get; set; }
+    //}
 }

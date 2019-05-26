@@ -120,7 +120,7 @@ namespace SupplyOfProducts.Persistance
             {
                 for (uint i = 1; i <= 5; i++)
                 {
-                    ProductsStock.Add(new ProductStock() { Id = IdInternal, Product = it, PartNumber = it.Code + "-0" + i });
+                    ProductsStock.Add(new ProductStock() { Id = IdInternal, Product = it, Code = it.Code + "-0" + i });
                 }
             }
 

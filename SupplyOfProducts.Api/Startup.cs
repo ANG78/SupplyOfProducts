@@ -16,7 +16,6 @@ using SupplyOfProducts.BusinessLogic.Steps.WorkerInfo;
 using Swashbuckle.AspNetCore.Filters;
 using SupplyOfProducts.Api.Controllers.Examples;
 using Microsoft.EntityFrameworkCore;
-using SupplyOfProducts.PersistanceDDBB;
 using SupplyOfProducts.Interfaces.BusinessLogic.Services.Request;
 using SupplyOfProducts.Interfaces.BusinessLogic.Entities;
 using SupplyOfProducts.BusinessLogic.Steps.Common;
@@ -230,6 +229,20 @@ namespace SupplyOfProducts.Api
                 );
 
 
+            /*IProductStock*/
+            services.AddScoped(sp =>
+            {
+                var helper = new HelperStepConf(sp);
+                return helper.Get(
+                         new List<IStep<IManagementModelRequest<IProductStock>>>()
+                         {
+                              new StepUnitOfWork < IManagementModelRequest<IProductStock> > ( helper.GetService<ICreateUoW> () )
+                              ,new ValidateRequestAndComplete< IManagementModelRequest<IProductStock> >(helper.GetService<IStep<IRequestMustBeCompleted>>())
+                              ,new StepSaveModel < IProductStock > ( helper.GetService<IProductStockService>() )
+                         });
+            }
+                );
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -255,7 +268,16 @@ namespace SupplyOfProducts.Api
 
             app.UseMvc();
 
-
+            //            routes.MapHttpRoute(
+            //    name: "ApiRoot",
+            //    routeTemplate: "api/root/{id}",
+            //    defaults: new { controller = "products", id = RouteParameter.Optional }
+            //);
+            //            routes.MapHttpRoute(
+            //                name: "DefaultApi",
+            //                routeTemplate: "api/{controller}/{id}",
+            //                defaults: new { id = RouteParameter.Optional }
+            //            );
         }
     }
 }

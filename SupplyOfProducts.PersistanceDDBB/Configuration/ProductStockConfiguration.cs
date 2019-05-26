@@ -13,7 +13,7 @@ namespace SupplyOfProducts.PersistanceDDBB.Configuration
             builder.ToTable("ProductStock");
             builder.HasKey(c => c.Id);
             builder.Property(c => c.BookingId);
-            builder.Property(c => c.PartNumber).IsRequired().HasMaxLength(10);
+            builder.Property(c => c.Code).IsRequired().HasColumnName("PartNumber").HasMaxLength(20);
 
             builder.Ignore(c => c.IsAvailable);
 

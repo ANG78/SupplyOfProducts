@@ -4,6 +4,8 @@ namespace SupplyOfProducts.Entities.BusinessLogic.Entities.Configuration
 {
     public partial class Product
     {
+
+       
         public string Class { get; set; }
 
         public virtual IList<ProductParts> ParentPartOfProducts { get; set; }

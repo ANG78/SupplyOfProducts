@@ -99,7 +99,6 @@ namespace SupplyOfProducts.PersistanceDDBB
         {
             try
             {
-                _context.Dispose();
                 _transaction.Dispose();
             }
             catch (Exception)
@@ -110,6 +109,16 @@ namespace SupplyOfProducts.PersistanceDDBB
 
         public void Dispose()
         {
+            if (_transaction != null)
+            {
+                _transaction.Dispose();
+            }
+
+            if (_context != null)
+            {
+                _context.Dispose();
+            }
+
             _transaction = null;
             _context = null;
         }

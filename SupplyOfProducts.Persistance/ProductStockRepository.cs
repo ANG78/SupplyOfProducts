@@ -1,5 +1,6 @@
 ﻿using SupplyOfProducts.Interfaces.BusinessLogic.Entities;
 using SupplyOfProducts.Interfaces.Repository;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace SupplyOfProducts.Persistance
@@ -10,11 +11,26 @@ namespace SupplyOfProducts.Persistance
         {
         }
 
+        public void Add(IProductStock worker)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void Edit(IProductStock worker)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public IProductStock Get(string partNumber)
         {
             return Context.ProductsStock
-                            .Where(x=>x.PartNumber == partNumber)
+                            .Where(x=>x.Code == partNumber)
                             .FirstOrDefault();
+        }
+
+        public IEnumerable<IProductStock> Get()
+        {
+            throw new System.NotImplementedException();
         }
 
         public IProductStock GetAvailable(string codProduct)

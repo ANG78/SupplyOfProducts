@@ -67,6 +67,6 @@ namespace SupplyOfProducts.BusinessLogic.Steps.Common
 
         public abstract string Description();
 
-
+       
     }
 }

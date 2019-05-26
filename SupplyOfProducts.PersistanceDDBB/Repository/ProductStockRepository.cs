@@ -1,7 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using SupplyOfProducts.Entities.BusinessLogic.Entities.Store;
 using SupplyOfProducts.Interfaces.BusinessLogic.Entities;
 using SupplyOfProducts.Interfaces.Repository;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace SupplyOfProducts.PersistanceDDBB.Repository
@@ -9,17 +11,60 @@ namespace SupplyOfProducts.PersistanceDDBB.Repository
 
     public class ProductStockRepository : GenericRepository<ProductStock>, IProductStockRepository
     {
-        public ProductStockRepository(IGenericContext context) : base(context)
+        public ProductStockRepository(IGenericContext context, IMapper mapper) : base(context, mapper)
         {
         }
 
-        public IProductStock Get(string partNumber)
+        public void Add(IProductStock product)
+        {
+            if (product is ProductStock)
+            {
+                base.Add((ProductStock)product);
+            }
+            else
+            {
+                var mapped = Mapper.Map<ProductStock>(product);
+                base.Add(mapped);
+            }
+
+        }
+
+        public void Edit(IProductStock product)
+        {
+            var copy = _Current
+                        .FirstOrDefault(x => x.Id == product.Id);
+            copy.BookingId = product.BookingId;
+            base.Edit((ProductStock)copy);
+
+            //base.Edit(copy);
+            //if (product is ProductStock)
+            //{
+            //    Edit((ProductStock)product);
+            //}
+            //else
+            //{
+            //    var mapped = Mapper.Map<ProductStock>(product);
+            //    Edit(mapped);
+            //}
+
+        }
+
+        public virtual IProductStock Get(string partNumber)
         {
             var result = _Current
-                            .Include(x=>x.Product)
-                            .Where(x => x.PartNumber == partNumber)
+                            .Include(x => x.Product)
+                            .Where(x => x.Code == partNumber)
                             .FirstOrDefault();
             return result;
+        }
+
+        public IEnumerable<IProductStock> Get()
+        {
+
+            return _Current
+                            .Include(x => x.Product)
+                            .ToList();
+
         }
 
         public IProductStock GetAvailable(string codProduct)
@@ -31,36 +76,6 @@ namespace SupplyOfProducts.PersistanceDDBB.Repository
             return result;
         }
 
-
-
-        public void Save(IProductStock product)
-        {
-            ProcedureDelegate call = product.Id == 0 ? new ProcedureDelegate(Add) : new ProcedureDelegate(Edit);
-
-            if (product is IPackageStock)
-            {
-                ///guardar todo en las tablas como productos
-                if (product is PackageStock)
-                {
-                    call.Invoke((ProductStock)product);
-                }
-                else
-                {
-                    call.Invoke((ProductStock)product);
-                }
-            }
-            else
-            {
-                if (product is ProductStock)
-                {
-                    call.Invoke((ProductStock)product);
-                }
-                else
-                {
-                    call.Invoke((ProductStock)product);
-                }
-            }
-        }
     }
 
 

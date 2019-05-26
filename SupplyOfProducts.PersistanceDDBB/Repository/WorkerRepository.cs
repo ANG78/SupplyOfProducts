@@ -7,7 +7,7 @@ using System.Linq;
 namespace SupplyOfProducts.PersistanceDDBB.Repository
 {
 
-    public class WorkerRepository : GenericRepository<Worker>, IWorkerRepository
+    public class WorkerRepository : GenericRepository<Worker,IWorker>, IWorkerRepository
     {
         public WorkerRepository(IGenericContext dbContext) : base(dbContext)
         { }
@@ -34,15 +34,8 @@ namespace SupplyOfProducts.PersistanceDDBB.Repository
             
         }
 
-        public virtual IWorker Get(string code)
-        {
-            return _Current.FirstOrDefault(x => x.Code == code);
-        }
-
-        public virtual IEnumerable<IWorker> Get()
-        {
-            return _Current.ToList().OrderBy(x => x.Code);
-        }
+       
+        
     }
 
 }

@@ -2,11 +2,9 @@
 
 namespace SupplyOfProducts.Interfaces.Repository
 {
-    public interface IProductStockRepository
+    public interface IProductStockRepository : IGenericRepository<IProductStock>
     {
-         IProductStock Get(string pairNumber);
          IProductStock GetAvailable(string codProduct);
-         void Save(IProductStock product);
     }
 
     

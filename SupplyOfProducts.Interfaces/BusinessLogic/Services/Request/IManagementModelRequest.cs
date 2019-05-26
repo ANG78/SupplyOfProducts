@@ -6,9 +6,15 @@
         EDITION
     }
 
-    public interface IManagementModelRequest<T> : IRequestMustBeCompleted
+    public interface IManagementModelRequest : IRequestMustBeCompleted
     {
-        T Item { get; set; }
         Operation Type { get; set; }
     }
+
+    public interface IManagementModelRequest<T> : IManagementModelRequest
+    {
+         T Item { get; set; }
+    }
+
+    
 }
