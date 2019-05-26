@@ -24,21 +24,31 @@ namespace SupplyOfProducts.BusinessLogic.Steps
 
         protected override IResult ExecuteTemplate(IRequestMustBeCompleted obj)
         {
-            if (obj is IContainDatePeriodProperty && obj is IContainWorkerInWorkPlaceProperty)
+
+            IContainDatePeriodProperty objPeriod = null;
+            obj.HelperCast(obj, ref objPeriod);
+
+            if (objPeriod != null)
             {
-                var objCasted = (IContainDatePeriodProperty)obj;
-                var objPeriod = (IContainWorkerInWorkPlaceProperty)obj;
+                IContainWorkerInWorkPlaceProperty objCasted = null;
+                obj.HelperCast(obj, ref objCasted);
 
-                var resDateComputaded = periodConfigurationService.ComputeDate( objPeriod.WorkerInWorkPlace, objCasted.Date);
-
-                if (resDateComputaded.ComputeResult().IsError())
+                if (objCasted!=null)
                 {
-                    return resDateComputaded;
-                }
-                    
-                objCasted.PeriodDate = resDateComputaded.GetItem().Date;
 
+                    var resDateComputaded = periodConfigurationService.ComputeDate(objCasted.WorkerInWorkPlace, objPeriod.Date);
+
+                    if (resDateComputaded.ComputeResult().IsError())
+                    {
+                        return resDateComputaded;
+                    }
+
+                    objPeriod.PeriodDate = resDateComputaded.GetItem().Date;
+
+                }
             }
+
+            
 
             return Result.Ok;
         }

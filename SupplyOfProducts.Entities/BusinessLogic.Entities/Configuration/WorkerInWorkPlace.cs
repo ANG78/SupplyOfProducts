@@ -15,6 +15,14 @@ namespace SupplyOfProducts.Entities.BusinessLogic.Entities.Configuration
         public IWorker Worker { get; set; }
         public IWorkPlace WorkPlace { get; set; }
 
-      
+
+        public WorkerInWorkPlace() { }
+
+        public WorkerInWorkPlace(IWorker pWorker, IWorkPlace pWorkPlace) {
+            Worker = pWorker;
+            WorkPlace = pWorkPlace;
+
+        }
+
     }
 }

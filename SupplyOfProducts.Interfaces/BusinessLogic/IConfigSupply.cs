@@ -1,4 +1,4 @@
-﻿using System;
+﻿using SupplyOfProducts.Interfaces.BusinessLogic.Entities;
 
 namespace SupplyOfProducts.Interfaces.BusinessLogic
 {
@@ -6,12 +6,12 @@ namespace SupplyOfProducts.Interfaces.BusinessLogic
     public interface IConfigSupply :
                      IContainDatePeriodProperty,
                      IContainWorkerInWorkPlaceProperty,
-                     IContainProductProperty
+                     IContainProductProperty,
+                     IId
     {
         ISupplyScheduled SupplyScheduled { get; set; } 
         int SupplyScheduledId { get; set; }
 
-        int Id { get; set; }
         int Amount { get; set; }
                 
     }

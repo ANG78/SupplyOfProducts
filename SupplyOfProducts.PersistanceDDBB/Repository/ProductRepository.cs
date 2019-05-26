@@ -26,7 +26,7 @@ namespace SupplyOfProducts.PersistanceDDBB.Repository
             if (product is IProductPackage ||
                 product is PackageProduct)
             {
-                
+
                 var productParent = _mapper.Map<Product>(product);
                 productParent.PartOfProducts = new List<ProductParts>();
 
@@ -133,7 +133,7 @@ namespace SupplyOfProducts.PersistanceDDBB.Repository
 
             if (result != null && result.Count > 0)
             {
-                var listRelated = result[0].PartOfProducts.Where(x=>x.ProductId != 0 && x.Product == null).Select(x => x).ToList();
+                var listRelated = result[0].PartOfProducts.Where(x => x.ProductId != 0 && x.Product == null).Select(x => x).ToList();
                 foreach (var rel in listRelated)
                 {
                     rel.Product = Get(rel.ProductId);
@@ -148,7 +148,7 @@ namespace SupplyOfProducts.PersistanceDDBB.Repository
         private Product Get(int id)
         {
 
-            return  _Current
+            return _Current
                            .Include(x => x.ParentPartOfProducts)
                            .Include(x => x.PartOfProducts)
                            .Where(x => x.Id == id)
@@ -164,7 +164,7 @@ namespace SupplyOfProducts.PersistanceDDBB.Repository
         public IEnumerable<IProduct> Get()
         {
             var result = _Current
-                            .Include(x => x.ParentPartOfProducts )
+                            .Include(x => x.ParentPartOfProducts)
                             .Include(x => x.PartOfProducts)
                             .ToList();
 
@@ -211,7 +211,4 @@ namespace SupplyOfProducts.PersistanceDDBB.Repository
             return resultFinal;
         }
     }
-
-
-
 }

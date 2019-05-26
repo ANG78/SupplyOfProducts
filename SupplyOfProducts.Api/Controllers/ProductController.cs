@@ -34,8 +34,8 @@ namespace SupplyOfProducts.Api.Controllers
             var resultMapped = _mapper.Map< IEnumerable<ProductViewModel> >(result);
             return resultMapped;
         }
-
-        [HttpGet("{code}", Name = "GetProduct")]
+      
+        [HttpGet("{code}", Name = "GetProduct" )]
         public ProductViewModel GetProduct(string code)
         {
             var result = _serviceBusinessLogic.Get(code);

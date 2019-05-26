@@ -14,12 +14,12 @@ namespace SupplyOfProducts.BusinessLogic.Mappers
     public static class Mappers
     {
 
-        public static ConfigSupply Get(RequestConfigSupplyViewModel request)
+        public static ConfigSupply Get(ConfigSupplyViewModel request)
         {
             ConfigSupply configSupply = new ConfigSupply
             {
-                WorkerInWorkPlace = new WorkerInWorkPlace { Worker = new Worker { Code = request.CodeWorker }, WorkPlace = new WorkPlace { Code = request.CodeWorkPlace } },
-                Product = new Product { Code = request.CodeProduct },
+                WorkerInWorkPlace = new WorkerInWorkPlace { Worker = new Worker { Code = request.WorkerCode }, WorkPlace = new WorkPlace { Code = request.WorkPlaceCode } },
+                Product = new Product { Code = request.ProductCode },
                 Date = request.Date ?? DateTime.Now,
                 Amount = request.Amount
             };
@@ -85,7 +85,7 @@ namespace SupplyOfProducts.BusinessLogic.Mappers
             return requestSupplied;
         }
 
-        public static ResponseConfigViewModel Get(IConfigSupplyRequest request)
+        public static ResponseConfigViewModel Get(IConfigSupply request)
         {
             ResponseConfigViewModel result = new ResponseConfigViewModel
             {

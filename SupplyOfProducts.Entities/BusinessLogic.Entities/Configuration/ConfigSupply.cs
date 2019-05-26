@@ -1,13 +1,12 @@
 ﻿using System;
 using SupplyOfProducts.Interfaces.BusinessLogic;
 using SupplyOfProducts.Interfaces.BusinessLogic.Entities;
-using SupplyOfProducts.Interfaces.BusinessLogic.Services.Request;
 
 namespace SupplyOfProducts.Entities.BusinessLogic.Entities.Configuration
 {
 
 
-    public partial class ConfigSupply : IConfigSupplyRequest
+    public partial class ConfigSupply : IConfigSupply
     {
         public int Id { get; set; }
         public DateTime Date { get; set; }

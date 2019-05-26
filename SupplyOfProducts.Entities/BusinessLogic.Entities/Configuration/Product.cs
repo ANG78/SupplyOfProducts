@@ -19,10 +19,6 @@ namespace SupplyOfProducts.Entities.BusinessLogic.Entities.Configuration
 
         }
 
-        public Product(string code)
-        {
-            Code = code;
-        }
     }
 
 

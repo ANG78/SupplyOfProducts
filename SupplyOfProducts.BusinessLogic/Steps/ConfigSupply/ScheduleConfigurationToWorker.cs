@@ -9,12 +9,11 @@ using SupplyOfProducts.Interfaces.BusinessLogic.Services.Request;
 namespace SupplyOfProducts.BusinessLogic.Steps.ConfigSupply
 {
 
-    public class ScheduleConfigurationToWorker : StepDecoratorTemplateGeneric<IConfigSupplyRequest>
+    public class ScheduleConfigurationToWorker : StepDecoratorTemplateGeneric<IManagementModelRequest<IConfigSupply>>
     {
         readonly ISupplyScheduledService _supplyScheduledService;
 
-        public ScheduleConfigurationToWorker(ISupplyScheduledService supplyScheduledService,
-                                             IStep<IConfigSupplyRequest> next = null) : base(next)
+        public ScheduleConfigurationToWorker(ISupplyScheduledService supplyScheduledService) : base(null)
         {
             _supplyScheduledService = supplyScheduledService;
 
@@ -25,25 +24,25 @@ namespace SupplyOfProducts.BusinessLogic.Steps.ConfigSupply
             return "Assignation of one Product in Stock when processing a Product Supply Request";
         }
 
-        protected override IResult ExecuteTemplate(IConfigSupplyRequest obj)
+        protected override IResult ExecuteTemplate(IManagementModelRequest<IConfigSupply> obj)
         {
-            if (obj.SupplyScheduled != null && obj.SupplyScheduled.Id > 0)
+            if (obj.Item.SupplyScheduled != null && obj.Item.SupplyScheduled.Id > 0)
             {
-                obj.SupplyScheduled.Amount = obj.Amount;
+                obj.Item.SupplyScheduled.Amount = obj.Item.Amount;
             }
             else
             {
-                obj.SupplyScheduled = new SupplyScheduled
+                obj.Item.SupplyScheduled = new SupplyScheduled
                 {
-                    Product = obj.Product,
-                    PeriodDate = obj.PeriodDate,
-                    WorkerInWorkPlace = obj.WorkerInWorkPlace,
-                    Amount = obj.Amount
+                    Product = obj.Item.Product,
+                    PeriodDate = obj.Item.PeriodDate,
+                    WorkerInWorkPlace = obj.Item.WorkerInWorkPlace,
+                    Amount = obj.Item.Amount
                 };
             }
 
-            obj.SupplyScheduled.ConfiguratedBy.Add(obj);
-            _supplyScheduledService.Save(obj.SupplyScheduled);
+            obj.Item.SupplyScheduled.ConfiguratedBy.Add(obj.Item);
+            _supplyScheduledService.Save(obj.Item.SupplyScheduled);
 
             return Result.Ok;
         }

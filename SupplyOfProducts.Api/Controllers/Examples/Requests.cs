@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace SupplyOfProducts.Api.Controllers.Examples
 {
-    public class ExampleRequestConfigSupplyViewModel : IExamplesProvider<RequestConfigSupplyViewModel>
+    public class ExampleRequestConfigSupplyViewModel : IExamplesProvider<ConfigSupplyViewModel>
     {
-        public RequestConfigSupplyViewModel GetExamples()
+        public ConfigSupplyViewModel GetExamples()
         {
-            return new RequestConfigSupplyViewModel
+            return new ConfigSupplyViewModel
             {
-                CodeProduct = "EPI1",
-                CodeWorker = "W01",
-                CodeWorkPlace = "WP01",
+                ProductCode = "EPI1",
+                WorkerCode = "W01",
+                WorkPlaceCode = "WP01",
                 Date = new DateTime(2010, 04, 10),
                 Amount = 1,
             };

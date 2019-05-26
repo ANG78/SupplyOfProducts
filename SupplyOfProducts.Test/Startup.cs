@@ -106,18 +106,18 @@ namespace SupplyOfProducts.Test
                                 ,new AssignProductToWorker(sp.GetService<IProductSupplyService>(), sp.GetService<IProductStockService>())
                             }));
 
-            services.AddScoped(sp =>
-            {
-                var helper = new HelperStepConf(sp);
-                return helper.Get(
-                              new List<IStep<IConfigSupplyRequest>>()
-                                  {
-                                new StepUnitOfWork < IConfigSupplyRequest > ( helper.GetService<ICreateUoW> () )
-                                ,new ValidateRequestAndComplete<IConfigSupplyRequest>(helper.GetService<IStep<IRequestMustBeCompleted>>())
-                                ,new ValidateAndCompleteWorkerCanBeConfigured(helper.GetService<IProductSupplyService>(), helper.GetService<ISupplyScheduledService>())
-                                ,new ScheduleConfigurationToWorker(helper.GetService<ISupplyScheduledService>())
-                                   });
-            });
+            //services.AddScoped(sp =>
+            //{
+            //    var helper = new HelperStepConf(sp);
+            //    return helper.Get(
+            //                  new List<IStep<IConfigSupplyRequest>>()
+            //                      {
+            //                    new StepUnitOfWork < IConfigSupplyRequest > ( helper.GetService<ICreateUoW> () )
+            //                    ,new ValidateRequestAndComplete<IConfigSupplyRequest>(helper.GetService<IStep<IRequestMustBeCompleted>>())
+            //                    ,new ValidateAndCompleteWorkerCanBeConfigured(helper.GetService<IProductSupplyService>(), helper.GetService<ISupplyScheduledService>())
+            //                    ,new ScheduleConfigurationToWorker(helper.GetService<ISupplyScheduledService>())
+            //                       });
+            //});
 
             /*IWorkerInfo*/
             services.AddScoped(sp =>

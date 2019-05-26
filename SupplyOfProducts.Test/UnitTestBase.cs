@@ -51,9 +51,9 @@ namespace SupplyOfProducts.Test
             return new RequestSupplyViewModel() { CodeProduct = codPr, CodeWorker = codW, CodeWorkPlace = codWP, Date = date };
         }
 
-        protected RequestConfigSupplyViewModel MockRequestConfigViewModel(string codPr, string codW, string codWP, DateTime date, int amount)
+        protected ConfigSupplyViewModel MockRequestConfigViewModel(string codPr, string codW, string codWP, DateTime date, int amount)
         {
-            return new RequestConfigSupplyViewModel() { CodeProduct = codPr, CodeWorker = codW, CodeWorkPlace = codWP, Date = date, Amount = amount };
+            return new ConfigSupplyViewModel() { ProductCode = codPr, WorkerCode = codW, WorkPlaceCode = codWP, Date = date, Amount = amount };
         }
 
         public void Reset()

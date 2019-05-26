@@ -33,6 +33,7 @@ namespace SupplyOfProducts.PersistanceDDBB
             services.AddTransient<IWorkPlaceRepository, WorkPlaceRepository>();
             services.AddTransient<IProductStockRepository, ProductStockRepository>();
             services.AddTransient<ISupplyScheduledRepository, SupplyScheduledRepository>();
+            services.AddTransient<IConfigSupplyRepository, ConfigSupplyRepository>();
 
         }
     }
@@ -64,6 +65,7 @@ namespace SupplyOfProducts.PersistanceDDBB
             services.AddScoped<IWorkPlaceRepository, WorkPlaceRepository>();
             services.AddScoped<IProductStockRepository, ProductStockRepository>();
             services.AddScoped<ISupplyScheduledRepository, SupplyScheduledRepository>();
+            services.AddScoped<IConfigSupplyRepository, ConfigSupplyRepository>();
 
         }
 

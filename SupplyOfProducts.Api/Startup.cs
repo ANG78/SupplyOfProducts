@@ -58,6 +58,7 @@ namespace SupplyOfProducts.Api
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+
         }
 
         public IConfiguration Configuration { get; }
@@ -138,6 +139,7 @@ namespace SupplyOfProducts.Api
             services.AddScoped<ISupplyScheduledService, SupplyScheduledService>();
             services.AddScoped<IWorkPlaceService, WorkPlaceService>();
             services.AddScoped<IWorkerInWorkPlaceService, WorkerInWorkPlaceService>();
+            services.AddScoped<IConfigSupplyService, ConfigSupplyService>();
 
             // common steps in order to validate and complete the request
             services.AddScoped(sp =>
@@ -166,10 +168,10 @@ namespace SupplyOfProducts.Api
             {
                 var helper = new HelperStepConf(sp);
                 return helper.Get(
-                              new List<IStep<IConfigSupplyRequest>>()
+                              new List<IStep<IManagementModelRequest<IConfigSupply>>>()
                                   {
-                                new StepUnitOfWork < IConfigSupplyRequest > ( helper.GetService<ICreateUoW> () )
-                                ,new ValidateRequestAndComplete<IConfigSupplyRequest>(helper.GetService<IStep<IRequestMustBeCompleted>>())
+                                new StepUnitOfWork < IManagementModelRequest<IConfigSupply> > ( helper.GetService<ICreateUoW> () )
+                                ,new ValidateRequestAndComplete< IManagementModelRequest<IConfigSupply> >(helper.GetService<IStep<IRequestMustBeCompleted>>())
                                 ,new ValidateAndCompleteWorkerCanBeConfigured(helper.GetService<IProductSupplyService>(), helper.GetService<ISupplyScheduledService>())
                                 ,new ScheduleConfigurationToWorker(helper.GetService<ISupplyScheduledService>())
                                    });
@@ -266,7 +268,9 @@ namespace SupplyOfProducts.Api
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "SupplyOfProducts Api V1");
             });
 
-            app.UseMvc();
+            app.UseMvc( 
+               // terminar de arreglar config x => x.MapRoute("DefaultApi", "api/{controller}/{id}"/*, new { id = RouteAttribute.Optional }*/)
+                );
 
             //            routes.MapHttpRoute(
             //    name: "ApiRoot",

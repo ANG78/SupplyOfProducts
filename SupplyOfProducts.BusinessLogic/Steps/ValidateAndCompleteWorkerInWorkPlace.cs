@@ -9,11 +9,9 @@ namespace SupplyOfProducts.BusinessLogic.Steps
 {
     public class ValidateAndCompleteWorkerInWorkPlace : StepDecoratorTemplateGeneric<IRequestMustBeCompleted>
     {
-        readonly IWorkerService _workerService;
         readonly IWorkerInWorkPlaceService _workerInWorkPlaceService;
 
-        public ValidateAndCompleteWorkerInWorkPlace(IWorkerInWorkPlaceService workerInWorkPlaceService,
-                                                    IStep<IRequestMustBeCompleted> next = null) : base(next)
+        public ValidateAndCompleteWorkerInWorkPlace(IWorkerInWorkPlaceService workerInWorkPlaceService) : base(null)
         {
             _workerInWorkPlaceService = workerInWorkPlaceService;
         }
@@ -25,21 +23,30 @@ namespace SupplyOfProducts.BusinessLogic.Steps
 
         protected override IResult ExecuteTemplate(IRequestMustBeCompleted obj)
         {
-            if (obj is IContainWorkerInWorkPlaceProperty && obj is IContainDatePeriodProperty)
+
+            IContainDatePeriodProperty objPeriod = null;
+            obj.HelperCast(obj, ref objPeriod);
+
+            if (objPeriod != null)
             {
-                var objCasted = (IContainWorkerInWorkPlaceProperty)obj;
-                var objDateCasted = (IContainDatePeriodProperty)obj;
-                var placesWhereHaveWorkedInThisDate = _workerInWorkPlaceService.GetWorkPlaceWhereWorkedTheWorker(objCasted.WorkerInWorkPlace.Worker.Code, objDateCasted.Date);
+                IContainWorkerInWorkPlaceProperty objCasted = null;
+                obj.HelperCast(obj, ref objCasted);
 
-                var placesWhereHaveWorkedInThisDateBeingWorkPlace = placesWhereHaveWorkedInThisDate.Where(x => x.WorkPlace.Code == objCasted.WorkerInWorkPlace.WorkPlace.Code).ToList();
-                if (placesWhereHaveWorkedInThisDateBeingWorkPlace.Count != 1)
+                if (objCasted != null)
                 {
-                    return new Result(EnumResultBL.ERROR_WORKER_DOES_NOT_WORK_IN_THIS_WORKPLACE_IN_THIS_DATE, objCasted.WorkerInWorkPlace.Worker.Code, objCasted.WorkerInWorkPlace.WorkPlace.Code, objDateCasted.Date);
+
+                    var placesWhereHaveWorkedInThisDate = _workerInWorkPlaceService.GetWorkPlaceWhereWorkedTheWorker(objCasted.WorkerInWorkPlace.Worker.Code, objPeriod.Date);
+
+                    var placesWhereHaveWorkedInThisDateBeingWorkPlace = placesWhereHaveWorkedInThisDate.Where(x => x.WorkPlace.Code == objCasted.WorkerInWorkPlace.WorkPlace.Code).ToList();
+                    if (placesWhereHaveWorkedInThisDateBeingWorkPlace.Count != 1)
+                    {
+                        return new Result(EnumResultBL.ERROR_WORKER_DOES_NOT_WORK_IN_THIS_WORKPLACE_IN_THIS_DATE, objCasted.WorkerInWorkPlace.Worker.Code, objCasted.WorkerInWorkPlace.WorkPlace.Code, objPeriod.Date);
+                    }
+
+                    objCasted.WorkerInWorkPlace = placesWhereHaveWorkedInThisDateBeingWorkPlace.First();
+                    objCasted.WorkerInWorkPlaceId = placesWhereHaveWorkedInThisDateBeingWorkPlace.First().Id;
+
                 }
-
-                objCasted.WorkerInWorkPlace = placesWhereHaveWorkedInThisDateBeingWorkPlace[0];
-                objCasted.WorkerInWorkPlaceId = placesWhereHaveWorkedInThisDateBeingWorkPlace[0].Id;
-
             }
 
 

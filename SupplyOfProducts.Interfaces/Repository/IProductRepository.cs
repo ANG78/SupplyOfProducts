@@ -6,4 +6,6 @@ namespace SupplyOfProducts.Interfaces.Repository
     {
         
     }
+
+    
 }

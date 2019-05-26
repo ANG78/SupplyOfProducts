@@ -30,6 +30,4 @@ namespace SupplyOfProducts.Persistance
             throw new System.NotImplementedException();
         }
     }
-
-    
 }
