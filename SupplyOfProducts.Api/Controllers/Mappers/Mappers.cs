@@ -14,19 +14,6 @@ namespace SupplyOfProducts.BusinessLogic.Mappers
     public static class Mappers
     {
 
-        public static ConfigSupply Get(ConfigSupplyViewModel request)
-        {
-            ConfigSupply configSupply = new ConfigSupply
-            {
-                WorkerInWorkPlace = new WorkerInWorkPlace { Worker = new Worker { Code = request.WorkerCode }, WorkPlace = new WorkPlace { Code = request.WorkPlaceCode } },
-                Product = new Product { Code = request.ProductCode },
-                Date = request.Date ?? DateTime.Now,
-                Amount = request.Amount
-            };
-
-            return configSupply;
-        }
-
         public static IProductSupplyRequest Get(RequestSupplyViewModel request)
         {
             ProductSupply requestProduct = new ProductSupply
