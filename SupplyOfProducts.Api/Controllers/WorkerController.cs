@@ -13,6 +13,21 @@ namespace SupplyOfProducts.Api.Controllers
 
     [Route("api/[controller]")]
     [ApiController]
+    public class WorkerController : ControllerGenericBase<IWorker, IWorkerService, WorkerViewModel, WorkerViewModel>
+    {
+
+        public WorkerController(IWorkerService serviceBusinessLogic,
+                                  IStep<IManagementModelRequest<IWorker>> businessLogic,
+                                  IMapper mapper) : base(serviceBusinessLogic, businessLogic, mapper)
+        {
+
+        }
+
+    }
+
+    /*
+    [Route("api/[controller]")]
+    [ApiController]
     public class WorkerController : ControllerBase
     {
         readonly IWorkerService _serviceBusinessLogic;
@@ -73,4 +88,5 @@ namespace SupplyOfProducts.Api.Controllers
         }
 
     }
+    */
 }
