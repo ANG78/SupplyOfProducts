@@ -9,14 +9,14 @@ using SupplyOfProducts.Interfaces.BusinessLogic.Services.Request;
 namespace SupplyOfProducts.BusinessLogic.Steps.ProcessProductSupply
 {
 
-    public class AssignProductToWorker : StepDecoratorTemplateGeneric<IProductSupplyRequest>
+    public class AssignProductToWorker : StepDecoratorTemplateGeneric<IManagementModelRequest<IProductSupply>>
     {
         readonly IProductSupplyService _productSupplyService;
         readonly IProductStockService _productStockService;
 
         public AssignProductToWorker(IProductSupplyService productSupplyService,
                                      IProductStockService productStockService,
-                                     IStep<IProductSupplyRequest> next = null) : base(next)
+                                     IStep<IManagementModelRequest<IProductSupply>> next = null) : base(next)
         {
             _productSupplyService = productSupplyService;
             _productStockService = productStockService;
@@ -28,16 +28,17 @@ namespace SupplyOfProducts.BusinessLogic.Steps.ProcessProductSupply
             return "Assignation of one Product in Stock when processing a Product Supply Request";
         }
 
-        protected override IResult ExecuteTemplate(IProductSupplyRequest obj)
+        protected override IResult ExecuteTemplate(IManagementModelRequest<IProductSupply> obj)
         {
-            var productStock = _productStockService.GetAvailable(obj.Product);
+            var itemRequest = obj.Item;
+            var productStock = _productStockService.GetAvailable(itemRequest.Product);
 
             if (productStock == null)
-                return new Result(EnumResultBL.ERROR_NO_PRODUCT_AVAILABE, obj.Product.Code);
+                return new Result(EnumResultBL.ERROR_NO_PRODUCT_AVAILABE, itemRequest.Product.Code);
 
-            obj.ProductsSupplied.Add(  new ProductSupplied { ProductSupply = obj, ProductStock = productStock });
+            itemRequest.ProductsSupplied.Add(  new ProductSupplied { ProductSupply = itemRequest, ProductStock = productStock });
 
-            var resultBooking = _productStockService.BookingRequest(productStock, obj.WorkerInWorkPlaceId);
+            var resultBooking = _productStockService.BookingRequest(productStock, itemRequest.WorkerInWorkPlaceId);
             if (resultBooking.ComputeResult().IsError())
             {
                 _productStockService.BookingRequest(productStock, 0);
@@ -49,7 +50,7 @@ namespace SupplyOfProducts.BusinessLogic.Steps.ProcessProductSupply
                 return ExecuteTemplate(obj);
             }
            
-            _productSupplyService.Save(obj);
+            _productSupplyService.Save(itemRequest);
 
             return Result.Ok;
         }

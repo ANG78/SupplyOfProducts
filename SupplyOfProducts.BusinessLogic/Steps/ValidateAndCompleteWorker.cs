@@ -46,9 +46,8 @@ namespace SupplyOfProducts.BusinessLogic.Steps
             return Result.Ok;
         }
 
-        private IResult ExecuteTemplate(IContainWorkerProperty obj)
+        private IResult ExecuteTemplate(IContainWorkerProperty objCasted)
         {
-            var objCasted = (IContainWorkerProperty)obj;
             var resWorkerObject = _workerRepository.CheckExist(objCasted.Worker.Code);
             if (resWorkerObject.ComputeResult().IsError())
             {

@@ -9,25 +9,21 @@ using System.Collections.Generic;
 
 namespace SupplyOfProducts.Api.Controllers
 {
-    public class ControllerGenericBase<TModel,TService, TModelView, TModelViewGet> : ControllerBase  where TService : IGenericService<TModel> where TModel : IId
+    public abstract class ControllerGenericBaseRead<TModel, TService, TModelView, TModelViewGet> : ControllerBase where TService : IGenericReadService<TModel> where TModel : IId
     {
         protected readonly TService _service;
-        protected readonly IStep<IManagementModelRequest<TModel>> _businessLogic;
         protected readonly IMapper _mapper;
 
-        public ControllerGenericBase(TService serviceBusinessLogic,
-                                   IStep<IManagementModelRequest<TModel>> businessLogic,
-                                   IMapper mapper)
+        public ControllerGenericBaseRead(IMapper mapper,TService serviceBusinessLogic )
         {
             _service = serviceBusinessLogic;
-            _businessLogic = businessLogic;
             _mapper = mapper;
         }
 
         [HttpGet]
         public IEnumerable<TModelViewGet> Get()
         {
-            var res =  _service.GetAll();
+            var res = _service.GetAll();
             return _mapper.Map<IEnumerable<TModelViewGet>>(res);
         }
 
@@ -35,7 +31,21 @@ namespace SupplyOfProducts.Api.Controllers
         public TModelViewGet Get(string code)
         {
             var res = _service.Get(code);
-            return _mapper.Map< TModelViewGet>(res);
+            return _mapper.Map<TModelViewGet>(res);
+        }
+    }
+
+    public abstract class ControllerGenericBase<TModel, TService, TModelView, TModelViewGet> : ControllerGenericBaseRead<TModel, TService, TModelView, TModelViewGet> where TService : IGenericReadService<TModel> where TModel : IId
+    {
+        protected readonly IStep<IManagementModelRequest<TModel>> _businessLogic;
+
+        public ControllerGenericBase(IMapper mapper,
+                                     TService serviceBusinessLogic,
+                                     IStep<IManagementModelRequest<TModel>> businessLogic
+                                   ):base( mapper, serviceBusinessLogic)
+        {
+            _businessLogic = businessLogic;
+
         }
 
         // POST: api/WorkPlace
@@ -51,6 +61,19 @@ namespace SupplyOfProducts.Api.Controllers
 
             var result = _businessLogic.Execute(request);
             return result.Message();
+        }
+      
+    }
+    
+    public abstract class ControllerGenericBaseComplete<TModel, TService, TModelView, TModelViewGet> : ControllerGenericBase<TModel, TService, TModelView, TModelViewGet> where TService : IGenericReadService<TModel> where TModel : IId
+    {
+
+        public ControllerGenericBaseComplete(IMapper mapper,
+                                     TService serviceBusinessLogic,
+                                     IStep<IManagementModelRequest<TModel>> businessLogic
+                                   ) : base(mapper, serviceBusinessLogic, businessLogic)
+        {
+            
         }
 
         // PUT: api/WorkPlace/5
@@ -68,7 +91,7 @@ namespace SupplyOfProducts.Api.Controllers
             var result = _businessLogic.Execute(request);
             return result.Message();
         }
-
     }
+    
 }
 

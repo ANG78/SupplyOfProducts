@@ -9,7 +9,6 @@ namespace SupplyOfProducts.BusinessLogic.Mappers
         public ConfigSupplyProfile()
         {
 
-
             CreateMap<IConfigSupply, ConfigSupplyViewModelExt>()
                 .ForMember(prod => prod.ProductCode, opt => opt.MapFrom(s => s.Product.Code))
                 .ForMember(prod => prod.WorkerCode, opt => opt.MapFrom(s => s.WorkerInWorkPlace.Worker.Code))
@@ -29,19 +28,11 @@ namespace SupplyOfProducts.BusinessLogic.Mappers
             CreateMap<ConfigSupplyViewModel, ConfigSupply>()
                  .ForMember(prod => prod.Product, opt => opt.MapFrom(s => Create<Product>(s.ProductCode) ))
                  .ForMember(prod => prod.WorkerInWorkPlace, opt => opt.MapFrom(s => new WorkerInWorkPlace( Create<Worker>(s.WorkerCode), Create<WorkPlace>(s.WorkPlaceCode))))
-                // .ForMember(prod => prod.WorkerInWorkPlace, opt => opt.MapFrom(s => Create<WorkerInWorkPlace>(Create < Worker > (s.WorkerCode), Create<WorkPlace>(s.WorkPlaceCode))))
                 ;
-
-   
         }
 
-
-        
     }
 
-
-    
-    
 }
 
 

@@ -7,7 +7,7 @@ using SupplyOfProducts.Interfaces.Repository;
 namespace SupplyOfProducts.BusinessLogic.Services
 {
 
-    public class ProductStockService : GenericService<IProductStock>, IProductStockService
+    public class ProductStockService : GenericServiceCode<IProductStock>, IProductStockService
     {
         
         public ProductStockService(IProductStockRepository repository): base(repository)

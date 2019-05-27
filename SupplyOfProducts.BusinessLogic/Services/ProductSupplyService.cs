@@ -1,48 +1,47 @@
-﻿using SupplyOfProducts.BusinessLogic.Common;
-using SupplyOfProducts.Interfaces.BusinessLogic;
+﻿using SupplyOfProducts.Interfaces.BusinessLogic;
 using SupplyOfProducts.Interfaces.BusinessLogic.Services;
 using SupplyOfProducts.Interfaces.Repository;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SupplyOfProducts.BusinessLogic.Services
 {
 
-    public class ProductSupplyService : IProductSupplyService
+    public class ProductSupplyService : GenericService<IProductSupply>, IProductSupplyService
     {
 
         readonly IProductSupplyRepository _productSupplyRepository;
 
-        public ProductSupplyService(IProductSupplyRepository productSupplyRepository)
+        public ProductSupplyService(IProductSupplyRepository productSupplyRepository):base(productSupplyRepository)
         {
             _productSupplyRepository = productSupplyRepository;
         }
 
-        public IProductSupply Get(IProductSupply prodSupply)
+        public void Save(IProductSupply prodSupply)
         {
             if (prodSupply.Id == 0)
             {
-                return _productSupplyRepository.Get(prodSupply.WorkerInWorkPlaceId, 
-                                                    prodSupply.ProductId, 
-                                                    prodSupply.PeriodDate);
-
+                _productSupplyRepository.Add(prodSupply);
             }
-
-            return _productSupplyRepository.Get(prodSupply.Id);
-        }
-
-        public void Save(IProductSupply prodSupply)
-        {
-            _productSupplyRepository.Save(prodSupply);
+            else
+            {
+                _productSupplyRepository.Edit(prodSupply);
+            }
+           
         }
 
 
         public void Remove(IProductSupply prodSupply)
         {
-            _productSupplyRepository.Remove(prodSupply);
+            if (prodSupply.Id > 0)
+            {
+                _productSupplyRepository.Remove(prodSupply);
+            }
+            
         }
 
-        public IList<IProductSupply> GetProductSuppliedToWorker(string sCodeWorker)
+        public IEnumerable<IProductSupply> GetAll(string sCodeWorker)
         {
             return _productSupplyRepository.GetProductSuppliedToWorker(sCodeWorker);
         }
@@ -53,6 +52,23 @@ namespace SupplyOfProducts.BusinessLogic.Services
         }
 
        
+        protected override IProductSupply Check(IProductSupply prodSupply)
+        {
+            if (prodSupply.Id == 0)
+            {
+                return _productSupplyRepository.Get(prodSupply.WorkerInWorkPlaceId,
+                                                    prodSupply.ProductId,
+                                                    prodSupply.PeriodDate);
+
+            }
+
+            return _productSupplyRepository.Get(prodSupply.Id); ;
+        }
+
+        protected override string GetString(IProductSupply item)
+        {
+            return item?.WorkerInWorkPlace?.Worker?.Code;
+        }
     }
 
 

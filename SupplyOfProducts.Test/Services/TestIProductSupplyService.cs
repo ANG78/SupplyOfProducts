@@ -24,14 +24,14 @@ namespace SupplyOfProducts.Test.Services
             Assert.IsTrue(wInwps.Count > 0);
             var workerInWorkPlace = wInwps[0];
 
-            var service = Provider.GetService<IStep<IProductSupplyRequest>>();
-            Assert.IsTrue(service != null, "service != null");
-            RequestSupplyViewModel req = MockRequestSupplyViewModel("EPI1", userMocked, workerInWorkPlace.WorkPlace.Code, workerInWorkPlace.DateStart.AddDays(100));
-            var reqModel = Mappers.Get(req);
+            //var service = Provider.GetService<IStep<IProductSupplyRequest>>();
+            //Assert.IsTrue(service != null, "service != null");
+            //RequestSupplyViewModel req = MockRequestSupplyViewModel("EPI1", userMocked, workerInWorkPlace.WorkPlace.Code, workerInWorkPlace.DateStart.AddDays(100));
+            //var reqModel = Mappers.Get(req);
 
-            var result = service.Execute(reqModel);
-            Assert.IsTrue(result != null, "result != null");
-            Assert.IsTrue(result.ComputeResult().IsOk(), result.Message());
+            //var result = service.Execute(reqModel);
+            //Assert.IsTrue(result != null, "result != null");
+            //Assert.IsTrue(result.ComputeResult().IsOk(), result.Message());
             //Assert.IsTrue(reqModel.ProductSupplied != null, "ProductSupplied != null");
             //Assert.IsTrue(reqModel.ProductSupplied.Id > 0, "ProductSupplied.Id");
             //Assert.IsTrue(reqModel.ProductSupplied.Id == reqModel.ProductSuppliedId, "ProductSupplied.Id == reqModel.IdProductSupplied");
@@ -53,13 +53,13 @@ namespace SupplyOfProducts.Test.Services
             Assert.IsTrue(wInwps.Count > 0);
             var workerInWorkPlace = wInwps[0];
 
-            var service = Provider.GetService<IStep<IProductSupplyRequest>>();
-            RequestSupplyViewModel req = MockRequestSupplyViewModel("EPI5", userMocked, workerInWorkPlace.WorkPlace.Code, workerInWorkPlace.DateStart.AddDays(100));
-            var reqModel = Mappers.Get(req);
+            //var service = Provider.GetService<IStep<IProductSupplyRequest>>();
+            //RequestSupplyViewModel req = MockRequestSupplyViewModel("EPI5", userMocked, workerInWorkPlace.WorkPlace.Code, workerInWorkPlace.DateStart.AddDays(100));
+            //var reqModel = Mappers.Get(req);
 
-            var result = service.Execute(reqModel);
-            Assert.IsTrue(result != null, "result != null");
-            Assert.IsTrue(result.ComputeResult().IsOk(), result.Message());
+            //var result = service.Execute(reqModel);
+            //Assert.IsTrue(result != null, "result != null");
+            //Assert.IsTrue(result.ComputeResult().IsOk(), result.Message());
             //Assert.IsTrue(reqModel.ProductSupplied != null, "ProductSupplied != null");
             //Assert.IsTrue(reqModel.ProductSupplied.Id > 0, "ProductSupplied.Id");
             //Assert.IsTrue(reqModel.ProductSupplied.Id == reqModel.ProductSuppliedId, "ProductSupplied.Id == reqModel.IdProductSupplied");

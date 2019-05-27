@@ -7,7 +7,7 @@ using SupplyOfProducts.Interfaces.Repository;
 
 namespace SupplyOfProducts.BusinessLogic.Services
 {
-    public class WorkPlaceService : GenericService<IWorkPlace>, IWorkPlaceService
+    public class WorkPlaceService : GenericServiceCode<IWorkPlace>, IWorkPlaceService
     {
         public WorkPlaceService(IWorkPlaceRepository workerRepository) : base(workerRepository)
         {

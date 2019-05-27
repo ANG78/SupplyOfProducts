@@ -4,7 +4,7 @@ using SupplyOfProducts.Interfaces.Repository;
 
 namespace SupplyOfProducts.BusinessLogic.Services
 {
-    public class ProductService : GenericService<IProduct>, IProductService
+    public class ProductService : GenericServiceCode<IProduct>, IProductService
     {
    
 

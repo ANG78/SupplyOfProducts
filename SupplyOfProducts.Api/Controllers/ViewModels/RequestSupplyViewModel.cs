@@ -4,9 +4,9 @@ namespace SupplyOfProducts.Api.Controllers.ViewModels
 {
     public class RequestSupplyViewModel 
     {
-        public string CodeWorker { get; set; }
-        public string CodeProduct { get; set; }
-        public string CodeWorkPlace { get; set; }
+        public string WorkerCode { get; set; }
+        public string ProductCode { get; set; }
+        public string WorkPlaceCode { get; set; }
         public DateTime? Date { get; set; }
     }
 

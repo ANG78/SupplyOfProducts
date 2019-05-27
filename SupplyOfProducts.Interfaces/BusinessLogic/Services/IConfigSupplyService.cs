@@ -2,12 +2,8 @@
 
 namespace SupplyOfProducts.Interfaces.BusinessLogic.Services
 {
-    public interface IConfigSupplyService //: IGenericReadService<IConfigSupply>
+    public interface IConfigSupplyService : IGenericReadService<IConfigSupply>
     {
-        IEnumerable<IConfigSupply> Get(string workerCode);
-        IEnumerable<IConfigSupply> GetAll();
+        IEnumerable<IConfigSupply> GetAll(string workerCode);
     }
-
-    
-
 }

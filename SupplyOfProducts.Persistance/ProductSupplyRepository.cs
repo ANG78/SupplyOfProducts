@@ -92,6 +92,24 @@ namespace SupplyOfProducts.Persistance
                                                        p.ProductSupply.WorkerInWorkPlace.DateStart == date).ToList();
         }
 
+        public IProductSupply Get(string code)
+        {
+            throw new NotImplementedException();
+        }
 
+        public IEnumerable<IProductSupply> Get()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Edit(IProductSupply worker)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Add(IProductSupply worker)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

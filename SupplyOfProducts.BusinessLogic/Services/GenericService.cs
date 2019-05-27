@@ -8,7 +8,7 @@ using SupplyOfProducts.Interfaces.Repository;
 
 namespace SupplyOfProducts.BusinessLogic.Services
 {
-    public abstract class GenericService<T> : IGenericService<T> where T : ICode, IId
+    public abstract class GenericService<T> : IGenericService<T> where T : IId
     {
         protected readonly IGenericRepository<T> _repository;
         public GenericService(IGenericRepository<T> workerRepository)
@@ -19,26 +19,26 @@ namespace SupplyOfProducts.BusinessLogic.Services
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="worker"></param>
+        /// <param name="item"></param>
         /// <returns></returns>
-        public IResult Edit(T worker)
+        public IResult Edit(T item)
         {
             try
             {
-                var res = Get( worker.Code);
+                var res = Check(item);
 
                 if (res == null)
                 {
-                    return new Result(EnumResultBL.ERROR_CODE_NOT_EXIST, worker.Code);
+                    return new Result(EnumResultBL.ERROR_CODE_NOT_EXIST, GetString(item));
                 }
 
-                if (res.Id != worker.Id)
+                if (res.Id != item.Id)
                 {
-                    return new Result(EnumResultBL.ERROR_ALREADY_EXIST_WITH_THIS_CODE, worker.Code);
+                    return new Result(EnumResultBL.ERROR_ALREADY_EXIST_WITH_THIS_CODE, GetString(item));
                 }
 
 
-                _repository.Edit(worker);
+                _repository.Edit(item);
             }
             catch (Exception ex)
             {
@@ -52,18 +52,18 @@ namespace SupplyOfProducts.BusinessLogic.Services
         /// </summary>
         /// <param name="worker"></param>
         /// <returns></returns>
-        public IResult Add(T worker)
+        public IResult Add(T item)
         {
             try
             {
-                var res = Get(worker.Code);
+                var res = Check(item);
 
                 if (res != null)
                 {
-                    return new Result(EnumResultBL.ERROR_ALREADY_EXIST_WITH_THIS_CODE, worker.Code);
+                    return new Result(EnumResultBL.ERROR_ALREADY_EXIST_WITH_THIS_CODE, GetString(item));
                 }
 
-                _repository.Add(worker);
+                _repository.Add(item);
             }
             catch (Exception ex)
             {
@@ -71,18 +71,7 @@ namespace SupplyOfProducts.BusinessLogic.Services
             }
             return Result.Ok;
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="code"></param>
-        /// <returns></returns>
-        public T Get(string code)
-        {
-           return _repository.Get(code);
-        }
-
-
+        
         /// <summary>
         /// 
         /// </summary>
@@ -92,6 +81,32 @@ namespace SupplyOfProducts.BusinessLogic.Services
             return _repository.Get();
         }
 
-       
+        protected abstract T Check(T item);
+
+        protected abstract string GetString(T item);
+
+        public virtual T Get(string code)
+        {
+            return _repository.Get(code);
+        }
+    }
+
+
+    public abstract class GenericServiceCode<T> : GenericService<T>, IGenericService<T> where T : ICode, IId
+    {
+        public GenericServiceCode(IGenericRepository<T> workerRepository):base(workerRepository)
+        {
+            
+        }
+        
+        protected override string GetString(T item)
+        {
+            return item.Code;
+        }
+
+        protected override T Check(T item)
+        {
+           return  Get(item.Code);
+        }
     }
 }

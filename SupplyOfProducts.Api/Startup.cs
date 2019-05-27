@@ -156,10 +156,10 @@ namespace SupplyOfProducts.Api
 
             services.AddScoped(sp =>
                      new HelperStepConf(sp).Get(
-                            new List<IStep<IProductSupplyRequest>>()
+                            new List< IStep<IManagementModelRequest<IProductSupply>> >()
                             {
-                                new StepUnitOfWork < IProductSupplyRequest > ( sp.GetService<ICreateUoW> () )
-                                ,new ValidateRequestAndComplete<IProductSupplyRequest>(sp.GetService<IStep<IRequestMustBeCompleted>>() )
+                                new StepUnitOfWork< IManagementModelRequest<IProductSupply> > ( sp.GetService<ICreateUoW> () )
+                                ,new ValidateRequestAndComplete< IManagementModelRequest<IProductSupply> >(sp.GetService<IStep<IRequestMustBeCompleted>>() )
                                 ,new ValidateWorkerCanBeSupplied(sp.GetService<IProductSupplyService>(), sp.GetService<ISupplyScheduledService>())
                                 ,new AssignProductToWorker(sp.GetService<IProductSupplyService>(), sp.GetService<IProductStockService>())
                             }));
@@ -168,11 +168,11 @@ namespace SupplyOfProducts.Api
             {
                 var helper = new HelperStepConf(sp);
                 return helper.Get(
-                              new List<IStep<IManagementModelRequest<IConfigSupply>>>()
+                              new List<IStep< IManagementModelRequest<IConfigSupply>> >()
                                   {
                                 new StepUnitOfWork < IManagementModelRequest<IConfigSupply> > ( helper.GetService<ICreateUoW> () )
                                 ,new ValidateRequestAndComplete< IManagementModelRequest<IConfigSupply> >(helper.GetService<IStep<IRequestMustBeCompleted>>())
-                                ,new ValidateAndCompleteWorkerCanBeConfigured(helper.GetService<IProductSupplyService>(), helper.GetService<ISupplyScheduledService>())
+                                ,new ValidateAndCompleteWorkerCanBeConfigured( helper.GetService<IProductSupplyService>(), helper.GetService<ISupplyScheduledService>())
                                 ,new ScheduleConfigurationToWorker(helper.GetService<ISupplyScheduledService>())
                                    });
             });

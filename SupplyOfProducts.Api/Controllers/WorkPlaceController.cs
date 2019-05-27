@@ -16,7 +16,8 @@ namespace SupplyOfProducts.Api.Controllers
 
         public WorkPlaceController(IWorkPlaceService serviceBusinessLogic,
                                   IStep<IManagementModelRequest<IWorkPlace>> businessLogic,
-                                  IMapper mapper): base(serviceBusinessLogic, businessLogic, mapper)
+                                  IMapper mapper)
+                : base(mapper,serviceBusinessLogic, businessLogic )
         {
           
         }

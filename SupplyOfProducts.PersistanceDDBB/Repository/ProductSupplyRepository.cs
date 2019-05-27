@@ -17,18 +17,6 @@ namespace SupplyOfProducts.PersistanceDDBB.Repository
             return _Current.FirstOrDefault(p => p.WorkerInWorkPlaceId == id);
         }
 
-        public void Save(IProductSupply obj)
-        {
-            if (obj.Id == 0)
-            {
-                Add((ProductSupply)obj);
-            }
-            else
-            {
-                Edit((ProductSupply)obj);
-            }              
-        }
-
         public void Remove(IProductSupply obj)
         {
             if (obj.Id > 0)
@@ -40,7 +28,7 @@ namespace SupplyOfProducts.PersistanceDDBB.Repository
 
         public void Save(IProductSupplied obj)
         {
-            Edit((ProductSupply)obj.ProductSupply);
+            base.Edit((ProductSupply)obj.ProductSupply);
         }
 
         //public IList<IProductSupplied> GetByProductSupply(int idProductSupply)
@@ -54,6 +42,21 @@ namespace SupplyOfProducts.PersistanceDDBB.Repository
             return _Current.Where(x => x.WorkerInWorkPlace.Worker.Code == sCodeWorker)
                 .OrderByDescending(x => x.PeriodDate)
                 .Select(d=>(IProductSupply)d).ToList();
+        }
+
+
+        public IProductSupply Get(string sCodeWorker)
+        {
+            return _Current.Where(x => x.WorkerInWorkPlace.Worker.Code == sCodeWorker)
+                .OrderByDescending(x => x.PeriodDate)
+                .Select(d => (IProductSupply)d).FirstOrDefault();
+        }
+
+        public IEnumerable<IProductSupply> Get()
+        {
+            return _Current
+                .OrderByDescending(x => x.PeriodDate)
+                .Select(d => (IProductSupply)d).ToList();
         }
 
         public IProductSupply Get(int idWorkerInWorkPlace, int idProduct, DateTime PeriodStartDate)
@@ -74,6 +77,16 @@ namespace SupplyOfProducts.PersistanceDDBB.Repository
                                     p.ProductSupply.WorkerInWorkPlace.WorkPlace.Code == sCodWorkPlace &&
                                     p.ProductSupply.PeriodDate == date).ToList();
                                      
+        }
+
+        public void Edit(IProductSupply worker)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Add(IProductSupply worker)
+        {
+            throw new NotImplementedException();
         }
     }
 }

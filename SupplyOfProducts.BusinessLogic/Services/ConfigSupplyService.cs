@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using SupplyOfProducts.Interfaces.BusinessLogic;
 using SupplyOfProducts.Interfaces.BusinessLogic.Services;
 using SupplyOfProducts.Interfaces.Repository;
@@ -14,7 +15,7 @@ namespace SupplyOfProducts.BusinessLogic.Services
             _repository = pRepository;
         }
 
-        public IEnumerable<IConfigSupply> Get(string code)
+        public IEnumerable<IConfigSupply> GetAll(string code)
         {
            return _repository.Get(code);
         }
@@ -22,6 +23,11 @@ namespace SupplyOfProducts.BusinessLogic.Services
         public IEnumerable<IConfigSupply> GetAll()
         {
             return _repository.Get();
+        }
+
+        public IConfigSupply Get(string code)
+        {
+            return _repository.Get(code).OrderByDescending(x=>x.Date).FirstOrDefault();
         }
     }
 

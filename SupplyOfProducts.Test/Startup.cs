@@ -96,15 +96,15 @@ namespace SupplyOfProducts.Test
                                 }));
 
 
-            services.AddScoped(sp =>
-                     new HelperStepConf(sp).Get(
-                            new List<IStep<IProductSupplyRequest>>()
-                            {
-                                new StepUnitOfWork < IProductSupplyRequest > ( sp.GetService<ICreateUoW> () )
-                                ,new ValidateRequestAndComplete<IProductSupplyRequest>(sp.GetService<IStep<IRequestMustBeCompleted>>() )
-                                ,new ValidateWorkerCanBeSupplied(sp.GetService<IProductSupplyService>(), sp.GetService<ISupplyScheduledService>())
-                                ,new AssignProductToWorker(sp.GetService<IProductSupplyService>(), sp.GetService<IProductStockService>())
-                            }));
+            //services.AddScoped(sp =>
+            //         new HelperStepConf(sp).Get(
+            //                new List<IStep<IProductSupplyRequest>>()
+            //                {
+            //                    new StepUnitOfWork < IProductSupplyRequest > ( sp.GetService<ICreateUoW> () )
+            //                    ,new ValidateRequestAndComplete<IProductSupplyRequest>(sp.GetService<IStep<IRequestMustBeCompleted>>() )
+            //                    ,new ValidateWorkerCanBeSupplied(sp.GetService<IProductSupplyService>(), sp.GetService<ISupplyScheduledService>())
+            //                    ,new AssignProductToWorker(sp.GetService<IProductSupplyService>(), sp.GetService<IProductStockService>())
+            //                }));
 
             //services.AddScoped(sp =>
             //{

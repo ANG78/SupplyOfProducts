@@ -1,13 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using SupplyOfProducts.Interfaces.BusinessLogic.Entities;
+using System.Collections.Generic;
 
 namespace SupplyOfProducts.Interfaces.BusinessLogic
 {
 
     public interface IProductSupply : IContainDatePeriodProperty,
                                       IContainWorkerInWorkPlaceProperty, 
-                                      IContainProductProperty
+                                      IContainProductProperty,
+                                      IId
     {
-        int Id { get; set; }
         IList<IProductSupplied> ProductsSupplied { get; set; } 
     }
 }

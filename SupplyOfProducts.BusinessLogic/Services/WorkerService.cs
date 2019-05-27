@@ -8,7 +8,7 @@ namespace SupplyOfProducts.BusinessLogic.Services
 {
 
 
-    public class WorkerService : GenericService<IWorker>, IWorkerService
+    public class WorkerService : GenericServiceCode<IWorker>, IWorkerService
     {
 
         public WorkerService(IWorkerRepository workerRepository) : base(workerRepository)

@@ -14,17 +14,7 @@ namespace SupplyOfProducts.BusinessLogic.Mappers
     public static class Mappers
     {
 
-        public static IProductSupplyRequest Get(RequestSupplyViewModel request)
-        {
-            ProductSupply requestProduct = new ProductSupply
-            {
-                WorkerInWorkPlace = new WorkerInWorkPlace { Worker = new Worker { Code = request.CodeWorker }, WorkPlace = new WorkPlace { Code = request.CodeWorkPlace } },
-                Product = new Product { Code = request.CodeProduct },
-                Date = request.Date ?? DateTime.Now
-            };
-
-            return requestProduct;
-        }
+       
 
         public static ProductSuppliedViewModel Get(IProductSupplied obj)
         {
@@ -38,20 +28,20 @@ namespace SupplyOfProducts.BusinessLogic.Mappers
             };
         }
 
-        public static ResponseSuppliedViewModel Get(IProductSupplyRequest request)
-        {
-            ResponseSuppliedViewModel requestSupplied = new ResponseSuppliedViewModel
-            {
-                Request = new ResponseSupplyViewModel
-                {
-                    CodeWorker = request.Product.Code,
-                    CodeWorkPlace = request.WorkerInWorkPlace.WorkPlace?.Code,
-                    Period = request.PeriodDate
-                }
+        //public static ResponseSuppliedViewModel Get(IProductSupplyRequest request)
+        //{
+        //    ResponseSuppliedViewModel requestSupplied = new ResponseSuppliedViewModel
+        //    {
+        //        Request = new ResponseSupplyViewModel
+        //        {
+        //            CodeWorker = request.Product.Code,
+        //            CodeWorkPlace = request.WorkerInWorkPlace.WorkPlace?.Code,
+        //            Period = request.PeriodDate
+        //        }
 
-            };
+        //    };
 
-            requestSupplied.Request.ProductSupplied = Get(request.ProductsSupplied[0]);
+        //    requestSupplied.Request.ProductSupplied = Get(request.ProductsSupplied[0]);
 
             //if (request.ProductsSupplied[0]?.ProductStock is IPackageStock)
             //{
@@ -69,8 +59,8 @@ namespace SupplyOfProducts.BusinessLogic.Mappers
             //    }
             //}
 
-            return requestSupplied;
-        }
+        //    return requestSupplied;
+        //}
 
         public static ResponseConfigViewModel Get(IConfigSupply request)
         {

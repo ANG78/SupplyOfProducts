@@ -28,9 +28,9 @@ namespace SupplyOfProducts.Api.Controllers.Examples
         {
             return new RequestSupplyViewModel
             {
-                CodeProduct = "EPI1",
-                CodeWorker = "W01",
-                CodeWorkPlace = "WP01",
+                ProductCode = "EPI1",
+                WorkerCode = "W01",
+                WorkPlaceCode = "WP01",
                 Date = new DateTime(2010, 04, 12),
             };
         }

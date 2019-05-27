@@ -3,6 +3,7 @@ using SupplyOfProducts.BusinessLogic.Steps.Common;
 using SupplyOfProducts.Interfaces.BusinessLogic;
 using SupplyOfProducts.Interfaces.BusinessLogic.Services;
 using SupplyOfProducts.Interfaces.BusinessLogic.Services.Request;
+using System.Linq;
 
 namespace SupplyOfProducts.BusinessLogic.Steps.ConfigSupply
 {
@@ -35,8 +36,8 @@ namespace SupplyOfProducts.BusinessLogic.Steps.ConfigSupply
                 return OkAndFinish("The Configuration is the same as the one already registered in the system");
             }
 
-            var productsReceived = _productSupplyService.GetProductSuppliedToWorker(obj.Item.WorkerInWorkPlace.Worker.Code);
-            if (productsReceived.Count >= obj.Item.Amount)
+            var productsReceived = _productSupplyService.GetAll(obj.Item.WorkerInWorkPlace.Worker.Code);
+            if (productsReceived.Count() >= obj.Item.Amount)
             {
                 return new Result(EnumResultBL.ERROR_THE_NEW_AMOUNT_MEANT_TO_BE_SET_IS_SMALLER_THAN_THE_ONE_ALREADY_SUPPLIED, 
                                     obj.Item.WorkerInWorkPlace.Worker.Code, 

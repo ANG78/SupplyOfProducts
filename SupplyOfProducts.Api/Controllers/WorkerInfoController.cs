@@ -19,7 +19,7 @@ namespace SupplyOfProducts.Api.Controllers
             _supplyBusinessLogic = supplyBusinessLogic;
         }
 
-        public class WorkerInfoRequest : IWorkerInfoRequest
+        public class WorkerInfo : IWorkerInfoRequest
         {
             public int WorkerId { get ; set ; }
             public IWorker Worker { get ; set ; }
@@ -32,7 +32,7 @@ namespace SupplyOfProducts.Api.Controllers
         [HttpGet]
         public ResponseWorkerViewModel GetWorkerInfo(string sCode)
         {
-            WorkerInfoRequest request = new WorkerInfoRequest
+            WorkerInfo request = new WorkerInfo
             {
                 Worker = new Worker { Code = sCode }
             };
