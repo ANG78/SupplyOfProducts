@@ -32,7 +32,14 @@ namespace SupplyOfProducts.BusinessLogic.Steps
                 return ExecuteTemplate(objToProces);
             }
 
+            IContainWorkerInWorkPlaceProperty objToProces2 = null;
+            obj.HelperCast(obj, ref objToProces2);
 
+            if (objToProces2 != null)
+            {
+                return ExecuteTemplate(objToProces2.WorkerInWorkPlace);
+            }
+            
             if (obj is IContainWorkerProperty)
             {
                 return ExecuteTemplate((IContainWorkerProperty)obj);

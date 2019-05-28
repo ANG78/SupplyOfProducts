@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace SupplyOfProducts.Api.Controllers.ViewModels
 {
@@ -15,6 +16,8 @@ namespace SupplyOfProducts.Api.Controllers.ViewModels
         public string WorkerCode { get; set; }
         public string ProductCode { get; set; }
         public string WorkPlaceCode { get; set; }
-        public DateTime? Date { get; set; }
+        public DateTime PeriodDate { get; set; }
+        public DateTime Date { get; set; }
+        public IList<ProductSuppliedViewModel> ProductsSupplied { get;set;}
     }
 }

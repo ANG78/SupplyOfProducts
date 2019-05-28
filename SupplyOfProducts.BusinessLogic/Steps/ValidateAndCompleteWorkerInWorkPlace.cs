@@ -18,12 +18,11 @@ namespace SupplyOfProducts.BusinessLogic.Steps
 
         public override string Description()
         {
-            return "Check the relatioship between  Worker and WorkPlace taking into account the request date";
+            return "Check the relationship between  Worker and WorkPlace taking into account the request date";
         }
 
         protected override IResult ExecuteTemplate(IRequestMustBeCompleted obj)
         {
-
             IContainDatePeriodProperty objPeriod = null;
             obj.HelperCast(obj, ref objPeriod);
 

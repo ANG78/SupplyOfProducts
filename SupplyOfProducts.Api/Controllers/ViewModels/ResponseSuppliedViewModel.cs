@@ -17,13 +17,6 @@ namespace SupplyOfProducts.Api.Controllers.ViewModels
         public ProductSuppliedViewModel ProductSupplied { get; set; }
     }
 
-    public class ProductSuppliedViewModel
-    {
-        public int Id { get; set; }
-        public string ProductCode { get; set; }
-        public string Type { get; set; }
-        public string PartNumber { get; set; }
-        public List<ProductSuppliedViewModel> Parts { get; set; }
-    }
+   
 
 }
