@@ -14,8 +14,10 @@ namespace SupplyOfProducts.Api.Common
             _service = service;
         }
 
-        public IStep<T> Get<T>(IList<IStep<T>> list)
+        public IStep<T> Get<T>(params IStep<T>[] parameters)
         {
+            IList <IStep<T> > list = parameters.ToList();
+
             var result = list.First();
             list = list.Reverse().ToList();
             var current = list.FirstOrDefault();

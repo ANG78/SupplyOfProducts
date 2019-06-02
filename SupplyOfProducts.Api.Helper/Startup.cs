@@ -70,37 +70,32 @@ namespace SupplyOfProducts.Api.Common
             // common steps in order to validate and complete the request
             services.AddScoped(sp =>
                     new HelperStepConf(sp).Get(
-                            new List<IStep<IRequestMustBeCompleted>>()
-                            {
                                 new ValidateAndCompleteWorker(sp.GetService<IWorkerService>()),
                                 new ValidateAndCompleteProduct(sp.GetService<IProductService>()),
                                 new ValidateAndCompleteWorkPlace(sp.GetService<IWorkPlaceService>()),
                                 new ValidateAndCompleteWorkerInWorkPlace(sp.GetService<IWorkerInWorkPlaceService>()),
                                 new ValidateAndCompleteDatePeriod(sp.GetService<IPeriodConfigurationService>())
-                                }));
+                            ));
 
-
+            /*ProductSupply*/
             services.AddScoped(sp =>
                      new HelperStepConf(sp).Get(
-                            new List<IStep<IManagementModelRequest<IProductSupply>>>()
-                            {
-                                new StepUnitOfWork< IManagementModelRequest<IProductSupply> > ( sp.GetService<ICreateUoW> () )
-                                ,new ValidateRequestAndComplete< IManagementModelRequest<IProductSupply> >(sp.GetService<IStep<IRequestMustBeCompleted>>() )
-                                ,new ValidateWorkerCanBeSupplied(sp.GetService<IProductSupplyService>(), sp.GetService<ISupplyScheduledService>())
-                                ,new AssignProductToWorker(sp.GetService<IProductSupplyService>(), sp.GetService<IProductStockService>())
-                            }));
-
+                                new StepUnitOfWork<IManagementModelRequest<IProductSupply>>(sp.GetService<ICreateUoW>())
+                                , new ValidateRequestAndComplete<IManagementModelRequest<IProductSupply>>(sp.GetService<IStep<IRequestMustBeCompleted>>())
+                                , new ValidateWorkerCanBeSupplied(sp.GetService<IProductSupplyService>(), sp.GetService<ISupplyScheduledService>())
+                                , new AssignProductToWorker(sp.GetService<IProductSupplyService>(), sp.GetService<IProductStockService>())
+                            ));
+            
+            /*ConfigSupply*/
             services.AddScoped(sp =>
             {
                 var helper = new HelperStepConf(sp);
                 return helper.Get(
-                              new List<IStep<IManagementModelRequest<IConfigSupply>>>()
-                                  {
-                                new StepUnitOfWork < IManagementModelRequest<IConfigSupply> > ( helper.GetService<ICreateUoW> () )
-                                ,new ValidateRequestAndComplete< IManagementModelRequest<IConfigSupply> >(helper.GetService<IStep<IRequestMustBeCompleted>>())
-                                ,new ValidateAndCompleteWorkerCanBeConfigured( helper.GetService<IProductSupplyService>(), helper.GetService<ISupplyScheduledService>())
-                                ,new ScheduleConfigurationToWorker(helper.GetService<ISupplyScheduledService>())
-                                   });
+                                new StepUnitOfWork<IManagementModelRequest<IConfigSupply>>(helper.GetService<ICreateUoW>())
+                                , new ValidateRequestAndComplete<IManagementModelRequest<IConfigSupply>>(helper.GetService<IStep<IRequestMustBeCompleted>>())
+                                , new ValidateAndCompleteWorkerCanBeConfigured(helper.GetService<IProductSupplyService>(), helper.GetService<ISupplyScheduledService>())
+                                , new ScheduleConfigurationToWorker(helper.GetService<ISupplyScheduledService>())
+                                   );
             });
 
             /*IWorkerInfo*/
@@ -108,12 +103,10 @@ namespace SupplyOfProducts.Api.Common
             {
                 var helper = new HelperStepConf(sp);
                 return helper.Get(
-                                 new List<IStep<IWorkerInfoRequest>>()
-                                 {
                                       new ValidateRequestAndComplete<IWorkerInfoRequest>(helper.GetService<IStep<IRequestMustBeCompleted>>()),
-                                      new GenerateWorkerReport(helper.GetService<IWorkerInWorkPlaceService> (),
+                                      new GenerateWorkerReport(helper.GetService<IWorkerInWorkPlaceService>(),
                                                                helper.GetService<IProductSupplyService>())
-                                 });
+                                 );
             });
 
 
@@ -122,39 +115,30 @@ namespace SupplyOfProducts.Api.Common
             {
                 var helper = new HelperStepConf(sp);
                 return helper.Get(
-                         new List<IStep<IManagementModelRequest<IWorker>>>()
-                         {
-                              new StepUnitOfWork < IManagementModelRequest<IWorker> > ( helper.GetService<ICreateUoW> () )
-                              ,new StepSaveModel < IWorker > ( helper.GetService<IWorkerService>() )
-                         });
-            }
-                );
+                              new StepUnitOfWork<IManagementModelRequest<IWorker>>(helper.GetService<ICreateUoW>())
+                              , new StepSaveModel<IWorker>(helper.GetService<IWorkerService>())
+                        );
+            });
 
             /*IWorkPlace*/
             services.AddScoped(sp =>
             {
                 var helper = new HelperStepConf(sp);
                 return helper.Get(
-                         new List<IStep<IManagementModelRequest<IWorkPlace>>>()
-                         {
-                              new StepUnitOfWork < IManagementModelRequest<IWorkPlace> > ( helper.GetService<ICreateUoW> () )
-                              ,new StepSaveModel < IWorkPlace > ( helper.GetService<IWorkPlaceService>() )
-                         });
-            }
-                );
+                              new StepUnitOfWork<IManagementModelRequest<IWorkPlace>>(helper.GetService<ICreateUoW>())
+                              , new StepSaveModel<IWorkPlace>(helper.GetService<IWorkPlaceService>())
+                       );
+            });
 
             /*IProduct*/
             services.AddScoped(sp =>
             {
                 var helper = new HelperStepConf(sp);
                 return helper.Get(
-                         new List<IStep<IManagementModelRequest<IProduct>>>()
-                         {
-                              new StepUnitOfWork < IManagementModelRequest<IProduct> > ( helper.GetService<ICreateUoW> () )
-                              ,new StepSaveModel < IProduct > ( helper.GetService<IProductService>() )
-                         });
-            }
-                );
+                              new StepUnitOfWork<IManagementModelRequest<IProduct>>(helper.GetService<ICreateUoW>())
+                              , new StepSaveModel<IProduct>(helper.GetService<IProductService>())
+                         );
+            });
 
 
             /*IProductStock*/
@@ -162,14 +146,11 @@ namespace SupplyOfProducts.Api.Common
             {
                 var helper = new HelperStepConf(sp);
                 return helper.Get(
-                         new List<IStep<IManagementModelRequest<IProductStock>>>()
-                         {
-                              new StepUnitOfWork < IManagementModelRequest<IProductStock> > ( helper.GetService<ICreateUoW> () )
-                              ,new ValidateRequestAndComplete< IManagementModelRequest<IProductStock> >(helper.GetService<IStep<IRequestMustBeCompleted>>())
-                              ,new StepSaveModel < IProductStock > ( helper.GetService<IProductStockService>() )
-                         });
-            }
-                );
+                              new StepUnitOfWork<IManagementModelRequest<IProductStock>>(helper.GetService<ICreateUoW>())
+                              , new ValidateRequestAndComplete<IManagementModelRequest<IProductStock>>(helper.GetService<IStep<IRequestMustBeCompleted>>())
+                              , new StepSaveModel<IProductStock>(helper.GetService<IProductStockService>())
+                         );
+            });
 
         }
 
