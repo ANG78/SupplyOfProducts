@@ -18,7 +18,7 @@ namespace SupplyOfProducts.PersistanceDDBB.Repository
         {
             return _Current
                     .Include(x=> x.Product)
-                    .Include(x => x.WorkerInWorkPlace)
+                    .Include(x => x.WorkerInWorkPlace).ThenInclude(y => y.Worker)
                     .Include(x => x.WorkerInWorkPlace.Worker)
                     .Include(x => x.WorkerInWorkPlace.WorkPlace)
                     .Where(x => x.WorkerInWorkPlace.Worker.Code == sWorkerCode &&
@@ -40,13 +40,15 @@ namespace SupplyOfProducts.PersistanceDDBB.Repository
 
         public void Save(ISupplyScheduled objSch)
         {
+            SupplyScheduled supl = (SupplyScheduled)objSch;
+            
             if (objSch.Id == 0)
-            {
-                Add((SupplyScheduled)objSch);
+            {    
+                base.Add(supl);
             }
             else
             {
-                Edit((SupplyScheduled)objSch);
+                base.Edit(supl);
             }
         }
     }

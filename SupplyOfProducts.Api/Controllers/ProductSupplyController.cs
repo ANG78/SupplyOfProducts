@@ -11,7 +11,7 @@ namespace SupplyOfProducts.Api.Controllers
 
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductSupplyController : ControllerGenericBase <IProductSupply, IProductSupplyService, ProductSupplyViewModel, ProductSupplyViewModelExt>
+    public class ProductSupplyController : ControllerGenericNotSingleCodeBase <IProductSupply, IProductSupplyService, ProductSupplyViewModel, ProductSupplyViewModelExt>
     {
 
         public ProductSupplyController(IMapper mapper,
@@ -24,7 +24,7 @@ namespace SupplyOfProducts.Api.Controllers
         [HttpGet("{workerCode}", Name = "GetAll[controller]")]
         public IEnumerable<ProductSupplyViewModelExt> GetAllByWorker(string workerCode)
         {
-            var result = _service.GetAll(workerCode);
+            var result = _service.Get(workerCode);
             var resultMapped = _mapper.Map< IEnumerable<ProductSupplyViewModelExt> >(result);
             return resultMapped;
         }

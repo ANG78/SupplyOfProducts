@@ -15,7 +15,7 @@ namespace SupplyOfProducts.PersistanceDDBB.Configuration
             builder.Property(x => x.PeriodDate).IsRequired();
             builder.Property(x => x.Amount).IsRequired();
 
-            builder.HasOne(x => (Product)x.Product).WithMany().HasForeignKey(x=>x.ProductId);
+            builder.HasOne(x => (AbstractProduct)x.Product).WithMany().HasForeignKey(x=>x.ProductId);
             builder.HasOne(x => (WorkerInWorkPlace)x.WorkerInWorkPlace).WithMany().HasForeignKey(x=>x.WorkerInWorkPlaceId);
             builder.HasOne(x => (SupplyScheduled)x.SupplyScheduled).WithMany(x=>(IList<ConfigSupply>)x.ConfiguratedBy).HasForeignKey(x=>x.SupplyScheduledId);
         }

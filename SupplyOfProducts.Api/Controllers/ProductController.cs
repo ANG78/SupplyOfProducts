@@ -13,7 +13,7 @@ namespace SupplyOfProducts.Api.Controllers
 
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductController :  ControllerGenericBaseComplete<IProduct, IProductService, ProductViewModel, ProductViewModel>
+    public class ProductController :  ControllerGenericBaseComplete<IProduct, IProductService, ProductComplexViewModel, ProductViewModel>
     {
         public ProductController(IMapper mapper,
                                    IProductService serviceBusinessLogic,

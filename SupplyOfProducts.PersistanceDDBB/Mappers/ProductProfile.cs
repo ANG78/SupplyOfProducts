@@ -14,7 +14,7 @@ namespace SupplyOfProducts.PersistanceDDBB.Mappers
                 .IncludeAllDerived()
                .ForMember(prod => prod.Class, opt => opt.MapFrom(x => "PRODUCT"));
 
-            CreateMap<IProductPackage, Product>()
+            CreateMap<IPackage, Package>()
                 .ForMember(prod => prod.Class, opt => opt.MapFrom(x => "PACKAGE"));
                        
         }

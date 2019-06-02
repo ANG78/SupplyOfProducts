@@ -58,6 +58,9 @@ namespace SupplyOfProducts.BusinessLogic.Common
 
         ERROR_PRODUCT_IN_STOCK_WAS_ALREADY_BOOKED,
 
+        [Description("Product {0} is not available")]
+        ERROR_NO_PRODUCT_AVAILABE_IN_STOCK,
+
         ERROR_PRODUCT_SUPPLIED_NOT_COMPLETED,
 
 

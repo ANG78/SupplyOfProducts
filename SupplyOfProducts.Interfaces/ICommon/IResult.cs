@@ -53,7 +53,7 @@ namespace SupplyOfProducts.Interfaces.BusinessLogic
     /// <typeparam name="T"></typeparam>
     public interface IResultObjects<X> : IResult
     {
-        IList<X> GetItems();
+        IEnumerable<X> GetItems();
     }
 
     public interface IResultObject<X> : IResult

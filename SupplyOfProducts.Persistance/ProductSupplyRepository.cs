@@ -85,11 +85,25 @@ namespace SupplyOfProducts.Persistance
 
         public IList<IProductSupplied> GetProductSuppliedToWorkerOnThisPeriod(string sCodeProduct, string sCodeWorker, string sCodWorkPlace, DateTime date)
         {
-            return Context.ProductsSupplied.Where(p => p.ParentProductSupplied == null &&
-                                                       p.ProductStock.Product.Code == sCodeProduct &&
+            return Context.ProductsSupplied.Where(p => p.ProductStock.Product.Code == sCodeProduct &&
                                                        p.ProductSupply.WorkerInWorkPlace.Worker.Code == sCodeWorker &&
                                                        p.ProductSupply.WorkerInWorkPlace.WorkPlace.Code == sCodWorkPlace &&
                                                        p.ProductSupply.WorkerInWorkPlace.DateStart == date).ToList();
+        }
+
+        public IEnumerable<IProductSupply> GetAll(string WorkerCode)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<IProductSupply> GetAll(int idWorkerInWorkPlace, int idProduct, DateTime PeriodStartDate)
+        {
+            throw new NotImplementedException();
+        }
+
+        IEnumerable<IProductSupplied> IProductSupplyRepository.GetProductSuppliedToWorkerOnThisPeriod(string sProduct, string sCodeWorker, string sCodWorkPlace, DateTime date)
+        {
+            throw new NotImplementedException();
         }
 
         public IProductSupply Get(string code)
@@ -108,6 +122,11 @@ namespace SupplyOfProducts.Persistance
         }
 
         public void Add(IProductSupply worker)
+        {
+            throw new NotImplementedException();
+        }
+
+        IEnumerable<IProductSupply> IGenericNotSingleCodeReadRepository<IProductSupply>.Get(string code)
         {
             throw new NotImplementedException();
         }

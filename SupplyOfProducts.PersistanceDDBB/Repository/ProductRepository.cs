@@ -9,12 +9,15 @@ using System.Linq;
 namespace SupplyOfProducts.PersistanceDDBB.Repository
 {
 
-    public class ProductRepository : GenericRepository<Product>, IGenericRepository<Product>, IProductRepository
+    public class ProductRepository : GenericRepository<AbstractProduct>, IGenericRepository<AbstractProduct>, IProductRepository
     {
-        private readonly IMapper _mapper;
-        public ProductRepository(IGenericContext dbContext, IMapper m) : base(dbContext)
+        protected DbSet<Product> _CurrentProduct;
+        protected DbSet<Package> _CurrentPackage;
+
+        public ProductRepository(IGenericContext dbContext, IMapper m) : base(dbContext, m)
         {
-            _mapper = m;
+            _CurrentProduct = DbContext.Set<Product>();
+            _CurrentPackage = DbContext.Set<Package>();
         }
 
         /// <summary>
@@ -23,36 +26,52 @@ namespace SupplyOfProducts.PersistanceDDBB.Repository
         /// <param name="product"></param>
         public void Add(IProduct product)
         {
-            if (product is IProductPackage ||
-                product is PackageProduct)
+            if (product is IPackage)
             {
-
-                var productParent = _mapper.Map<Product>(product);
-                productParent.PartOfProducts = new List<ProductParts>();
-
-                IProductPackage pack = (IProductPackage)product;
-                if (pack.Parts != null)
+                Package productParent = null;
+                if (!(product is Package))
                 {
-                    foreach (var part in pack.Parts)
+                    productParent = _Mapper.Map<Package>(product);
+                }
+                else
+                {
+                    productParent = (Package)product;
+                }
+
+                var parts = productParent.Parts;
+                productParent.PartOfProducts = new List<ProductPart>();
+
+                if (parts != null)
+                {
+                    foreach (var part in parts)
                     {
                         var parProduct = _Current.Where(x => x.Code == part.Code).FirstOrDefault();
                         if (parProduct == null)
                         {
                             part.Id = 0;
-                            parProduct = _mapper.Map<Product>(part);
-                        }
+                            if (part is IPackage)
+                            {
+                                if (!(part is Package))
+                                    parProduct = _Mapper.Map<Package>(part);
+                            }
+                            else
+                            {
+                                if (!(part is Product))
+                                    parProduct = _Mapper.Map<Product>(part);
+                            }
 
-                        ProductParts related = new ProductParts
+                        }
+                        ProductPart related = new ProductPart
                         {
                             ParentProduct = productParent,
-                            Product = parProduct
+                            Product = (IProduct)parProduct
                         };
 
                         productParent.PartOfProducts.Add(related);
                     }
-
-                    base.Add(productParent);
                 }
+
+                base.Add((Package)productParent);
 
             }
             else if (product is Product)
@@ -61,7 +80,7 @@ namespace SupplyOfProducts.PersistanceDDBB.Repository
             }
             else if (product is IProduct)
             {
-                var par = _mapper.Map<Product>(product);
+                var par = _Mapper.Map<Product>(product);
                 base.Add(par);
             }
 
@@ -73,36 +92,53 @@ namespace SupplyOfProducts.PersistanceDDBB.Repository
         /// <param name="product"></param>
         public void Edit(IProduct product)
         {
-            if (product is IProductPackage ||
-                product is PackageProduct)
+
+            if (product is IPackage)
             {
-
-                var productParent = _mapper.Map<Product>(product);
-                productParent.PartOfProducts = new List<ProductParts>();
-
-                IProductPackage pack = (IProductPackage)product;
-                if (pack.Parts != null)
+                Package productParent = null;
+                if (!(product is Package))
                 {
-                    foreach (var part in pack.Parts)
+                    productParent = _Mapper.Map<Package>(product);
+                }
+                else
+                {
+                    productParent = (Package)product;
+                }
+
+                var parts = productParent.Parts;
+                productParent.PartOfProducts = new List<ProductPart>();
+
+                if (parts != null)
+                {
+                    foreach (var part in parts)
                     {
                         var parProduct = _Current.Where(x => x.Code == part.Code).FirstOrDefault();
                         if (parProduct == null)
                         {
                             part.Id = 0;
-                            parProduct = _mapper.Map<Product>(part);
-                        }
+                            if (part is IPackage)
+                            {
+                                if (!(part is Package))
+                                    parProduct = _Mapper.Map<Package>(part);
+                            }
+                            else
+                            {
+                                if (!(part is Product))
+                                    parProduct = _Mapper.Map<Product>(part);
+                            }
 
-                        ProductParts related = new ProductParts
+                        }
+                        ProductPart related = new ProductPart
                         {
                             ParentProduct = productParent,
-                            Product = parProduct
+                            Product = (IProduct)parProduct
                         };
 
                         productParent.PartOfProducts.Add(related);
                     }
-
-                    base.Edit(productParent);
                 }
+
+                base.Edit((Package)productParent);
 
             }
             else if (product is Product)
@@ -111,7 +147,7 @@ namespace SupplyOfProducts.PersistanceDDBB.Repository
             }
             else if (product is IProduct)
             {
-                var par = _mapper.Map<Product>(product);
+                var par = _Mapper.Map<Product>(product);
                 base.Edit(par);
             }
         }
@@ -123,39 +159,26 @@ namespace SupplyOfProducts.PersistanceDDBB.Repository
         /// <returns></returns>
         public IProduct Get(string code)
         {
-            code = code.Trim();
+            code = code?.Trim();
 
-            var result = _Current
-                           .Include(x => x.ParentPartOfProducts)
-                           .Include(x => x.PartOfProducts)
-                           .Where(x => x.Code == code)
-                           .ToList();
-
-            if (result != null && result.Count > 0)
-            {
-                var listRelated = result[0].PartOfProducts.Where(x => x.ProductId != 0 && x.Product == null).Select(x => x).ToList();
-                foreach (var rel in listRelated)
-                {
-                    rel.Product = Get(rel.ProductId);
-                }
-            }
-
-            var list = new List<Product>(result);
-            return CreateForGetResult(list).FirstOrDefault();
-
-        }
-
-        private Product Get(int id)
-        {
-
-            return _Current
-                           .Include(x => x.ParentPartOfProducts)
-                           .Include(x => x.PartOfProducts)
-                           .Where(x => x.Id == id)
+            var result = _CurrentPackage
+                            .Include(x => x.PartOfProducts).ThenInclude(x => x.Product)
+                            .Where(x => x.Code == code)
+                            .Select(x => (IProduct)x)
                            .FirstOrDefault();
 
-        }
+            if (result != null)
+            {
+                return result;
+            }
 
+            result = _CurrentProduct
+                          .Where(x => x.Code == code)
+                          .Select(x => (IProduct)x)
+                         .FirstOrDefault();
+
+            return result;
+        }
 
         /// <summary>
         /// 
@@ -163,52 +186,20 @@ namespace SupplyOfProducts.PersistanceDDBB.Repository
         /// <returns></returns>
         public IEnumerable<IProduct> Get()
         {
-            var result = _Current
-                            .Include(x => x.ParentPartOfProducts)
-                            .Include(x => x.PartOfProducts)
-                            .ToList();
+            var result = _CurrentPackage
+                           .Include(x => x.PartOfProducts).ThenInclude(x => x.Product)
+                           .Select(x => (IProduct)x)
+                           .ToList();
 
-            return CreateForGetResult(result);
+            var result2 = _CurrentProduct
+               .Select(x => (IProduct)x)
+               .ToList();
+
+            result.AddRange(result2);
+            return result.OrderBy(x => x.Code);
         }
 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="listGot"></param>
-        /// <returns></returns>
-        private IList<IProduct> CreateForGetResult(IList<Product> listGot)
-        {
-            IList<IProduct> resultFinal = new List<IProduct>();
-            foreach (var prod in listGot)
-            {
-                if (prod.PartOfProducts != null && prod.PartOfProducts.Count > 0)
-                {
-                    var pack = new PackageProduct
-                    {
-                        Code = prod.Code,
-                        Id = prod.Id,
-                        Type = prod.Type
-                    };
-                    var products = prod.PartOfProducts.Select(x => x.Product).ToList();
-                    IList<IProduct> parts = CreateForGetResult(products);
 
-                    foreach (var part in parts)
-                    {
-                        pack.Add(part);
-                    }
-
-                    resultFinal.Add(pack);
-                }
-                else
-                {
-                    resultFinal.Add(prod);
-                }
-
-
-            }
-
-            return resultFinal;
-        }
     }
 }

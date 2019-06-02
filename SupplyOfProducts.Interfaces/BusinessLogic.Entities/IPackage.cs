@@ -2,7 +2,7 @@
 
 namespace SupplyOfProducts.Interfaces.BusinessLogic.Entities
 {
-    public interface IProductPackage : IProduct
+    public interface IPackage : IProduct
     {
         void Add(IProduct product);
         IEnumerable<IProduct> Parts { get; }

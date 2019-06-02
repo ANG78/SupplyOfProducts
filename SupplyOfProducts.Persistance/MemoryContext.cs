@@ -82,7 +82,7 @@ namespace SupplyOfProducts.Persistance
 
             };
 
-            Products.Add(new PackageProduct
+            Products.Add(new Package
             {
                 Id = IdInternal,
                 Code = sP05,

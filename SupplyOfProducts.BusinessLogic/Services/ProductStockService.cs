@@ -1,72 +1,66 @@
 ﻿using SupplyOfProducts.BusinessLogic.Common;
+using SupplyOfProducts.BusinessLogic.Services.Generics;
 using SupplyOfProducts.Interfaces.BusinessLogic;
 using SupplyOfProducts.Interfaces.BusinessLogic.Entities;
 using SupplyOfProducts.Interfaces.BusinessLogic.Services;
 using SupplyOfProducts.Interfaces.Repository;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SupplyOfProducts.BusinessLogic.Services
 {
 
-    public class ProductStockService : GenericServiceCode<IProductStock>, IProductStockService
+    public partial class ProductStockService : GenericService<IProductStock>, IProductStockService
     {
-        
-        public ProductStockService(IProductStockRepository repository): base(repository)
+
+        public ProductStockService(IProductStockRepository repository) : base(repository)
         {
-            
+
         }
 
-        //public IProductStock Get(string pairNumber)
-        //{
-        //   return  _repository.Get(pairNumber);
-        //}
-
-        public IProductStock GetAvailable(IProduct product)
+        public IResultObjects<IProductStock> GetAvailable(IProduct product)
         {
-            //if (product is IProductPackage)
-            //{
-                //PackageStock package = new PackageStock
-                //{
-                //    PartNumber = "PACK-" +  DateTime.Now.Ticks,
-                //    Product = product
-                //};
-                //var pack = (IProductPackage)product;
-                //foreach (var prod in pack.Parts)
-                //{
-                //    var ProdStock = _repository.GetAvailable(prod.Code);
-                //    if (ProdStock == null)
-                //    {
-                //        return null;
-                //    }
-                //    package.Parts.Add(ProdStock);
-                //}
-            //    //return package;
-            //}
-            //else
+            IList<IProductStock> products = new List<IProductStock>();
+            if (product is IPackage)
             {
-                return ((IProductStockRepository) _repository).GetAvailable(product.Code);
+
+                foreach (var prod in ((IPackage)product).Parts)
+                {
+                    var prodStock = ((IProductStockRepository)_repository).GetAvailable(prod.Code);
+                    if (prodStock == null)
+                    {
+                        return new ResultObjects<IProductStock>(EnumResultBL.ERROR_NO_PRODUCT_AVAILABE_IN_STOCK, prod.Code);
+                    }
+                    products.Add(prodStock);
+                }
+
             }
+            else
+            {
+                var ProdStock = ((IProductStockRepository)_repository).GetAvailable(product.Code);
+                if (ProdStock == null)
+                {
+                    return new ResultObjects<IProductStock>(EnumResultBL.ERROR_NO_PRODUCT_AVAILABE_IN_STOCK, product.Code);
+                }
+                products.Add(ProdStock);
+
+            }
+            return new ResultObjects<IProductStock>(products);
         }
 
-
-        public IResultBooking BookingRequest(IProductStock product, int idBooking)
+        public IResultBooking BookingRequest(IEnumerable<IProductStock> products, int idBooking)
         {
-            if (idBooking != 0 && product.BookingId != null)
+            if (idBooking != 0 && products.Any(x => x.BookingId > 0))
             {
                 return new ResultBooking(EnumResultBL.ERROR_PRODUCT_IN_STOCK_WAS_ALREADY_BOOKED);
             }
 
-            product.BookingId = idBooking;
+            foreach (var aux in products)
+            {
+                aux.BookingId = idBooking;
+                _repository.Edit(aux);
+            }
 
-            //if (product is IPackageStock)
-            //{
-            //    IPackageStock package = (IPackageStock) product;
-            //    foreach (var prod in package.Parts)
-            //    {
-            //        prod.BookingId = idBooking;
-            //    }
-            //}
-                      
-            _repository.Edit(product);
             return new ResultBooking(EnumResultBL.OK);
         }
     }

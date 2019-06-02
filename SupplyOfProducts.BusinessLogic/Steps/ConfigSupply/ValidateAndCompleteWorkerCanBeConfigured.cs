@@ -26,27 +26,36 @@ namespace SupplyOfProducts.BusinessLogic.Steps.ConfigSupply
 
         protected override IResult ExecuteTemplate(IManagementModelRequest<IConfigSupply> obj)
         {
-            var supplyScheduled = _supplyScheduledService.Get(obj.Item.Product.Code, 
-                                                              obj.Item.WorkerInWorkPlace.Worker.Code, 
-                                                              obj.Item.WorkerInWorkPlace.WorkPlace.Code, 
-                                                              obj.Item.PeriodDate);
-            if (supplyScheduled != null && supplyScheduled.Amount == obj.Item.Amount)
+            IConfigSupply itemRequest = obj.Item;
+            var supplyScheduled = _supplyScheduledService.Get(itemRequest.Product.Code,
+                                                              itemRequest.WorkerInWorkPlace.Worker.Code,
+                                                              itemRequest.WorkerInWorkPlace.WorkPlace.Code,
+                                                              itemRequest.PeriodDate);
+
+            if (supplyScheduled != null ) 
             {
-                obj.Item.SupplyScheduled = supplyScheduled;
-                return OkAndFinish("The Configuration is the same as the one already registered in the system");
+
+                if (supplyScheduled.Amount == obj.Item.Amount)
+                {
+                    obj.Item.SupplyScheduled = supplyScheduled;
+                    return OkAndFinish("The Configuration is the same as the one already registered in the system");
+                }
+
+                var productsReceived = _productSupplyService.GetProductSuppliedToWorker(itemRequest.Product.Code,
+                                                                                        itemRequest.WorkerInWorkPlace.Worker.Code,
+                                                                                        itemRequest.WorkerInWorkPlace.WorkPlace.Code,
+                                                                                        itemRequest.PeriodDate);
+                if (productsReceived.Count() >= obj.Item.Amount)
+                {
+                    return new Result(EnumResultBL.ERROR_THE_NEW_AMOUNT_MEANT_TO_BE_SET_IS_SMALLER_THAN_THE_ONE_ALREADY_SUPPLIED,
+                                        itemRequest.WorkerInWorkPlace.Worker.Code,
+                                        supplyScheduled.Amount, obj.Item.Product.Code,
+                                        itemRequest.WorkerInWorkPlace.WorkPlace.Code,
+                                        itemRequest.PeriodDate);
+                }
             }
 
-            var productsReceived = _productSupplyService.GetAll(obj.Item.WorkerInWorkPlace.Worker.Code);
-            if (productsReceived.Count() >= obj.Item.Amount)
-            {
-                return new Result(EnumResultBL.ERROR_THE_NEW_AMOUNT_MEANT_TO_BE_SET_IS_SMALLER_THAN_THE_ONE_ALREADY_SUPPLIED, 
-                                    obj.Item.WorkerInWorkPlace.Worker.Code, 
-                                    supplyScheduled.Amount, obj.Item.Product.Code, 
-                                    obj.Item.WorkerInWorkPlace.WorkPlace.Code, 
-                                    obj.Item.PeriodDate);
-            }
-
-            obj.Item.SupplyScheduled = supplyScheduled;
+            itemRequest.SupplyScheduled = supplyScheduled;
 
             return Result.Ok;
         }

@@ -24,15 +24,7 @@ namespace SupplyOfProducts.PersistanceDDBB.Repository
         /// <summary>
         /// 
         /// </summary>
-        protected readonly IMapper mapper;
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="entity"></param>
-        public delegate void ProcedureDelegate(TEntity entity);
-
+        protected readonly IMapper _Mapper;
         
         /// <summary>
         /// Initializes a new instance of the <see cref="GenericRepository{TEntity}"/> class.
@@ -42,6 +34,7 @@ namespace SupplyOfProducts.PersistanceDDBB.Repository
         {
             DbContext = dbContext;
             _Current = DbContext.Set<TEntity>();
+            _Mapper = mapper;
         }
 
         public virtual TEntity GetById(int id)

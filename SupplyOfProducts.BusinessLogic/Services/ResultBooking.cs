@@ -9,10 +9,13 @@ namespace SupplyOfProducts.BusinessLogic.Services
         public ResultBooking(EnumResultBL x, params object[] para) : base(x, x.GetDescription(), para)
         { }
 
-        public bool TryAgain {
-            get {
+        public bool TryAgain
+        {
+            get
+            {
                 return Code == EnumResultBL.ERROR_PRODUCT_IN_STOCK_WAS_ALREADY_BOOKED;
             }
         }
     }
 }
+

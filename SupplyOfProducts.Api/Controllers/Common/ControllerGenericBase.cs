@@ -35,6 +35,9 @@ namespace SupplyOfProducts.Api.Controllers
         }
     }
 
+
+    
+
     public abstract class ControllerGenericBase<TModel, TService, TModelView, TModelViewGet> : ControllerGenericBaseRead<TModel, TService, TModelView, TModelViewGet> where TService : IGenericReadService<TModel> where TModel : IId
     {
         protected readonly IStep<IManagementModelRequest<TModel>> _businessLogic;

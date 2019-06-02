@@ -22,7 +22,10 @@ namespace SupplyOfProducts.PersistanceDDBB
         /// <param name="modelBuilder">The modelBuilder<see cref="ModelBuilder"/></param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfiguration(new AbstractProductConfiguration());
             modelBuilder.ApplyConfiguration(new ProductConfiguration());
+            modelBuilder.ApplyConfiguration(new PackageConfiguration());
+            
             modelBuilder.ApplyConfiguration(new ProductPartsConfiguration());
             modelBuilder.ApplyConfiguration(new WorkerConfiguration());
             modelBuilder.ApplyConfiguration(new WorkPlaceConfiguration());

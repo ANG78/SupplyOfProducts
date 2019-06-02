@@ -6,9 +6,9 @@ using SupplyOfProducts.Interfaces.BusinessLogic.Entities;
 using SupplyOfProducts.Interfaces.BusinessLogic.Services;
 using SupplyOfProducts.Interfaces.Repository;
 
-namespace SupplyOfProducts.BusinessLogic.Services
+namespace SupplyOfProducts.BusinessLogic.Services.Generics
 {
-    public abstract class GenericService<T> : IGenericService<T> where T : IId
+    public abstract class GenericService<T> : IGenericService<T> where T : IId, ICode
     {
         protected readonly IGenericRepository<T> _repository;
         public GenericService(IGenericRepository<T> workerRepository)
@@ -25,16 +25,16 @@ namespace SupplyOfProducts.BusinessLogic.Services
         {
             try
             {
-                var res = Check(item);
+                var res = Get(item.Code); 
 
                 if (res == null)
                 {
-                    return new Result(EnumResultBL.ERROR_CODE_NOT_EXIST, GetString(item));
+                    return new Result(EnumResultBL.ERROR_CODE_NOT_EXIST, item.Code);
                 }
 
                 if (res.Id != item.Id)
                 {
-                    return new Result(EnumResultBL.ERROR_ALREADY_EXIST_WITH_THIS_CODE, GetString(item));
+                    return new Result(EnumResultBL.ERROR_ALREADY_EXIST_WITH_THIS_CODE, item.Code);
                 }
 
 
@@ -56,11 +56,11 @@ namespace SupplyOfProducts.BusinessLogic.Services
         {
             try
             {
-                var res = Check(item);
+                var res = Get(item.Code); 
 
                 if (res != null)
                 {
-                    return new Result(EnumResultBL.ERROR_ALREADY_EXIST_WITH_THIS_CODE, GetString(item));
+                    return new Result(EnumResultBL.ERROR_ALREADY_EXIST_WITH_THIS_CODE, item.Code);
                 }
 
                 _repository.Add(item);
@@ -81,32 +81,12 @@ namespace SupplyOfProducts.BusinessLogic.Services
             return _repository.Get();
         }
 
-        protected abstract T Check(T item);
-
-        protected abstract string GetString(T item);
-
         public virtual T Get(string code)
         {
             return _repository.Get(code);
         }
+
     }
 
 
-    public abstract class GenericServiceCode<T> : GenericService<T>, IGenericService<T> where T : ICode, IId
-    {
-        public GenericServiceCode(IGenericRepository<T> workerRepository):base(workerRepository)
-        {
-            
-        }
-        
-        protected override string GetString(T item)
-        {
-            return item.Code;
-        }
-
-        protected override T Check(T item)
-        {
-           return  Get(item.Code);
-        }
-    }
 }

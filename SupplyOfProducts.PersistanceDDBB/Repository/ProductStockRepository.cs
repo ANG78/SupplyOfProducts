@@ -71,7 +71,7 @@ namespace SupplyOfProducts.PersistanceDDBB.Repository
         {
             var result = _Current
                             .Include(x => x.Product)
-                            .Where(x => x.Product.Code == codProduct && x.BookingId == null)
+                            .Where(x => x.Product.Code == codProduct && (x.BookingId == null || x.BookingId == 0))
                             .FirstOrDefault();
             return result;
         }

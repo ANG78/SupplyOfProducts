@@ -11,7 +11,7 @@ namespace SupplyOfProducts.BusinessLogic.Steps
         private readonly IWorkPlaceService _workplaceService;
 
         public ValidateAndCompleteWorkPlace(IWorkPlaceService workplaceService,
-                                            IStep<IRequestMustBeCompleted> next = null) : base(next)
+                                            IStep<IRequestMustBeCompleted> next = null)
         {
             _workplaceService = workplaceService;
         }

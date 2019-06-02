@@ -11,7 +11,7 @@ namespace SupplyOfProducts.BusinessLogic.Steps
     {
         readonly IWorkerInWorkPlaceService _workerInWorkPlaceService;
 
-        public ValidateAndCompleteWorkerInWorkPlace(IWorkerInWorkPlaceService workerInWorkPlaceService) : base(null)
+        public ValidateAndCompleteWorkerInWorkPlace(IWorkerInWorkPlaceService workerInWorkPlaceService)
         {
             _workerInWorkPlaceService = workerInWorkPlaceService;
         }

@@ -2,9 +2,9 @@
 using SupplyOfProducts.BusinessLogic.Steps.Common;
 using SupplyOfProducts.Entities.BusinessLogic.Entities.Provision;
 using SupplyOfProducts.Interfaces.BusinessLogic;
-using SupplyOfProducts.Interfaces.BusinessLogic.Entities;
 using SupplyOfProducts.Interfaces.BusinessLogic.Services;
 using SupplyOfProducts.Interfaces.BusinessLogic.Services.Request;
+using System.Linq;
 
 namespace SupplyOfProducts.BusinessLogic.Steps.ProcessProductSupply
 {
@@ -28,20 +28,30 @@ namespace SupplyOfProducts.BusinessLogic.Steps.ProcessProductSupply
             return "Assignation of one Product in Stock when processing a Product Supply Request";
         }
 
+
+        readonly int numTries = 3;
+
         protected override IResult ExecuteTemplate(IManagementModelRequest<IProductSupply> obj)
         {
             var itemRequest = obj.Item;
-            var productStock = _productStockService.GetAvailable(itemRequest.Product);
+            var resProductStock = _productStockService.GetAvailable(itemRequest.Product);
 
-            if (productStock == null)
-                return new Result(EnumResultBL.ERROR_NO_PRODUCT_AVAILABE, itemRequest.Product.Code);
+            if (resProductStock.ComputeResult().IsError())
+                return resProductStock;
 
-            itemRequest.ProductsSupplied.Add(  new ProductSupplied { ProductSupply = itemRequest, ProductStock = productStock });
+            itemRequest.ProductsSupplied.Clear();
 
-            var resultBooking = _productStockService.BookingRequest(productStock, itemRequest.WorkerInWorkPlaceId);
+            foreach (var it in resProductStock.GetItems())
+            {
+                itemRequest.ProductsSupplied.Add(new ProductSupplied { ProductSupply = itemRequest, ProductStock = it });
+            }
+
+            var productsInStock = itemRequest.ProductsSupplied.Select(x => x.ProductStock).ToList();
+
+            var resultBooking = _productStockService.BookingRequest(productsInStock, itemRequest.WorkerInWorkPlaceId);
             if (resultBooking.ComputeResult().IsError())
             {
-                _productStockService.BookingRequest(productStock, 0);
+                _productStockService.BookingRequest(productsInStock, 0);
 
                 if (!resultBooking.TryAgain)
                 {
@@ -49,8 +59,16 @@ namespace SupplyOfProducts.BusinessLogic.Steps.ProcessProductSupply
                 }
                 return ExecuteTemplate(obj);
             }
-           
-            _productSupplyService.Save(itemRequest);
+
+            if (itemRequest.Id == 0)
+            {
+                _productSupplyService.Add(itemRequest);
+            }
+            else
+            {
+                _productSupplyService.Edit(itemRequest);
+            }
+            
 
             return Result.Ok;
         }

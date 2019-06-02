@@ -42,8 +42,20 @@ namespace SupplyOfProducts.PersistanceDDBB.Repository
             base.Edit((ProductSupply)obj.ProductSupply);
         }
 
-      
-        public IList<IProductSupply> GetProductSuppliedToWorker(string sCodeWorker)
+
+        public IEnumerable<IProductSupply> Get(string sCodeWorker)
+        {
+            return _Current.Where(x => x.WorkerInWorkPlace.Worker.Code == sCodeWorker)
+               .Include(x => x.Product)
+               .Include(x => x.ProductsSupplied).ThenInclude(y => ((ProductSupplied)y).ProductStock).ThenInclude(z => z.Product)
+               .Include(x => x.WorkerInWorkPlace)
+               .Include(x => x.WorkerInWorkPlace.Worker)
+               .Include(x => x.WorkerInWorkPlace.WorkPlace)
+               .OrderByDescending(x => x.Date)
+               .Select(d => (IProductSupply)d).ToList();
+        }
+
+        public IEnumerable<IProductSupply> GetAll(string sCodeWorker)
         {
             return _Current.Where(x => x.WorkerInWorkPlace.Worker.Code == sCodeWorker)
                 .Include(x => x.Product)
@@ -51,22 +63,9 @@ namespace SupplyOfProducts.PersistanceDDBB.Repository
                 .Include(x => x.WorkerInWorkPlace)
                 .Include(x => x.WorkerInWorkPlace.Worker)
                 .Include(x => x.WorkerInWorkPlace.WorkPlace)
-                .OrderByDescending(x => x.Date)
-                .Select(d => (IProductSupply)d).ToList();
-        }
-
-
-        public IProductSupply Get(string sCodeWorker)
-        {
-            return _Current.Where(x => x.WorkerInWorkPlace.Worker.Code == sCodeWorker)
-                .Include(x => x.Product)
-                .Include(x => x.ProductsSupplied).ThenInclude(y => ((ProductSupplied)y).ProductStock).ThenInclude(z=>z.Product)
-                .Include(x => x.WorkerInWorkPlace)
-                .Include(x => x.WorkerInWorkPlace.Worker)
-                .Include(x => x.WorkerInWorkPlace.WorkPlace)
                 .OrderByDescending(x => x.PeriodDate)
                 .Select(d => (IProductSupply)d)
-                .FirstOrDefault();
+                .ToList();
         }
 
         public IEnumerable<IProductSupply> Get()
@@ -81,7 +80,7 @@ namespace SupplyOfProducts.PersistanceDDBB.Repository
                 .Select(d => (IProductSupply)d).ToList();
         }
 
-        public IProductSupply Get(int idWorkerInWorkPlace, int idProduct, DateTime PeriodStartDate)
+        public IEnumerable<IProductSupply> GetAll(int idWorkerInWorkPlace, int idProduct, DateTime PeriodStartDate)
         {
             return _Current.Where(p => p.ProductId == idProduct &&
                                            p.WorkerInWorkPlaceId == idWorkerInWorkPlace &&
@@ -91,26 +90,25 @@ namespace SupplyOfProducts.PersistanceDDBB.Repository
                         .Include(x => x.WorkerInWorkPlace)
                         .Include(x => x.WorkerInWorkPlace.Worker)
                         .Include(x => x.WorkerInWorkPlace.WorkPlace)
-                        .FirstOrDefault();
+                        .ToList();
 
         }
 
-        public IList<IProductSupplied> GetProductSuppliedToWorkerOnThisPeriod(string sCodeProduct, string sCodeWorker, string sCodWorkPlace, DateTime date)
+        public IEnumerable<IProductSupplied> GetProductSuppliedToWorkerOnThisPeriod(string sCodeProduct, string sCodeWorker, string sCodWorkPlace, DateTime date)
         {
-            return _Current.SelectMany(p => p.ProductsSupplied)
-                            .Where(
-                                    p => p.ParentProductSupplied == null &&
-                                    p.ProductStock.Product.Code == sCodeProduct &&
-                                    p.ProductSupply.WorkerInWorkPlace.Worker.Code == sCodeWorker &&
+            var result = _Current
+                        .SelectMany(y => (IList < ProductSupplied >) y.ProductsSupplied)
+                        .Where(p => p.ProductSupply.Product.Code == sCodeProduct &&
                                     p.ProductSupply.WorkerInWorkPlace.WorkPlace.Code == sCodWorkPlace &&
+                                    p.ProductSupply.WorkerInWorkPlace.Worker.Code == sCodeWorker &&
                                     p.ProductSupply.PeriodDate == date)
-                            //.Include(x => x.ProductStock)
-                            //.Include(x => x.ProductSupply)
-                            //.Include(x => x.ParentProductSupplied)
-                            .ToList();
-
+                       .Include(x => x.ProductSupply)
+                       .Include(x => x.ProductStock)
+                       .ToList<IProductSupplied>();
+           
+            return result;
         }
 
-
+        
     }
 }

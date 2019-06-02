@@ -2,7 +2,12 @@
 
 namespace SupplyOfProducts.Interfaces.BusinessLogic.Services
 {
-  
+    public interface IGenericNotSingleCodeReadService<T>
+    {
+        IEnumerable<T> Get(string code);
+        IEnumerable<T> GetAll();
+    }
+
     public interface IGenericReadService<T>
     {
         T Get(string code);
@@ -19,7 +24,7 @@ namespace SupplyOfProducts.Interfaces.BusinessLogic.Services
     {
     }
 
-    public interface IGenericCodeService<T> : IGenericService<T>
+    public interface IGenericNotSingleCodeService<T> : IGenericNotSingleCodeReadService<T>, IGenericWriteService<T>
     {
     }
 }

@@ -3,6 +3,7 @@ using SupplyOfProducts.BusinessLogic.Steps.Common;
 using SupplyOfProducts.Interfaces.BusinessLogic;
 using SupplyOfProducts.Interfaces.BusinessLogic.Services;
 using SupplyOfProducts.Interfaces.BusinessLogic.Services.Request;
+using System.Linq;
 
 namespace SupplyOfProducts.BusinessLogic.Steps.ProcessProductSupply
 {
@@ -40,7 +41,7 @@ namespace SupplyOfProducts.BusinessLogic.Steps.ProcessProductSupply
                                                                                     itemRequest.WorkerInWorkPlace.Worker.Code,
                                                                                     itemRequest.WorkerInWorkPlace.WorkPlace.Code,
                                                                                     itemRequest.PeriodDate);
-            if (productsReceived.Count >= supplyScheduled.Amount)
+            if (productsReceived.ToList().Count >= supplyScheduled.Amount)
             {
                 return new Result(EnumResultBL.ERROR_WORKER_HAS_REACHED_THE_LIMIT_OF_PRODUCTS_OF_THIS_TYPE, itemRequest.WorkerInWorkPlace.Worker.Code, supplyScheduled.Amount, itemRequest.Product.Code, itemRequest.WorkerInWorkPlace.WorkPlace.Code, itemRequest.PeriodDate);
             }

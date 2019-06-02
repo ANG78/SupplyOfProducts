@@ -3,21 +3,35 @@
 namespace SupplyOfProducts.Interfaces.Repository
 {
 
-    public interface IGenericReadRepository<T>
+    public interface IGenericCodeReadRepository<T>
     {
         T Get(string code);
-        IEnumerable<T> Get();
+    }
 
+    public interface IGenericNotSingleCodeReadRepository<T> 
+    {
+        IEnumerable<T> Get(string code);
+    }
+
+    public interface IGenericReadRepository<T>
+    {
+        IEnumerable<T> Get();
     }
 
     public interface IGenericWriteRepository<T>
     {
-        void Edit(T worker);
-        void Add(T worker);
+        void Edit(T item);
+        void Add(T item);
     }
 
-    public interface IGenericRepository<T> : IGenericReadRepository<T>, IGenericWriteRepository<T>
+    public interface IGenericNotSingleCodeRepository<T> : IGenericReadRepository<T>, IGenericNotSingleCodeReadRepository<T>, IGenericWriteRepository<T>
+    {
+    }
+
+    public interface IGenericRepository<T> : IGenericReadRepository<T>, IGenericCodeReadRepository<T>, IGenericWriteRepository<T>
     {
   
     }
+
+   
 }

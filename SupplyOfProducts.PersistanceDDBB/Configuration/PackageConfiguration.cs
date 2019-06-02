@@ -4,12 +4,14 @@ using SupplyOfProducts.Entities.BusinessLogic.Entities.Configuration;
 
 namespace SupplyOfProducts.PersistanceDDBB.Configuration
 {
-
-    public class ProductConfiguration : IEntityTypeConfiguration<Product>
+    public class PackageConfiguration : IEntityTypeConfiguration<Package>
     {
-        public void Configure(EntityTypeBuilder<Product> builder)
+        public void Configure(EntityTypeBuilder<Package> builder)
         {
+
             builder.ToTable("Product");
+            builder.Ignore(x => x.Parts);
+            
         }
     }
 }

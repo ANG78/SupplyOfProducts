@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using SupplyOfProducts.BusinessLogic.Common;
+using SupplyOfProducts.BusinessLogic.Services.Generics;
 using SupplyOfProducts.Interfaces.BusinessLogic;
 using SupplyOfProducts.Interfaces.BusinessLogic.Entities;
 using SupplyOfProducts.Interfaces.BusinessLogic.Services;
@@ -7,7 +8,7 @@ using SupplyOfProducts.Interfaces.Repository;
 
 namespace SupplyOfProducts.BusinessLogic.Services
 {
-    public class WorkPlaceService : GenericServiceCode<IWorkPlace>, IWorkPlaceService
+    public class WorkPlaceService : GenericService<IWorkPlace>, IWorkPlaceService
     {
         public WorkPlaceService(IWorkPlaceRepository workerRepository) : base(workerRepository)
         {

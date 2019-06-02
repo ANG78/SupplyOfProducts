@@ -26,7 +26,7 @@ namespace SupplyOfProducts.BusinessLogic.Steps.WorkerInfo
 
         protected override IResult ExecuteTemplate(IWorkerInfoRequest obj)
         {
-            obj.ProductSupplies = _productSuppliedService.GetAll(obj.Worker.Code).ToList();
+            obj.ProductSupplies = _productSuppliedService.Get(obj.Worker.Code).ToList();
             obj.WorkPlaces = _workerService.GetWorkPlaceWhereWorkedTheWorker(obj.Worker.Code,null);          
             return Result.Ok;
         }

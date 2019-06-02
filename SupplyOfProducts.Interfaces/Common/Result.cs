@@ -174,7 +174,7 @@ namespace SupplyOfProducts.Interfaces.Common
     {
         private IList<X> items;
 
-        public IList<X> GetItems()
+        public IEnumerable<X> GetItems()
         {
             return items;
         }

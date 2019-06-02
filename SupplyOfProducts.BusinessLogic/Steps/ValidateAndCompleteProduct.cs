@@ -13,8 +13,7 @@ namespace SupplyOfProducts.BusinessLogic.Steps
     {
         readonly IProductService productService;
 
-        public ValidateAndCompleteProduct(IProductService _productService,
-                                          IStep<IRequestMustBeCompleted> next = null) : base(next)
+        public ValidateAndCompleteProduct(IProductService _productService)
         {
             productService = _productService;
         }

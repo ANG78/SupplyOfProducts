@@ -11,8 +11,7 @@ namespace SupplyOfProducts.BusinessLogic.Steps
     {
         readonly IPeriodConfigurationService periodConfigurationService;
 
-        public ValidateAndCompleteDatePeriod(IPeriodConfigurationService _periodConfigurationService,
-                                             IStep<IRequestMustBeCompleted> next = null) : base(next)
+        public ValidateAndCompleteDatePeriod(IPeriodConfigurationService _periodConfigurationService) 
         {
             periodConfigurationService = _periodConfigurationService;
         }
@@ -47,9 +46,6 @@ namespace SupplyOfProducts.BusinessLogic.Steps
 
                 }
             }
-
-            
-
             return Result.Ok;
         }
     }

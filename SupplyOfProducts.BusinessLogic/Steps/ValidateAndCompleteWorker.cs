@@ -11,8 +11,7 @@ namespace SupplyOfProducts.BusinessLogic.Steps
     {
         readonly IWorkerService _workerRepository;
 
-        public ValidateAndCompleteWorker(IWorkerService workerService,
-                                         IStep<IRequestMustBeCompleted> next = null) : base(next)
+        public ValidateAndCompleteWorker(IWorkerService workerService)
         {
             _workerRepository = workerService;
         }
