@@ -8,8 +8,6 @@ using SupplyOfProducts.Interfaces.BusinessLogic.Services;
 
 namespace SupplyOfProducts.Api.Controllers
 {
-
-
     [Route("api/[controller]")]
     [ApiController]
     public class ConfigProductController : ControllerGenericBase<IConfigSupply, IConfigSupplyService, ConfigSupplyViewModel, ConfigSupplyViewModelExt>

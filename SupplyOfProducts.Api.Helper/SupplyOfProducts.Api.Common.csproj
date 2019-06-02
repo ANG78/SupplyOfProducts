@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="8.1.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SupplyOfProducts.BusinessLogic\SupplyOfProducts.BusinessLogic.csproj" />
+    <ProjectReference Include="..\SupplyOfProducts.Entities\SupplyOfProducts.Entities.csproj" />
+    <ProjectReference Include="..\SupplyOfProducts.Interfaces\SupplyOfProducts.Interfaces.csproj" />
+    <ProjectReference Include="..\SupplyOfProducts.PersistanceDDBB\SupplyOfProducts.PersistanceDDBB.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\newtonsoft.json\11.0.2\lib\netstandard2.0\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

@@ -27,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SupplyOfProducts.Api\SupplyOfProducts.Api.csproj" />
+    <ProjectReference Include="..\SupplyOfProducts.Api.Helper\SupplyOfProducts.Api.Common.csproj" />
     <ProjectReference Include="..\SupplyOfProducts.BusinessLogic\SupplyOfProducts.BusinessLogic.csproj" />
     <ProjectReference Include="..\SupplyOfProducts.Entities\SupplyOfProducts.Entities.csproj" />
     <ProjectReference Include="..\SupplyOfProducts.Interfaces\SupplyOfProducts.Interfaces.csproj" />
