@@ -1,6 +1,6 @@
 ﻿USE [master]
 GO
-/****** Object:  Database [SupplyOfProducts]    Script Date: 13/05/2019 0:35:50 ******/
+/****** Object:  Database [SupplyOfProducts]    Script Date: 04/06/2019 21:32:16 ******/
 CREATE DATABASE [SupplyOfProducts]
  CONTAINMENT = NONE
  ON  PRIMARY 
@@ -75,7 +75,7 @@ ALTER DATABASE [SupplyOfProducts] SET DELAYED_DURABILITY = DISABLED
 GO
 USE [SupplyOfProducts]
 GO
-/****** Object:  Table [dbo].[ConfigSupply]    Script Date: 13/05/2019 0:35:51 ******/
+/****** Object:  Table [dbo].[ConfigSupply]    Script Date: 04/06/2019 21:32:17 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -86,8 +86,8 @@ CREATE TABLE [dbo].[ConfigSupply](
 	[PeriodDate] [datetime] NOT NULL,
 	[WorkerInWorkPlaceId] [int] NOT NULL,
 	[ProductId] [int] NOT NULL,
-	[Amount] [tinyint] NOT NULL,
 	[SupplyScheduledId] [int] NOT NULL,
+	[Amount] [int] NOT NULL CONSTRAINT [DF_ConfigSupply_Amount]  DEFAULT ((1)),
 PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
@@ -95,7 +95,7 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[Product]    Script Date: 13/05/2019 0:35:51 ******/
+/****** Object:  Table [dbo].[Product]    Script Date: 04/06/2019 21:32:17 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -104,7 +104,7 @@ CREATE TABLE [dbo].[Product](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[Type] [nvarchar](10) NOT NULL,
 	[Code] [nvarchar](10) NOT NULL,
-	[ParentProductId] [int] NULL,
+	[Class] [nvarchar](10) NOT NULL CONSTRAINT [DF_Product_Class]  DEFAULT (N'Product'),
  CONSTRAINT [PK_Product] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
@@ -116,7 +116,23 @@ CREATE TABLE [dbo].[Product](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[ProductStock]    Script Date: 13/05/2019 0:35:51 ******/
+/****** Object:  Table [dbo].[ProductParts]    Script Date: 04/06/2019 21:32:17 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[ProductParts](
+	[ProductId] [int] NOT NULL,
+	[ParentProductId] [int] NOT NULL,
+ CONSTRAINT [PK_ProductParts] PRIMARY KEY CLUSTERED 
+(
+	[ProductId] ASC,
+	[ParentProductId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[ProductStock]    Script Date: 04/06/2019 21:32:17 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -133,7 +149,7 @@ CREATE TABLE [dbo].[ProductStock](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[ProductSupplied]    Script Date: 13/05/2019 0:35:51 ******/
+/****** Object:  Table [dbo].[ProductSupplied]    Script Date: 04/06/2019 21:32:17 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -150,7 +166,7 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[ProductSupply]    Script Date: 13/05/2019 0:35:51 ******/
+/****** Object:  Table [dbo].[ProductSupply]    Script Date: 04/06/2019 21:32:17 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -168,7 +184,7 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[SupplyScheduled]    Script Date: 13/05/2019 0:35:51 ******/
+/****** Object:  Table [dbo].[SupplyScheduled]    Script Date: 04/06/2019 21:32:17 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -186,7 +202,7 @@ CREATE TABLE [dbo].[SupplyScheduled](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[Worker]    Script Date: 13/05/2019 0:35:51 ******/
+/****** Object:  Table [dbo].[Worker]    Script Date: 04/06/2019 21:32:17 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -206,7 +222,7 @@ CREATE TABLE [dbo].[Worker](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[WorkerInWorkPlace]    Script Date: 13/05/2019 0:35:51 ******/
+/****** Object:  Table [dbo].[WorkerInWorkPlace]    Script Date: 04/06/2019 21:32:17 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -225,7 +241,7 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[WorkPlace]    Script Date: 13/05/2019 0:35:51 ******/
+/****** Object:  Table [dbo].[WorkPlace]    Script Date: 04/06/2019 21:32:17 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -244,7 +260,7 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Index [IX_ProductSupplied]    Script Date: 13/05/2019 0:35:51 ******/
+/****** Object:  Index [IX_ProductSupplied]    Script Date: 04/06/2019 21:32:17 ******/
 CREATE UNIQUE NONCLUSTERED INDEX [IX_ProductSupplied] ON [dbo].[ProductSupplied]
 (
 	[ProductStockId] ASC
@@ -265,10 +281,15 @@ REFERENCES [dbo].[WorkerInWorkPlace] ([Id])
 GO
 ALTER TABLE [dbo].[ConfigSupply] CHECK CONSTRAINT [FK_ConfigSupply_WorkerInWorkPlace]
 GO
-ALTER TABLE [dbo].[Product]  WITH CHECK ADD  CONSTRAINT [FK_Product_Product] FOREIGN KEY([ParentProductId])
+ALTER TABLE [dbo].[ProductParts]  WITH CHECK ADD  CONSTRAINT [FK_ProductParts_Product] FOREIGN KEY([ProductId])
 REFERENCES [dbo].[Product] ([Id])
 GO
-ALTER TABLE [dbo].[Product] CHECK CONSTRAINT [FK_Product_Product]
+ALTER TABLE [dbo].[ProductParts] CHECK CONSTRAINT [FK_ProductParts_Product]
+GO
+ALTER TABLE [dbo].[ProductParts]  WITH CHECK ADD  CONSTRAINT [FK_ProductParts_Product1] FOREIGN KEY([ParentProductId])
+REFERENCES [dbo].[Product] ([Id])
+GO
+ALTER TABLE [dbo].[ProductParts] CHECK CONSTRAINT [FK_ProductParts_Product1]
 GO
 ALTER TABLE [dbo].[ProductStock]  WITH CHECK ADD  CONSTRAINT [FK_ProductStock_Product] FOREIGN KEY([ProductId])
 REFERENCES [dbo].[Product] ([Id])
