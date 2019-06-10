@@ -1,0 +1,76 @@
+﻿namespace Job
+{
+    partial class UIStepControl
+    {
+        /// <summary> 
+        /// Variable del diseñador necesaria.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary> 
+        /// Limpiar los recursos que se estén usando.
+        /// </summary>
+        /// <param name="disposing">true si los recursos administrados se deben desechar; false en caso contrario.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Código generado por el Diseñador de componentes
+
+        /// <summary> 
+        /// Método necesario para admitir el Diseñador. No se puede modificar
+        /// el contenido de este método con el editor de código.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.lblDesc = new System.Windows.Forms.Label();
+            this.picture = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.picture)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // lblDesc
+            // 
+            this.lblDesc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblDesc.AutoSize = true;
+            this.lblDesc.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lblDesc.Location = new System.Drawing.Point(3, 34);
+            this.lblDesc.Name = "lblDesc";
+            this.lblDesc.Size = new System.Drawing.Size(0, 13);
+            this.lblDesc.TabIndex = 1;
+            // 
+            // picture
+            // 
+            this.picture.Image = global::Job.Properties.Resources.red;
+            this.picture.Location = new System.Drawing.Point(3, 3);
+            this.picture.Name = "picture";
+            this.picture.Size = new System.Drawing.Size(48, 29);
+            this.picture.TabIndex = 0;
+            this.picture.TabStop = false;
+            this.picture.Click += new System.EventHandler(this.pictureBox1_Click);
+            // 
+            // UIStepControl
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Controls.Add(this.lblDesc);
+            this.Controls.Add(this.picture);
+            this.Name = "UIStepControl";
+            this.Size = new System.Drawing.Size(129, 60);
+            ((System.ComponentModel.ISupportInitialize)(this.picture)).EndInit();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        #endregion
+        private System.Windows.Forms.PictureBox picture;
+        private System.Windows.Forms.Label lblDesc;
+    }
+}
