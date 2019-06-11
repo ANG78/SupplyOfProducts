@@ -7,7 +7,7 @@ namespace SupplyOfProducts.Interfaces.BusinessLogic
     public interface IStep<T>
     {
         IStep<T> Next { get; set; }
-        IResult Execute(T condept);
+        IResult Execute(T concept);
         string Description();
     }
 }

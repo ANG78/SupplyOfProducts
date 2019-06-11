@@ -9,7 +9,7 @@ namespace SupplyOfProducts.WF3._0
     static class Program
     {
 
-        public static System.Threading.SynchronizationContext SynchronizationContext { get; private set; }
+        
         /// <summary>
         /// The main entry point for the application.
         /// </summary>

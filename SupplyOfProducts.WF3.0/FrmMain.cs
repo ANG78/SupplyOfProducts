@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace SupplyOfProducts.WF3._0
@@ -9,6 +10,8 @@ namespace SupplyOfProducts.WF3._0
 
     public partial class FrmMain : Form//, IObserverEvent<SettlementSchedule>
     {
+        public static System.Threading.SynchronizationContext SynchronizationContext { get; private set; }
+
         private Panel panel1;
         private Button button1;
         private Button button2;
@@ -198,7 +201,7 @@ namespace SupplyOfProducts.WF3._0
         {
             try
             {
-                Program.SynchronizationContext.Post((state) =>
+                FrmMain.SynchronizationContext.Post((state) =>
                 {
                     if (!Form.IsDisposed)
                     {
@@ -214,7 +217,7 @@ namespace SupplyOfProducts.WF3._0
             }
             catch (Exception ex)
             {
-                Program.SynchronizationContext.Post((state) =>
+                FrmMain.SynchronizationContext.Post((state) =>
                     MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     , null);
             }
@@ -227,7 +230,7 @@ namespace SupplyOfProducts.WF3._0
 
             try
             {
-                Program.SynchronizationContext.Post((state) =>
+                FrmMain.SynchronizationContext.Post((state) =>
                 {
                     if (!Form.IsDisposed)
                     {
@@ -250,7 +253,7 @@ namespace SupplyOfProducts.WF3._0
             }
             catch (Exception ex)
             {
-                Program.SynchronizationContext.Post((state) =>
+                FrmMain.SynchronizationContext.Post((state) =>
                     MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     , null);
             }
