@@ -85,7 +85,7 @@ namespace SupplyOfProducts.Api.Common
                                 , new ValidateWorkerCanBeSupplied(sp.GetService<IProductSupplyService>(), sp.GetService<ISupplyScheduledService>())
                                 , new AssignProductToWorker(sp.GetService<IProductSupplyService>(), sp.GetService<IProductStockService>())
                             ));
-            
+
             /*ConfigSupply*/
             services.AddScoped(sp =>
             {

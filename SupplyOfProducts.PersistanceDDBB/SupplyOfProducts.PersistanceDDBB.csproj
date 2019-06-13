@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SupplyOfProducts.Entities\SupplyOfProducts.Entities.csproj" />
+    <ProjectReference Include="..\SupplyOfProducts.Interfaces\SupplyOfProducts.Interfaces.csproj" />
   </ItemGroup>
 
 </Project>

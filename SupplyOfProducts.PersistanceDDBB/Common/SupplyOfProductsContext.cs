@@ -119,11 +119,11 @@ namespace SupplyOfProducts.PersistanceDDBB
 
             if (_context != null)
             {
-                _context.Dispose();
+              //  _context.Dispose();
             }
 
             _transaction = null;
-            _context = null;
+            //_context = null;
         }
     }
 

@@ -6,9 +6,10 @@ using System.Windows.Forms;
 
 namespace SupplyOfProducts.WF3._0
 {
+
+   
     static class Program
     {
-
         
         /// <summary>
         /// The main entry point for the application.
@@ -23,12 +24,21 @@ namespace SupplyOfProducts.WF3._0
             conf.AddJsonFile("appsettings.json");
 
             var services = new ServiceCollection();
+
+
             Startup start = new Startup(conf.Build());
             start.ConfigureRepositoryServices(services);
 
-            var ProviderDB = services.BuildServiceProvider();
+            var helper = HI.GetInst(services.BuildServiceProvider());
 
-            Application.Run(new FrmMain());
+            var mainForm = new FrmMain();
+            IObserverEvent observer = new FrmMainObserver(mainForm);
+            CoRBuilder.Listener?.Register(observer);
+
+            Application.Run(mainForm);
         }
     }
 }
+
+
+

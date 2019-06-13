@@ -11,7 +11,7 @@ namespace SupplyOfProducts.PersistanceDDBB
     public class Startup
     {
         public IConfigurationRoot Configuration { get; }
-        
+
         public Startup(IConfigurationRoot configuration)
         {
             Configuration = configuration;

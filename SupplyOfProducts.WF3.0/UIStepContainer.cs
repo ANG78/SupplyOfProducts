@@ -1,34 +1,25 @@
-﻿using System.Collections.Generic;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace SupplyOfProducts.WF3._0
 {
-    public partial class UIStepContainer : UserControl, IObserverEvent<SettlementSchedule>
+    public partial class UIStepContainer : UserControl
     {
         public UIStepContainer()
         {
-            InitializeComponent();
+            HelperUI.ModifyMethod(this, () =>
+            {
+                InitializeComponent();
+            });
         }
 
         private FlowLayoutPanel panel;
-        Dictionary<IProcessStep<SettlementSchedule>, UIStepControl> controls = new Dictionary<IProcessStep<SettlementSchedule>, UIStepControl>();
-       
 
-        public void Update(IRequest<SettlementSchedule> item, IProcessStep<SettlementSchedule> sender, EnumEventStepObserver eventStep)
+        public void Add(UIStepControl stp)
         {
-            UIStepControl control = null;
-            if (!controls.ContainsKey(sender))
+            HelperUI.ModifyMethod(this, () =>
             {
-                control = new UIStepControl();
-                controls[sender] = control;
-                panel.Controls.Add(control);
-            }
-            else
-            {
-                control = controls[sender];
-            }
-
-            control.SetValues(eventStep, sender.Desc + ":" +  item.IdRequest + " " + eventStep);
+                panel.Controls.Add(stp);
+            });
         }
 
         private void InitializeComponent()
@@ -38,8 +29,8 @@ namespace SupplyOfProducts.WF3._0
             // 
             // panel
             // 
-            this.panel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.panel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel.BackColor = System.Drawing.Color.DarkGray;
             this.panel.Location = new System.Drawing.Point(9, 7);
@@ -56,6 +47,6 @@ namespace SupplyOfProducts.WF3._0
 
         }
 
-     
+
     }
 }

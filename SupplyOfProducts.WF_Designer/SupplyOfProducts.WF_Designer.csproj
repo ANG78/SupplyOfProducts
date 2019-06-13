@@ -58,24 +58,48 @@
       <Link>FrmMain.cs</Link>
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="..\SupplyOfProducts.WF3.0\FrmMain.Designer.cs">
+      <Link>FrmMain.Designer.cs</Link>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FrmMain.resx</DependentUpon>
+    </Compile>
     <Compile Include="..\SupplyOfProducts.WF3.0\UIStepContainer.cs">
       <Link>UIStepContainer.cs</Link>
       <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="..\SupplyOfProducts.WF3.0\UIStepContainer.Designer.cs">
+      <Link>UIStepContainer.Designer.cs</Link>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UIStepContainer.resx</DependentUpon>
     </Compile>
     <Compile Include="..\SupplyOfProducts.WF3.0\UIStepControl.cs">
       <Link>UIStepControl.cs</Link>
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="..\SupplyOfProducts.WF3.0\UIStepControl.Designer.cs">
+      <Link>UIStepControl.Designer.cs</Link>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UIStepControl.resx</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="..\SupplyOfProducts.WF3.0\FrmMain.resx">
       <Link>FrmMain.resx</Link>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>FrmMain.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="..\SupplyOfProducts.WF3.0\UIStepContainer.resx">
       <Link>UIStepContainer.resx</Link>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>UIStepContainer.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="..\SupplyOfProducts.WF3.0\UIStepControl.resx">
       <Link>UIStepControl.resx</Link>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>UIStepControl.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

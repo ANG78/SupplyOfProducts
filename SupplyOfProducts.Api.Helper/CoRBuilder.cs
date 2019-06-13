@@ -7,10 +7,9 @@ using Microsoft.Extensions.DependencyInjection;
 namespace SupplyOfProducts.Api.Common
 {
 
-
     public class CoRBuilder
     {
-        public static bool IsCreateListener { get; set; } = true;
+        public static ListenerEventStep Listener { get; set; } = new ListenerEventStep();
 
         readonly IServiceProvider _service;
         public CoRBuilder(IServiceProvider service)
@@ -19,12 +18,22 @@ namespace SupplyOfProducts.Api.Common
         }
 
         public IStep<T> Get<T>(params IStep<T>[] parameters)
+
         {
             IList<IStep<T>> listToProcess = parameters.ToList();
 
-            if (IsCreateListener)
+            if (Listener != null)
             {
-                listToProcess = listToProcess.Select(x => (IStep<T>)new DecoratorStep<T>(x)).ToList();
+                var listToProcess2 = listToProcess.Select(x => new DecoratorStep<T>(x)).ToList();
+
+                foreach (var aux in listToProcess2)
+                {
+                    aux.ExceptionEvent += Listener.ExceptionEvent;
+                    aux.FinishHandler += Listener.FinishHandler;
+                    aux.StartEvent += Listener.StartHandler;
+                }
+                var listToProcess3 = listToProcess2.Select(x=> (IStep<T>) x).ToList();
+                listToProcess = listToProcess3;
             }
 
             var result = listToProcess.First();
