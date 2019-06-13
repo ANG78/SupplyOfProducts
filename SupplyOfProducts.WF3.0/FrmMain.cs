@@ -127,9 +127,45 @@ namespace SupplyOfProducts.WF3._0
             });
         }
 
-        private void Button2_Click(object sender, EventArgs e)
-        {
 
+        private async void Button2_Click(object sender, EventArgs e)
+        {
+            await Task.Run(() =>
+            {
+                var _businessLogic = HI.GetInst().Get<IStep<IManagementModelRequest<IConfigSupply>>>();
+                var config = new ConfigSupply();
+                config.Product = new Product
+                {
+                    Code = "EPI1"
+                };
+                config.WorkerInWorkPlace = new WorkerInWorkPlace();
+                config.WorkerInWorkPlace.Worker = new Worker {
+                    Code = "W01"
+                };
+
+                config.WorkerInWorkPlace.WorkPlace = new WorkPlace
+                {
+                    Code = "WP01"
+                };
+                config.Date = DateTime.Now;
+                config.Amount = 25;
+
+                var request = new ManagementModelRequest<IConfigSupply>
+                {
+                    Item = config,
+                    Type = Operation.NEW
+                };
+
+                var result = _businessLogic.Execute(request);
+                if (result.ComputeResult().IsOk())
+                {
+                    Console.WriteLine(result.Message());
+                }
+                else
+                {
+                    Console.WriteLine(result.Message());
+                }
+            });
         }
     }
 
