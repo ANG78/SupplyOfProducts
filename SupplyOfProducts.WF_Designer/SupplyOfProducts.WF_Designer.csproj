@@ -80,9 +80,13 @@
     </Compile>
     <Compile Include="..\SupplyOfProducts.WF3.0\UIStepControl.Designer.cs">
       <Link>UIStepControl.Designer.cs</Link>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>UIStepControl.resx</DependentUpon>
+    </Compile>
+    <Compile Include="..\SupplyOfProducts.WF3.0\UIStepGenerator.cs">
+      <Link>UIStepGenerator.cs</Link>
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="..\SupplyOfProducts.WF3.0\UIStepGenerator.Designer.cs">
+      <Link>UIStepGenerator.Designer.cs</Link>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -94,12 +98,10 @@
     <EmbeddedResource Include="..\SupplyOfProducts.WF3.0\UIStepContainer.resx">
       <Link>UIStepContainer.resx</Link>
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>UIStepContainer.Designer.cs</LastGenOutput>
+      <LastGenOutput>UIStepContainer1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="..\SupplyOfProducts.WF3.0\UIStepControl.resx">
       <Link>UIStepControl.resx</Link>
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>UIStepControl.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -110,6 +112,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="..\SupplyOfProducts.WF3.0\UIStepGenerator.resx">
+      <DependentUpon>UIStepGenerator.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

@@ -6,8 +6,8 @@ namespace SupplyOfProducts.Api.Controllers.ViewModels
     {
         public int Id { get; set; }
         [JsonProperty(Required = Required.Always)]
-        public string Code { get; set; }
+        public string Code { get; set; } = "";
         [JsonProperty(Required = Required.Always)]
-        public string Name { get; set; }   
+        public string Name { get; set; } = "";
     }
 }

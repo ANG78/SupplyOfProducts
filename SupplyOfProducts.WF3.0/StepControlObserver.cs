@@ -5,10 +5,12 @@ using System;
 
 namespace SupplyOfProducts.WF3._0
 {
+    
+
     public class StepControlObserver : IObserverEvent
     {
         UIStepControl Container;
-        public StepControlObserver(UIStepContainer form)
+        public StepControlObserver(UIStepGenerator form)
         {
             HelperUI.ModifyMethod(form, () =>
             {
@@ -19,20 +21,31 @@ namespace SupplyOfProducts.WF3._0
 
         public void Exception<T>(T pData, IStep<T> pStep, Exception ex)
         {
-            string Tstring = JsonConvert.SerializeObject(pData);
-            Container.SetValueException(Tstring, ex.Message);
+            Container.SetValueException(SerializeString(pData), ex.Message);
         }
 
         public void Finish<T>(T pData, IStep<T> pStep, IResult res)
         {
-            string Tstring = JsonConvert.SerializeObject(pData);
-            Container.SetValueFinish(Tstring, res);
+            Container.SetValueFinish(SerializeString(pData), res.ComputeResult().IsOk(),res.ComputeResult().IsWarning(), res.Message());
         }
 
         public void Start<T>(T pData, IStep<T> pStep)
         {
-            string Tstring = JsonConvert.SerializeObject(pData);
-            Container.SetValueStart(Tstring, pStep.Description());
+            Container.SetValueStart(SerializeString(pData));
+        }
+
+        public void Initial(string desc)
+        {
+            Container.SetValueInitial( desc);
+        }
+
+        private string SerializeString<TData>(TData pData)
+        {
+            JsonSerializerSettings opt = new JsonSerializerSettings
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            };
+            return JsonConvert.SerializeObject(pData, opt);
         }
     }
 }

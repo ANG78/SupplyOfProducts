@@ -11,12 +11,25 @@ namespace SupplyOfProducts.WF3._0
     {
         FrmMain Form;
         static object LockerCreation = new object();
+
+        Dictionary<object, IObserverEvent> Containers = new Dictionary<object, IObserverEvent>();
+
         public FrmMainObserver(FrmMain form)
         {
             Form = form;
+            Form.CreateNewHandler += CreateContainer;
         }
 
-        Dictionary<object, IObserverEvent> Containers = new Dictionary<object, IObserverEvent>();
+        public void CreateContainer()
+        {
+            var aux = new StepContainerObserver(Form, this);
+        }
+
+        public void RegisterContainer<T>( StepContainerObserver obs, T pData)
+        {
+            Containers[pData] = obs;
+        }
+       
 
         /*public void Clear(IRequest<SettlementSchedule> rq)
         {
@@ -53,7 +66,7 @@ namespace SupplyOfProducts.WF3._0
                 {
                     if (!Containers.ContainsKey(pData))
                     {
-                        Containers[pData] = new StepContainerObserver(Form.panelSteps);
+                        Containers[pData] = null;// Form.Get(pData);
                     }
                 }
             }
@@ -61,7 +74,7 @@ namespace SupplyOfProducts.WF3._0
         }
 
 
-        public async void Start<T>(T pData, IStep<T> pStep)
+        public  void Start<T>(T pData, IStep<T> pStep)
         {
             try
             {
@@ -71,7 +84,7 @@ namespace SupplyOfProducts.WF3._0
                 }
 
 
-                GetContainer(pData).Start(pData, pStep);
+                GetContainer(pData)?.Start(pData, pStep);
 
             }
             catch (Exception ex)
@@ -82,7 +95,7 @@ namespace SupplyOfProducts.WF3._0
             }
         }
 
-        public async  void Finish<T>(T pData, IStep<T> pStep, IResult res)
+        public   void Finish<T>(T pData, IStep<T> pStep, IResult res)
         {
             try
             {
@@ -91,7 +104,7 @@ namespace SupplyOfProducts.WF3._0
                     return;
                 }
 
-                GetContainer(pData).Finish(pData, pStep, res);
+                GetContainer(pData)?.Finish(pData, pStep, res);
 
             }
             catch (Exception ex)
@@ -102,7 +115,7 @@ namespace SupplyOfProducts.WF3._0
             }
         }
 
-        public async void Exception<T>(T pData, IStep<T> pStep, Exception ex)
+        public  void Exception<T>(T pData, IStep<T> pStep, Exception ex)
         {
             try
             {
@@ -111,7 +124,7 @@ namespace SupplyOfProducts.WF3._0
                     return;
                 }
 
-                GetContainer(pData).Exception(pData, pStep, ex);
+                GetContainer(pData)?.Exception(pData, pStep, ex);
 
             }
             catch (Exception ex1)

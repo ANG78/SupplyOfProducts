@@ -1,28 +1,62 @@
 ﻿using SupplyOfProducts.Api.Common;
 using SupplyOfProducts.Interfaces.BusinessLogic;
+using SupplyOfProducts.Interfaces.BusinessLogic.Services.Request;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace SupplyOfProducts.WF3._0
 {
+    public delegate void RegisterListener(StepContainerObserver stepParam, object request);
+
     public class StepContainerObserver : IObserverEvent
     {
-        UIStepContainer Container;
-        FlowLayoutPanel PanelSteps;
+        UIStepGenerator Container;
+        FrmMainObserver FrmMainObserver;
         Dictionary<object, IObserverEvent> Observers = new Dictionary<object, IObserverEvent>();
         static object LockerCreation = new object();
 
-        public StepContainerObserver(FlowLayoutPanel panelSteps)
+        
+        public StepContainerObserver(FrmMain form, FrmMainObserver obs)
         {
-            HelperUI.ModifyMethod(panelSteps, () =>
+            HelperUI.ModifyMethod(form, () =>
             {
-                Container = new UIStepContainer();
-                panelSteps.Controls.Add(Container);
-                PanelSteps = panelSteps;
+                FrmMainObserver = obs;
+                Container = new UIStepGenerator();
+                Container.StepObserver = this;
+                form.panelSteps.Controls.Add(Container);
             });
         }
 
+
+        public void RegisterSteps<T>(IStep<T> stepParam, T pData)
+        {
+            var step = stepParam;
+            while (step != null)
+            {
+                Observers[step] = GetContainer(step);
+
+                if (step is IDecoratorStep<T> )
+                {
+                    if ( ((IDecoratorStep < T > )step).DecoratedStep is ICompositorSteps<IRequestMustBeCompleted>)
+                    {
+                        var reqStep = ((ICompositorSteps<IRequestMustBeCompleted>)((IDecoratorStep<T>)step).DecoratedStep).Steps;
+                        while (reqStep != null)
+                        {
+                            Observers[reqStep] = GetContainer(reqStep);
+                            reqStep = reqStep.Next;
+                        }
+                    }
+                    
+                    
+                }
+
+
+                step = step.Next;
+            }
+
+            FrmMainObserver.RegisterContainer(this, pData);
+        }
 
 
         private IObserverEvent GetContainer<T>(IStep<T> step)
@@ -33,7 +67,9 @@ namespace SupplyOfProducts.WF3._0
                 {
                     if (!Observers.ContainsKey(step))
                     {
-                        Observers[step] = new StepControlObserver(Container);
+                        var aux = new StepControlObserver(Container);
+                        aux.Initial(step.Description());
+                        Observers[step] = aux;
                     }
                 }
             }
@@ -42,32 +78,18 @@ namespace SupplyOfProducts.WF3._0
 
         }
 
-        public void Create<T>(IStep<T> step)
-        {
-            HelperUI.ModifyMethod(Container, () =>
-            {
-                var current = step;
-                while (current != null)
-                {
-                    Observers[step] = GetContainer(step);
-                    current = current.Next;
-                }
-
-            });
-        }
-
         public void Start<T>(T pData, IStep<T> pStep)
         {
-            GetContainer(pStep).Start(pData, pStep);
+            GetContainer(pStep)?.Start(pData, pStep);
         }
         public void Finish<T>(T pData, IStep<T> pStep, IResult res)
         {
-            GetContainer(pStep).Finish(pData, pStep, res);
+            GetContainer(pStep)?.Finish(pData, pStep, res);
         }
 
         public void Exception<T>(T pData, IStep<T> pStep, Exception ex)
         {
-            GetContainer(pStep).Exception(pData, pStep, ex);
+            GetContainer(pStep)?.Exception(pData, pStep, ex);
         }
 
     }

@@ -5,12 +5,14 @@ using SupplyOfProducts.Interfaces.BusinessLogic.Services.Request;
 
 namespace SupplyOfProducts.BusinessLogic.Steps
 {
-    public class ValidateRequestAndComplete<T> : StepDecoratorTemplateGeneric<T>
+   
+
+    public class ValidateRequestAndComplete<T> : StepDecoratorTemplateGeneric<T>, ICompositorSteps<IRequestMustBeCompleted>
     {
-        public IStep<IRequestMustBeCompleted> _intialSteps { get; set; }
+        public IStep<IRequestMustBeCompleted> Steps { get; private set; }
         public ValidateRequestAndComplete(IStep<IRequestMustBeCompleted> intialSteps, IStep<T> next = null) : base(next)
         {
-            _intialSteps = intialSteps;
+            Steps = intialSteps;
         }
 
         public override string Description()
@@ -22,7 +24,7 @@ namespace SupplyOfProducts.BusinessLogic.Steps
         {
             if (obj is IRequestMustBeCompleted)
             {
-                 return _intialSteps.Execute((IRequestMustBeCompleted)obj);
+                 return Steps.Execute((IRequestMustBeCompleted)obj);
             }
             return Result.Ok;
         }

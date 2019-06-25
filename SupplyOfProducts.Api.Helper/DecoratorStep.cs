@@ -7,13 +7,13 @@ namespace SupplyOfProducts.Api.Common
     public delegate void EventResultHandler<T>(T Data, IStep<T> Step, IResult res);
     public delegate void EventExceptionHandler<T>(T Data, IStep<T> Step, Exception ex);
 
-    public class DecoratorStep<T> : IStep<T>
+    public class DecoratorStep<T> : IStep<T>, IDecoratorStep<T>
     {
         public EventHandler<T> StartEvent;
         public EventResultHandler<T> FinishHandler;
         public EventExceptionHandler<T> ExceptionEvent;
 
-        private IStep<T> DecoratedStep { get; set; }
+        public IStep<T> DecoratedStep { get; private set; }
         public DecoratorStep(IStep<T> pNext)
         {
             DecoratedStep = pNext;

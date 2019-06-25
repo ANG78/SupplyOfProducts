@@ -1,15 +1,16 @@
-﻿using SupplyOfProducts.BusinessLogic.Steps.Common;
-using SupplyOfProducts.Entities.BusinessLogic.Entities.Configuration;
-using SupplyOfProducts.Interfaces.BusinessLogic;
-using SupplyOfProducts.Interfaces.BusinessLogic.Entities;
-using SupplyOfProducts.Interfaces.BusinessLogic.Services.Request;
+﻿
 using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SupplyOfProducts.WF3._0
 {
 
+    public delegate void NewContainerEvent();
+    
     public partial class FrmMain : Form
     {
 
@@ -17,6 +18,12 @@ namespace SupplyOfProducts.WF3._0
         private Button button1;
         private Button button2;
         public FlowLayoutPanel panelSteps;
+
+        public NewContainerEvent CreateNewHandler;
+
+#if NETCOREAPP3_0
+        public IList<StepContainerObserver> ListObservers = new List<StepContainerObserver>();
+#endif
 
         public FrmMain()
         {
@@ -34,8 +41,8 @@ namespace SupplyOfProducts.WF3._0
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.AutoScroll = true;
             this.panel1.BackColor = System.Drawing.Color.DarkOliveGreen;
@@ -50,7 +57,7 @@ namespace SupplyOfProducts.WF3._0
             // 
             this.panelSteps.AutoSize = true;
             this.panelSteps.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.panelSteps.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.panelSteps.BackColor = Color.LightGray;
             this.panelSteps.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.panelSteps.Location = new System.Drawing.Point(12, 7);
             this.panelSteps.Name = "panelSteps";
@@ -63,7 +70,7 @@ namespace SupplyOfProducts.WF3._0
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(47, 23);
             this.button1.TabIndex = 3;
-            this.button1.Text = "button1";
+            this.button1.Text = "New";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.Button1_Click_1);
             // 
@@ -91,6 +98,7 @@ namespace SupplyOfProducts.WF3._0
 
         }
 
+
         private void Form1_Load(object sender, EventArgs e)
         {
 
@@ -100,72 +108,17 @@ namespace SupplyOfProducts.WF3._0
         {
 
         }
-
-        private async void Button1_Click_1(object sender, EventArgs e)
+        private void Button1_Click_1(object sender, EventArgs e)
         {
-            await Task.Run(() =>
-            {
-                var _businessLogic = HI.GetInst().Get<IStep<IManagementModelRequest<IWorker>>>();
-                var worker = new Worker();
-                worker.Code = "W01" + DateTime.Now.Millisecond;
-                worker.Name = worker.Code;
-                var request = new ManagementModelRequest<IWorker>
-                {
-                    Item = worker,
-                    Type = Operation.NEW
-                };
-
-                var result = _businessLogic.Execute(request);
-                if (result.ComputeResult().IsOk())
-                {
-                    Console.WriteLine(result.Message());
-                }
-                else
-                {
-                    Console.WriteLine(result.Message());
-                }
-            });
+            CreateNewHandler?.Invoke();
         }
 
 
-        private async void Button2_Click(object sender, EventArgs e)
+        private void Button2_Click(object sender, EventArgs e)
         {
-            await Task.Run(() =>
-            {
-                var _businessLogic = HI.GetInst().Get<IStep<IManagementModelRequest<IConfigSupply>>>();
-                var config = new ConfigSupply();
-                config.Product = new Product
-                {
-                    Code = "EPI1"
-                };
-                config.WorkerInWorkPlace = new WorkerInWorkPlace();
-                config.WorkerInWorkPlace.Worker = new Worker {
-                    Code = "W01"
-                };
+            return;
 
-                config.WorkerInWorkPlace.WorkPlace = new WorkPlace
-                {
-                    Code = "WP01"
-                };
-                config.Date = DateTime.Now;
-                config.Amount = 25;
 
-                var request = new ManagementModelRequest<IConfigSupply>
-                {
-                    Item = config,
-                    Type = Operation.NEW
-                };
-
-                var result = _businessLogic.Execute(request);
-                if (result.ComputeResult().IsOk())
-                {
-                    Console.WriteLine(result.Message());
-                }
-                else
-                {
-                    Console.WriteLine(result.Message());
-                }
-            });
         }
     }
 

@@ -32,19 +32,7 @@ namespace SupplyOfProducts.WF_Designer {
         internal UIStepContainer() {
         }
         
-        /// <summary>
-        ///   Devuelve la instancia de ResourceManager almacenada en caché utilizada por esta clase.
-        /// </summary>
-        [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
-            get {
-                if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SupplyOfProducts.WF_Designer.UIStepContainer", typeof(UIStepContainer).Assembly);
-                    resourceMan = temp;
-                }
-                return resourceMan;
-            }
-        }
+
         
         /// <summary>
         ///   Reemplaza la propiedad CurrentUICulture del subproceso actual para todas las

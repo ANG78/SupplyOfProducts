@@ -7,11 +7,11 @@ namespace SupplyOfProducts.Api.Controllers.ViewModels
     public class ConfigSupplyViewModel
     {
         [JsonProperty(Required = Required.Always)]
-        public string WorkerCode { get; set; }
+        public string WorkerCode { get; set; } = "";
         [JsonProperty(Required = Required.Always)]
-        public string ProductCode { get; set; }
+        public string ProductCode { get; set; } = "";
         [JsonProperty(Required = Required.Always)]
-        public string WorkPlaceCode { get; set; }
+        public string WorkPlaceCode { get; set; } = "";
         public DateTime? Date { get; set; }
         [JsonProperty(Required = Required.Always)]
         public int Amount { get; set; }

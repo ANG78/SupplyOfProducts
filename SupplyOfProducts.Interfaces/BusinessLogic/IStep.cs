@@ -10,5 +10,15 @@ namespace SupplyOfProducts.Interfaces.BusinessLogic
         IResult Execute(T concept);
         string Description();
     }
+
+    public interface ICompositorSteps<Y>
+    {
+        IStep<Y> Steps { get; }
+    }
+
+    public interface IDecoratorStep<Z>
+    {
+        IStep<Z> DecoratedStep { get; }
+    }
 }
  
