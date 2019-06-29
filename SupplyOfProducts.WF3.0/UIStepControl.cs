@@ -209,6 +209,9 @@ namespace SupplyOfProducts.WF3._0
             // 
             // panel3
             // 
+            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel3.BackColor = System.Drawing.Color.SkyBlue;
             this.panel3.Controls.Add(this.lblFinish);
             this.panel3.Location = new System.Drawing.Point(6, 67);
             this.panel3.Name = "panel3";
@@ -226,6 +229,9 @@ namespace SupplyOfProducts.WF3._0
             // 
             // panel2
             // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.BackColor = System.Drawing.Color.Khaki;
             this.panel2.Controls.Add(this.lblStart);
             this.panel2.Location = new System.Drawing.Point(6, 40);
             this.panel2.Name = "panel2";
