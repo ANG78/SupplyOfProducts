@@ -102,6 +102,8 @@
     </EmbeddedResource>
     <EmbeddedResource Include="..\SupplyOfProducts.WF3.0\UIStepControl.resx">
       <Link>UIStepControl.resx</Link>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>UIStepControl1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -111,10 +113,8 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="..\SupplyOfProducts.WF3.0\UIStepGenerator.resx">
-      <DependentUpon>UIStepGenerator.cs</DependentUpon>
-    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -127,6 +127,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\^CACC4BC8EA6F22CF90648ABC5EBFAFE3C592A963971DC42C17^pwin10_80_distr.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\STEP.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

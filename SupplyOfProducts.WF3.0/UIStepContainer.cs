@@ -53,7 +53,7 @@ namespace SupplyOfProducts.WF3._0
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel.AutoScrollMargin = new System.Drawing.Size(400, 100);
             this.panel.AutoSize = true;
-            this.panel.BackColor = System.Drawing.SystemColors.Control;
+            this.panel.BackColor = System.Drawing.SystemColors.ButtonShadow;
             this.panel.Location = new System.Drawing.Point(0, 0);
             this.panel.Margin = new System.Windows.Forms.Padding(0);
             this.panel.MaximumSize = new System.Drawing.Size(500, 0);

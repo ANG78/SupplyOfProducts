@@ -45,8 +45,13 @@ namespace SupplyOfProducts.WF3._0
             InitializeComponent();
 #if NETCOREAPP3_0
             Refresh(EStatus.Initial);
-            cmbType.Items.Add(EType.WorkerViewModel);
-            cmbType.Items.Add(EType.ConfigSupplyViewModel);
+            var values = Enum.GetValues(typeof(EType));
+            foreach( var x in values)
+            {
+                cmbType.Items.Add(x);
+            }
+            
+            
 #endif
         }
 
@@ -132,8 +137,8 @@ namespace SupplyOfProducts.WF3._0
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.Controls.Add(this.cmbType);
             this.panel1.Controls.Add(this.richTextBox1);
@@ -155,8 +160,8 @@ namespace SupplyOfProducts.WF3._0
             // 
             // richTextBox1
             // 
-            this.richTextBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.richTextBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.richTextBox1.Location = new System.Drawing.Point(8, 34);
             this.richTextBox1.Name = "richTextBox1";
@@ -187,8 +192,8 @@ namespace SupplyOfProducts.WF3._0
             // 
             // uiStepContainer1
             // 
-            this.uiStepContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.uiStepContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.uiStepContainer1.AutoSize = true;
             this.uiStepContainer1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
@@ -201,19 +206,7 @@ namespace SupplyOfProducts.WF3._0
             this.uiStepContainer1.TabIndex = 8;
             this.uiStepContainer1.AutoSizeChanged += new System.EventHandler(this.UiStepContainer1_AutoSizeChanged);
             this.uiStepContainer1.SizeChanged += new System.EventHandler(this.UiStepContainer1_SizeChanged);
-            // 
-            // imageList1
-            // 
-            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "exec.ico");
-            this.imageList1.Images.SetKeyName(1, "exec-VIRTUAL.ico");
-            this.imageList1.Images.SetKeyName(2, "exec-SUCCESSFUL.ico");
-            this.imageList1.Images.SetKeyName(3, "exec-AFTER.ico");
-            this.imageList1.Images.SetKeyName(4, "exec-DURING.ico");
-            this.imageList1.Images.SetKeyName(5, "operacion-no-exec.ico");
-            this.imageList1.Images.SetKeyName(6, "operacion-exec.ico");
-            // 
+                      // 
             // UIStepGenerator
             // 
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
@@ -326,6 +319,14 @@ namespace SupplyOfProducts.WF3._0
                 {
                     Aux<IWorker, WorkerViewModel>(jsonInTextbox);
                 }
+                else if (typeEnum == EType.ProductViewModel)
+                {
+                    Aux<IProduct, ProductViewModel>(jsonInTextbox);
+                }
+                else if (typeEnum == EType.ProductComplexViewModel)
+                {
+                    Aux<IPackage, ProductComplexViewModel>(jsonInTextbox);
+                }
 
 #endif
             });
@@ -365,7 +366,7 @@ namespace SupplyOfProducts.WF3._0
         private async void BttExecute_Click(object sender, EventArgs e)
         {
             this.Refresh(EStatus.Running);
-            pictureBox1.Image = imageList1.Images[(int)EIcons.START];
+           // pictureBox1.Image = imageList1.Images[(int)EIcons.START];
 
 
             await Task.Run(() =>
@@ -378,18 +379,18 @@ namespace SupplyOfProducts.WF3._0
 
                 HelperUI.ModifyMethod(cmbType, () => {
                     
-                    if  ( result.ComputeResult().IsOk() )
-                    {
-                        pictureBox1.Image = imageList1.Images[(int)EIcons.END_OK];
-                    }
-                    else if  ( result.ComputeResult().IsWarning() )
-                    {
-                        pictureBox1.Image = imageList1.Images[(int)EIcons.END_WARNINGS];
-                    }
-                    else if  ( result.ComputeResult().IsError() )
-                    {
-                        pictureBox1.Image = imageList1.Images[(int)EIcons.END_ERRORS];
-                    }
+                    //if  ( result.ComputeResult().IsOk() )
+                    //{
+                    //    pictureBox1.Image = imageList1.Images[(int)EIcons.END_OK];
+                    //}
+                    //else if  ( result.ComputeResult().IsWarning() )
+                    //{
+                    //    pictureBox1.Image = imageList1.Images[(int)EIcons.END_WARNINGS];
+                    //}
+                    //else if  ( result.ComputeResult().IsError() )
+                    //{
+                    //    pictureBox1.Image = imageList1.Images[(int)EIcons.END_ERRORS];
+                    //}
                 });
 #endif
             });

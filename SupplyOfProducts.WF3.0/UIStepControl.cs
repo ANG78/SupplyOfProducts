@@ -23,12 +23,13 @@ namespace SupplyOfProducts.WF3._0
         private Panel panel1;
         private RichTextBox before;
         private RichTextBox after;
-        private PictureBox picture;
         private TextBox lblDesc;
         private Panel panel3;
         private Label lblFinish;
         private Panel panel2;
         private Label lblStart;
+        private Panel PBack;
+        private PictureBox picture;
         private Button bttDown;
         private Button bttUp;
         private System.ComponentModel.IContainer components;
@@ -40,7 +41,8 @@ namespace SupplyOfProducts.WF3._0
             {
                 InitializeComponent();
                 RefreshMode();
-                this.picture.Image = this.imageList1.Images[(int)EIcons.INITIAL];
+                picture.Image = this.imageList1.Images[(int)EIcons.INITIAL];
+                PBack.BackColor = System.Drawing.Color.LightGray;
             });
 #endif
         }
@@ -55,7 +57,8 @@ namespace SupplyOfProducts.WF3._0
 #if NETCOREAPP3_0
             HelperUI.ModifyMethod(this, () =>
              {
-                 this.picture.Image = this.imageList1.Images[(int)EIcons.START];
+                 //this.picture.Image = this.imageList1.Images[(int)EIcons.START];
+                 PBack.BackColor = System.Drawing.Color.Gray;
                  this.before.Text = item;
                  this.lblStart.Text = "Started: " + DateTime.Now;
              });
@@ -74,23 +77,27 @@ namespace SupplyOfProducts.WF3._0
 
         public void SetValueFinish(string item, bool isOk, bool isWarning, string message)
         {
+
 #if NETCOREAPP3_0
             HelperUI.ModifyMethod(this, () =>
             {
                 if (isOk)
                 {
-                    this.picture.Image = this.imageList1.Images[(int)EIcons.END_OK];
+                    //picture.Image = this.imageList1.Images[(int)EIcons.END_OK];
                     this.after.Text = item;
+                    PBack.BackColor = System.Drawing.Color.Green;
                 }
                 else if (isWarning)
                 {
-                    this.picture.Image = this.imageList1.Images[(int)EIcons.END_WARNINGS];
+                    //this.picture.Image = this.imageList1.Images[(int)EIcons.END_WARNINGS];
                     this.after.Text = item;
+                    PBack.BackColor = System.Drawing.Color.Orange;
                 }
                 else
                 {
-                    this.picture.Image = this.imageList1.Images[(int)EIcons.END_ERRORS];
+                    //this.picture.Image = this.imageList1.Images[(int)EIcons.END_ERRORS];
                     this.after.Text = message;
+                    PBack.BackColor = System.Drawing.Color.Red;
                 }
                 this.lblFinish.Text = "Finished: " + DateTime.Now;
             });
@@ -103,7 +110,8 @@ namespace SupplyOfProducts.WF3._0
 #if NETCOREAPP3_0
             HelperUI.ModifyMethod(this, () =>
             {
-                this.picture.Image = this.imageList1.Images[(int)EIcons.END_ERRORS];
+                //this.picture.Image = this.imageList1.Images[(int)EIcons.END_ERRORS];
+                PBack.BackColor = System.Drawing.Color.Red;
                 this.after.Text = item;
                 this.lblFinish.Text = "Finished with Exceptions: " + DateTime.Now;
             });
@@ -116,6 +124,10 @@ namespace SupplyOfProducts.WF3._0
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UIStepControl));
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
+            this.PBack = new System.Windows.Forms.Panel();
+            this.picture = new System.Windows.Forms.PictureBox();
+            this.bttDown = new System.Windows.Forms.Button();
+            this.bttUp = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.lblFinish = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -123,41 +135,31 @@ namespace SupplyOfProducts.WF3._0
             this.lblDesc = new System.Windows.Forms.TextBox();
             this.before = new System.Windows.Forms.RichTextBox();
             this.after = new System.Windows.Forms.RichTextBox();
-            this.picture = new System.Windows.Forms.PictureBox();
-            this.bttUp = new System.Windows.Forms.Button();
-            this.bttDown = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
+            this.PBack.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picture)).BeginInit();
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picture)).BeginInit();
             this.SuspendLayout();
             // 
             // imageList1
             // 
             this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "exec.ico");
-            this.imageList1.Images.SetKeyName(1, "exec-VIRTUAL.ico");
-            this.imageList1.Images.SetKeyName(2, "exec-SUCCESSFUL.ico");
-            this.imageList1.Images.SetKeyName(3, "exec-AFTER.ico");
-            this.imageList1.Images.SetKeyName(4, "exec-DURING.ico");
-            this.imageList1.Images.SetKeyName(5, "operacion-exec.ico");
-            this.imageList1.Images.SetKeyName(6, "operacion-no-exec.ico");
+            this.imageList1.Images.SetKeyName(0, "STEP.png");
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.Silver;
-            this.panel1.Controls.Add(this.bttDown);
-            this.panel1.Controls.Add(this.bttUp);
+            this.panel1.Controls.Add(this.PBack);
             this.panel1.Controls.Add(this.panel3);
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Controls.Add(this.lblDesc);
             this.panel1.Controls.Add(this.before);
             this.panel1.Controls.Add(this.after);
-            this.panel1.Controls.Add(this.picture);
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(373, 236);
@@ -165,12 +167,52 @@ namespace SupplyOfProducts.WF3._0
             this.panel1.Click += new System.EventHandler(this.Panel1_Click);
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.Panel1_Paint);
             // 
+            // PBack
+            // 
+            this.PBack.Controls.Add(this.picture);
+            this.PBack.Controls.Add(this.bttDown);
+            this.PBack.Controls.Add(this.bttUp);
+            this.PBack.Location = new System.Drawing.Point(4, 4);
+            this.PBack.Name = "PBack";
+            this.PBack.Size = new System.Drawing.Size(60, 33);
+            this.PBack.TabIndex = 13;
+            // 
+            // picture
+            // 
+            this.picture.Location = new System.Drawing.Point(2, 1);
+            this.picture.Name = "picture";
+            this.picture.Size = new System.Drawing.Size(30, 30);
+            this.picture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.picture.TabIndex = 15;
+            this.picture.TabStop = false;
+            this.picture.Click += new System.EventHandler(this.Picture_Click_1);
+            // 
+            // bttDown
+            // 
+            this.bttDown.BackColor = System.Drawing.Color.Black;
+            this.bttDown.Location = new System.Drawing.Point(35, 18);
+            this.bttDown.Name = "bttDown";
+            this.bttDown.Size = new System.Drawing.Size(20, 12);
+            this.bttDown.TabIndex = 14;
+            this.bttDown.UseVisualStyleBackColor = false;
+            this.bttDown.Click += new System.EventHandler(this.BttDown_Click_1);
+            // 
+            // bttUp
+            // 
+            this.bttUp.BackColor = System.Drawing.Color.Black;
+            this.bttUp.Location = new System.Drawing.Point(35, 3);
+            this.bttUp.Name = "bttUp";
+            this.bttUp.Size = new System.Drawing.Size(20, 12);
+            this.bttUp.TabIndex = 13;
+            this.bttUp.UseVisualStyleBackColor = false;
+            this.bttUp.Click += new System.EventHandler(this.BttUp_Click);
+            // 
             // panel3
             // 
             this.panel3.Controls.Add(this.lblFinish);
-            this.panel3.Location = new System.Drawing.Point(6, 61);
+            this.panel3.Location = new System.Drawing.Point(6, 67);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(357, 23);
+            this.panel3.Size = new System.Drawing.Size(358, 24);
             this.panel3.TabIndex = 10;
             // 
             // lblFinish
@@ -185,7 +227,7 @@ namespace SupplyOfProducts.WF3._0
             // panel2
             // 
             this.panel2.Controls.Add(this.lblStart);
-            this.panel2.Location = new System.Drawing.Point(6, 35);
+            this.panel2.Location = new System.Drawing.Point(6, 40);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(358, 24);
             this.panel2.TabIndex = 9;
@@ -201,18 +243,19 @@ namespace SupplyOfProducts.WF3._0
             // 
             // lblDesc
             // 
-            this.lblDesc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.lblDesc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblDesc.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.lblDesc.Location = new System.Drawing.Point(52, 7);
+            this.lblDesc.Location = new System.Drawing.Point(71, 10);
+            this.lblDesc.Margin = new System.Windows.Forms.Padding(0);
             this.lblDesc.Name = "lblDesc";
             this.lblDesc.ReadOnly = true;
-            this.lblDesc.Size = new System.Drawing.Size(313, 20);
+            this.lblDesc.Size = new System.Drawing.Size(292, 20);
             this.lblDesc.TabIndex = 6;
             // 
             // before
             // 
-            this.before.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.before.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.before.Location = new System.Drawing.Point(3, 95);
             this.before.Name = "before";
@@ -223,7 +266,7 @@ namespace SupplyOfProducts.WF3._0
             // 
             // after
             // 
-            this.after.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.after.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.after.Location = new System.Drawing.Point(188, 95);
             this.after.Name = "after";
@@ -232,33 +275,6 @@ namespace SupplyOfProducts.WF3._0
             this.after.TabIndex = 4;
             this.after.Text = "";
             // 
-            // picture
-            // 
-            this.picture.Location = new System.Drawing.Point(3, 6);
-            this.picture.Name = "picture";
-            this.picture.Size = new System.Drawing.Size(24, 24);
-            this.picture.TabIndex = 2;
-            this.picture.TabStop = false;
-            this.picture.Click += new System.EventHandler(this.Picture_Click);
-            // 
-            // bttUp
-            // 
-            this.bttUp.Location = new System.Drawing.Point(29, 7);
-            this.bttUp.Name = "bttUp";
-            this.bttUp.Size = new System.Drawing.Size(20, 12);
-            this.bttUp.TabIndex = 11;
-            this.bttUp.UseVisualStyleBackColor = true;
-            this.bttUp.Click += new System.EventHandler(this.Button1_Click);
-            // 
-            // bttDown
-            // 
-            this.bttDown.Location = new System.Drawing.Point(29, 18);
-            this.bttDown.Name = "bttDown";
-            this.bttDown.Size = new System.Drawing.Size(20, 12);
-            this.bttDown.TabIndex = 12;
-            this.bttDown.UseVisualStyleBackColor = true;
-            this.bttDown.Click += new System.EventHandler(this.BttDown_Click);
-            // 
             // UIStepControl
             // 
             this.Controls.Add(this.panel1);
@@ -266,11 +282,13 @@ namespace SupplyOfProducts.WF3._0
             this.Size = new System.Drawing.Size(384, 253);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.PBack.ResumeLayout(false);
+            this.PBack.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picture)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picture)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -303,12 +321,12 @@ namespace SupplyOfProducts.WF3._0
         {
             if (isMin == EDisplayMode.JUST_ICON)
             {
-                this.Height = 47;
-                this.Width = 40;
+                this.Height = 56;
+                this.Width = 78;
             }
             else if (isMin == EDisplayMode.RESUME)
             {
-                this.Height = 96;
+                this.Height = 120;
                 this.Width = 430;
             }
             else if (isMin == EDisplayMode.EXPANDED)
@@ -324,11 +342,20 @@ namespace SupplyOfProducts.WF3._0
 
         private void Picture_Click(object sender, EventArgs e)
         {
-            isMin = EDisplayMode.RESUME;
-            RefreshMode();
+           
         }
 
         private void Button1_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void BttDown_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void BttUp_Click(object sender, EventArgs e)
         {
             if (isMin == EDisplayMode.JUST_ICON)
             {
@@ -345,7 +372,7 @@ namespace SupplyOfProducts.WF3._0
             RefreshMode();
         }
 
-        private void BttDown_Click(object sender, EventArgs e)
+        private void BttDown_Click_1(object sender, EventArgs e)
         {
             if (isMin == EDisplayMode.JUST_ICON)
             {
@@ -353,12 +380,18 @@ namespace SupplyOfProducts.WF3._0
             }
             else if (isMin == EDisplayMode.RESUME)
             {
-                isMin = EDisplayMode.JUST_ICON;               
+                isMin = EDisplayMode.JUST_ICON;
             }
             else
             {
                 isMin = EDisplayMode.RESUME;
             }
+            RefreshMode();
+        }
+
+        private void Picture_Click_1(object sender, EventArgs e)
+        {
+            isMin = EDisplayMode.RESUME;
             RefreshMode();
         }
     }

@@ -8,11 +8,11 @@ namespace SupplyOfProducts.Api.Controllers.ViewModels
         [JsonProperty(Required = Required.Always)]
         public int Id { get; set; }
         [JsonProperty(Required = Required.Always)]
-        public string Code { get; set; }
+        public string Code { get; set; } = "";
         [JsonProperty(Required = Required.Always)]
-        public string Type { get; set; }
+        public string Type { get; set; } = "";
         [JsonProperty(Required = Required.Always)]
-        public string Class { get; set; }
+        public string Class { get; set; } = "";
     }
 
     public class ProductComplexViewModel : ProductViewModel

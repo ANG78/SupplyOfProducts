@@ -8,7 +8,9 @@ namespace SupplyOfProducts.WF3._0
     public enum EType
     {
         WorkerViewModel,
-        ConfigSupplyViewModel
+        ConfigSupplyViewModel,
+        ProductViewModel,
+        ProductComplexViewModel
     }
 
     public static class ETypeExtesion
@@ -25,10 +27,10 @@ namespace SupplyOfProducts.WF3._0
             s.NullValueHandling = NullValueHandling.Include;
             s.ReferenceLoopHandling = ReferenceLoopHandling.Serialize;
             s.MetadataPropertyHandling = MetadataPropertyHandling.ReadAhead;
-            return JsonConvert.SerializeObject(aux.Unwrap(),Formatting.Indented,s);
+            return JsonConvert.SerializeObject(aux.Unwrap(), Formatting.Indented, s);
 
         }
     }
 
-    
+
 }

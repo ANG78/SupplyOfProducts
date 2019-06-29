@@ -55,8 +55,8 @@ namespace SupplyOfProducts.PersistanceDDBB
             ));
 
             // Add Repositories. 
-            //services.AddScoped<IGenericContext, SupplyOfProductsContext>();
-            services.AddSingleton<IGenericContext, SupplyOfProductsContext>();
+            services.AddScoped<IGenericContext, SupplyOfProductsContext>();
+            //services.AddSingleton<IGenericContext, SupplyOfProductsContext>();
             services.AddScoped<ICreateUoW, DecoratorICreateUoW>();
 
             services.AddScoped<IProductRepository, ProductRepository>();
