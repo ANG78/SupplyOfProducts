@@ -31,9 +31,11 @@ namespace SupplyOfProducts.WF3._0
         private Panel panelRight;
         private UIStepContainer uiStepContainer1;
         private Button bttExecute;
-        private PictureBox pictureBox1;
         private ImageList imageList1;
         private IContainer components;
+        private Panel panel3;
+        private PictureBox pictureBox1;
+        private CheckBox chkJustIcons;
         private Button bttDelete;
 
 #if NETCOREAPP3_0
@@ -59,10 +61,11 @@ namespace SupplyOfProducts.WF3._0
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UIStepGenerator));
             this.bttGenerate = new System.Windows.Forms.Button();
             this.bttDelete = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.chkJustIcons = new System.Windows.Forms.CheckBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.bttExecute = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -73,6 +76,7 @@ namespace SupplyOfProducts.WF3._0
             this.uiStepContainer1 = new SupplyOfProducts.WF3._0.UIStepContainer();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.panel2.SuspendLayout();
+            this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             this.panelRight.SuspendLayout();
@@ -81,7 +85,7 @@ namespace SupplyOfProducts.WF3._0
             // bttGenerate
             // 
             this.bttGenerate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.bttGenerate.Location = new System.Drawing.Point(199, 15);
+            this.bttGenerate.Location = new System.Drawing.Point(208, 15);
             this.bttGenerate.Name = "bttGenerate";
             this.bttGenerate.Size = new System.Drawing.Size(59, 21);
             this.bttGenerate.TabIndex = 0;
@@ -92,7 +96,7 @@ namespace SupplyOfProducts.WF3._0
             // bttDelete
             // 
             this.bttDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.bttDelete.Location = new System.Drawing.Point(199, 60);
+            this.bttDelete.Location = new System.Drawing.Point(208, 60);
             this.bttDelete.Name = "bttDelete";
             this.bttDelete.Size = new System.Drawing.Size(59, 22);
             this.bttDelete.TabIndex = 1;
@@ -104,7 +108,7 @@ namespace SupplyOfProducts.WF3._0
             // 
             this.panel2.AutoSize = true;
             this.panel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.panel2.Controls.Add(this.pictureBox1);
+            this.panel2.Controls.Add(this.panel3);
             this.panel2.Controls.Add(this.bttExecute);
             this.panel2.Controls.Add(this.panel1);
             this.panel2.Controls.Add(this.bttDelete);
@@ -112,22 +116,46 @@ namespace SupplyOfProducts.WF3._0
             this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(261, 174);
+            this.panel2.Size = new System.Drawing.Size(270, 174);
             this.panel2.TabIndex = 5;
+            // 
+            // panel3
+            // 
+            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel3.Controls.Add(this.chkJustIcons);
+            this.panel3.Controls.Add(this.pictureBox1);
+            this.panel3.Location = new System.Drawing.Point(206, 88);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(60, 70);
+            this.panel3.TabIndex = 8;
+            // 
+            // chkJustIcons
+            // 
+            this.chkJustIcons.AutoSize = true;
+            this.chkJustIcons.Checked = true;
+            this.chkJustIcons.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkJustIcons.Location = new System.Drawing.Point(8, 38);
+            this.chkJustIcons.Name = "chkJustIcons";
+            this.chkJustIcons.Size = new System.Drawing.Size(52, 17);
+            this.chkJustIcons.TabIndex = 9;
+            this.chkJustIcons.Text = "Icons";
+            this.chkJustIcons.UseVisualStyleBackColor = true;
+            this.chkJustIcons.CheckedChanged += new System.EventHandler(this.ChkJustIcons_CheckedChanged);
             // 
             // pictureBox1
             // 
             this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox1.Location = new System.Drawing.Point(219, 93);
+            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBox1.Location = new System.Drawing.Point(21, 5);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(23, 22);
-            this.pictureBox1.TabIndex = 7;
+            this.pictureBox1.TabIndex = 8;
             this.pictureBox1.TabStop = false;
             // 
             // bttExecute
             // 
             this.bttExecute.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.bttExecute.Location = new System.Drawing.Point(199, 36);
+            this.bttExecute.Location = new System.Drawing.Point(208, 36);
             this.bttExecute.Name = "bttExecute";
             this.bttExecute.Size = new System.Drawing.Size(59, 21);
             this.bttExecute.TabIndex = 6;
@@ -137,14 +165,14 @@ namespace SupplyOfProducts.WF3._0
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.Controls.Add(this.cmbType);
             this.panel1.Controls.Add(this.richTextBox1);
             this.panel1.Location = new System.Drawing.Point(15, 11);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(178, 148);
+            this.panel1.Size = new System.Drawing.Size(187, 148);
             this.panel1.TabIndex = 5;
             // 
             // cmbType
@@ -152,28 +180,29 @@ namespace SupplyOfProducts.WF3._0
             this.cmbType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbType.FormattingEnabled = true;
             this.cmbType.ImeMode = System.Windows.Forms.ImeMode.Disable;
-            this.cmbType.Location = new System.Drawing.Point(8, 7);
+            this.cmbType.Location = new System.Drawing.Point(8, 6);
             this.cmbType.Name = "cmbType";
-            this.cmbType.Size = new System.Drawing.Size(159, 21);
+            this.cmbType.Size = new System.Drawing.Size(148, 21);
             this.cmbType.TabIndex = 4;
             this.cmbType.SelectedIndexChanged += new System.EventHandler(this.CmbType_SelectedIndexChanged);
             // 
             // richTextBox1
             // 
-            this.richTextBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.richTextBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.richTextBox1.Location = new System.Drawing.Point(8, 34);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(157, 107);
+            this.richTextBox1.Size = new System.Drawing.Size(166, 107);
             this.richTextBox1.TabIndex = 3;
             this.richTextBox1.Text = "";
             // 
             // splitter1
             // 
-            this.splitter1.Location = new System.Drawing.Point(261, 0);
+            this.splitter1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.splitter1.Location = new System.Drawing.Point(270, 0);
             this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(3, 174);
+            this.splitter1.Size = new System.Drawing.Size(10, 174);
             this.splitter1.TabIndex = 6;
             this.splitter1.TabStop = false;
             // 
@@ -184,29 +213,35 @@ namespace SupplyOfProducts.WF3._0
             this.panelRight.BackColor = System.Drawing.SystemColors.ButtonShadow;
             this.panelRight.Controls.Add(this.uiStepContainer1);
             this.panelRight.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelRight.Location = new System.Drawing.Point(264, 0);
+            this.panelRight.Location = new System.Drawing.Point(280, 0);
             this.panelRight.Name = "panelRight";
-            this.panelRight.Size = new System.Drawing.Size(616, 174);
+            this.panelRight.Size = new System.Drawing.Size(620, 174);
             this.panelRight.TabIndex = 8;
             this.panelRight.ClientSizeChanged += new System.EventHandler(this.PanelRight_ClientSizeChanged);
             // 
             // uiStepContainer1
             // 
-            this.uiStepContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.uiStepContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.uiStepContainer1.AutoSize = true;
             this.uiStepContainer1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.uiStepContainer1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.uiStepContainer1.Location = new System.Drawing.Point(16, 11);
+            this.uiStepContainer1.Location = new System.Drawing.Point(10, 11);
             this.uiStepContainer1.Margin = new System.Windows.Forms.Padding(0);
-            this.uiStepContainer1.MinimumSize = new System.Drawing.Size(580, 150);
+            this.uiStepContainer1.MinimumSize = new System.Drawing.Size(600, 150);
             this.uiStepContainer1.Name = "uiStepContainer1";
-            this.uiStepContainer1.Size = new System.Drawing.Size(580, 150);
+            this.uiStepContainer1.Size = new System.Drawing.Size(600, 150);
             this.uiStepContainer1.TabIndex = 8;
             this.uiStepContainer1.AutoSizeChanged += new System.EventHandler(this.UiStepContainer1_AutoSizeChanged);
             this.uiStepContainer1.SizeChanged += new System.EventHandler(this.UiStepContainer1_SizeChanged);
-                      // 
+            // 
+            // imageList1
+            // 
+            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            // 
             // UIStepGenerator
             // 
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
@@ -215,8 +250,10 @@ namespace SupplyOfProducts.WF3._0
             this.Controls.Add(this.splitter1);
             this.Controls.Add(this.panel2);
             this.Name = "UIStepGenerator";
-            this.Size = new System.Drawing.Size(880, 174);
+            this.Size = new System.Drawing.Size(900, 174);
             this.panel2.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panelRight.ResumeLayout(false);
@@ -298,7 +335,7 @@ namespace SupplyOfProducts.WF3._0
             {
                 HelperUI.ModifyMethod(bttGenerate, () =>
                 {
-                    bttGenerate.Enabled = true;
+                    bttGenerate.Enabled = Executor != null;
                 });
 
                 return;
@@ -313,19 +350,19 @@ namespace SupplyOfProducts.WF3._0
                 EType typeEnum = (EType)type;
                 if (typeEnum == EType.ConfigSupplyViewModel)
                 {
-                    Aux<IConfigSupply, ConfigSupplyViewModel>(jsonInTextbox);
+                    GenerateAux<IConfigSupply, ConfigSupplyViewModel>(jsonInTextbox);
                 }
                 else if (typeEnum == EType.WorkerViewModel)
                 {
-                    Aux<IWorker, WorkerViewModel>(jsonInTextbox);
+                    GenerateAux<IWorker, WorkerViewModel>(jsonInTextbox);
                 }
                 else if (typeEnum == EType.ProductViewModel)
                 {
-                    Aux<IProduct, ProductViewModel>(jsonInTextbox);
+                    GenerateAux<IProduct, ProductViewModel>(jsonInTextbox);
                 }
                 else if (typeEnum == EType.ProductComplexViewModel)
                 {
-                    Aux<IPackage, ProductComplexViewModel>(jsonInTextbox);
+                    GenerateAux<IProduct, ProductComplexViewModel>(jsonInTextbox);
                 }
 
 #endif
@@ -333,7 +370,7 @@ namespace SupplyOfProducts.WF3._0
 
         }
 
-        private bool Aux<TIModel, TViewModel>(string jsonInTextbox)
+        private bool GenerateAux<TIModel, TViewModel>(string jsonInTextbox)
         {
 #if NETCOREAPP3_0
             FactoryHelperRun factory = new FactoryHelperRun();
@@ -366,8 +403,7 @@ namespace SupplyOfProducts.WF3._0
         private async void BttExecute_Click(object sender, EventArgs e)
         {
             this.Refresh(EStatus.Running);
-           // pictureBox1.Image = imageList1.Images[(int)EIcons.START];
-
+            //StepObserver.RegisterSteps
 
             await Task.Run(() =>
             {
@@ -379,18 +415,21 @@ namespace SupplyOfProducts.WF3._0
 
                 HelperUI.ModifyMethod(cmbType, () => {
                     
-                    //if  ( result.ComputeResult().IsOk() )
-                    //{
-                    //    pictureBox1.Image = imageList1.Images[(int)EIcons.END_OK];
-                    //}
-                    //else if  ( result.ComputeResult().IsWarning() )
-                    //{
-                    //    pictureBox1.Image = imageList1.Images[(int)EIcons.END_WARNINGS];
-                    //}
-                    //else if  ( result.ComputeResult().IsError() )
-                    //{
-                    //    pictureBox1.Image = imageList1.Images[(int)EIcons.END_ERRORS];
-                    //}
+                    if  ( result.ComputeResult().IsOk() )
+                    {
+                         pictureBox1.BackColor = Color.Green;
+                  
+                    }
+                    else if  ( result.ComputeResult().IsWarning() )
+                    {
+                         pictureBox1.BackColor = Color.Orange;
+                  
+                    }
+                    else if  ( result.ComputeResult().IsError() )
+                    {
+                        pictureBox1.BackColor = Color.Red;
+                  
+                    }
                 });
 #endif
             });
@@ -408,6 +447,13 @@ namespace SupplyOfProducts.WF3._0
                 string aux = ((EType)var).GetTemplateString();
                 richTextBox1.Text = aux;
             }
+#endif
+        }
+
+        private void ChkJustIcons_CheckedChanged(object sender, EventArgs e)
+        {
+#if NETCOREAPP3_0
+            StepObserver.ResizeToJustIcon();
 #endif
         }
     }

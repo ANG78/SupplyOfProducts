@@ -4,6 +4,7 @@ using SupplyOfProducts.Interfaces.BusinessLogic;
 #endif
 
 using System;
+using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace SupplyOfProducts.WF3._0
@@ -55,12 +56,15 @@ namespace SupplyOfProducts.WF3._0
         public void SetValueStart(string item)
         {
 #if NETCOREAPP3_0
+            Process currentProcess = System.Diagnostics.Process.GetCurrentProcess();
+            long totalBytesOfMemoryUsed = currentProcess.WorkingSet64;
+
             HelperUI.ModifyMethod(this, () =>
              {
                  //this.picture.Image = this.imageList1.Images[(int)EIcons.START];
                  PBack.BackColor = System.Drawing.Color.Gray;
                  this.before.Text = item;
-                 this.lblStart.Text = "Started: " + DateTime.Now;
+                 this.lblStart.Text = "Started: " + DateTime.Now.ToString("hh.mm.ss.ffffff")  +" MEM " + totalBytesOfMemoryUsed;
              });
 #endif
         }
@@ -70,13 +74,15 @@ namespace SupplyOfProducts.WF3._0
 #if NETCOREAPP3_0
             HelperUI.ModifyMethod(this, () =>
              {
-                this.lblDesc.Text = (desc);
+                 this.lblDesc.Text = (desc);
              });
 #endif
         }
 
         public void SetValueFinish(string item, bool isOk, bool isWarning, string message)
         {
+            Process currentProcess = System.Diagnostics.Process.GetCurrentProcess();
+            long totalBytesOfMemoryUsed = currentProcess.WorkingSet64;
 
 #if NETCOREAPP3_0
             HelperUI.ModifyMethod(this, () =>
@@ -99,7 +105,7 @@ namespace SupplyOfProducts.WF3._0
                     this.after.Text = message;
                     PBack.BackColor = System.Drawing.Color.Red;
                 }
-                this.lblFinish.Text = "Finished: " + DateTime.Now;
+                this.lblFinish.Text = "Finished: " + DateTime.Now.ToString("hh.mm.ss.ffffff") + " MEM " + totalBytesOfMemoryUsed;
             });
 #endif
         }
@@ -150,8 +156,8 @@ namespace SupplyOfProducts.WF3._0
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.Silver;
             this.panel1.Controls.Add(this.PBack);
@@ -209,7 +215,7 @@ namespace SupplyOfProducts.WF3._0
             // 
             // panel3
             // 
-            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel3.BackColor = System.Drawing.Color.SkyBlue;
             this.panel3.Controls.Add(this.lblFinish);
@@ -229,7 +235,7 @@ namespace SupplyOfProducts.WF3._0
             // 
             // panel2
             // 
-            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.BackColor = System.Drawing.Color.Khaki;
             this.panel2.Controls.Add(this.lblStart);
@@ -249,7 +255,7 @@ namespace SupplyOfProducts.WF3._0
             // 
             // lblDesc
             // 
-            this.lblDesc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.lblDesc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblDesc.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.lblDesc.Location = new System.Drawing.Point(71, 10);
@@ -261,7 +267,7 @@ namespace SupplyOfProducts.WF3._0
             // 
             // before
             // 
-            this.before.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.before.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
             | System.Windows.Forms.AnchorStyles.Left)));
             this.before.Location = new System.Drawing.Point(3, 95);
             this.before.Name = "before";
@@ -272,7 +278,7 @@ namespace SupplyOfProducts.WF3._0
             // 
             // after
             // 
-            this.after.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.after.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.after.Location = new System.Drawing.Point(188, 95);
             this.after.Name = "after";
@@ -321,7 +327,7 @@ namespace SupplyOfProducts.WF3._0
             RESUME,
             EXPANDED
         }
-        EDisplayMode isMin = EDisplayMode.RESUME;
+        EDisplayMode isMin = EDisplayMode.JUST_ICON;
 
         private void RefreshMode()
         {
@@ -348,17 +354,17 @@ namespace SupplyOfProducts.WF3._0
 
         private void Picture_Click(object sender, EventArgs e)
         {
-           
+
         }
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void BttDown_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void BttUp_Click(object sender, EventArgs e)
@@ -397,8 +403,18 @@ namespace SupplyOfProducts.WF3._0
 
         private void Picture_Click_1(object sender, EventArgs e)
         {
-            isMin = EDisplayMode.RESUME;
-            RefreshMode();
+            ResizeToJustIcon();
+        }
+
+        public void ResizeToJustIcon()
+        {
+#if NETCOREAPP3_0
+            HelperUI.ModifyMethod(this, () =>
+            {
+                isMin = EDisplayMode.JUST_ICON;
+                RefreshMode();
+            });
+#endif
         }
     }
 }

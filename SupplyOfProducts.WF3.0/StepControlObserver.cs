@@ -5,7 +5,7 @@ using System;
 
 namespace SupplyOfProducts.WF3._0
 {
-    
+
 
     public class StepControlObserver : IObserverEvent
     {
@@ -26,7 +26,7 @@ namespace SupplyOfProducts.WF3._0
 
         public void Finish<T>(T pData, IStep<T> pStep, IResult res)
         {
-            Container.SetValueFinish(SerializeString(pData), res.ComputeResult().IsOk(),res.ComputeResult().IsWarning(), res.Message());
+            Container.SetValueFinish(SerializeString(pData), res.ComputeResult().IsOk(), res.ComputeResult().IsWarning(), res.Message());
         }
 
         public void Start<T>(T pData, IStep<T> pStep)
@@ -36,7 +36,7 @@ namespace SupplyOfProducts.WF3._0
 
         public void Initial(string desc)
         {
-            Container.SetValueInitial( desc);
+            Container.SetValueInitial(desc);
         }
 
         private string SerializeString<TData>(TData pData)
@@ -46,6 +46,13 @@ namespace SupplyOfProducts.WF3._0
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore
             };
             return JsonConvert.SerializeObject(pData, opt);
+        }
+
+        public void ResizeToJustIcon()
+        {
+
+            Container.ResizeToJustIcon();
+
         }
     }
 }

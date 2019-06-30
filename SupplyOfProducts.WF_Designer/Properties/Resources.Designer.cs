@@ -63,6 +63,16 @@ namespace SupplyOfProducts.WF_Designer.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap narrow_up {
+            get {
+                object obj = ResourceManager.GetObject("narrow_up", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap STEP {
             get {
                 object obj = ResourceManager.GetObject("STEP", resourceCulture);

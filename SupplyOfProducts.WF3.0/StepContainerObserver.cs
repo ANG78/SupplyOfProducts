@@ -13,10 +13,10 @@ namespace SupplyOfProducts.WF3._0
     {
         UIStepGenerator Container;
         FrmMainObserver FrmMainObserver;
-        Dictionary<object, IObserverEvent> Observers = new Dictionary<object, IObserverEvent>();
+        Dictionary<object, StepControlObserver> Observers = new Dictionary<object, StepControlObserver>();
         static object LockerCreation = new object();
 
-        
+
         public StepContainerObserver(FrmMain form, FrmMainObserver obs)
         {
             HelperUI.ModifyMethod(form, () =>
@@ -36,9 +36,9 @@ namespace SupplyOfProducts.WF3._0
             {
                 Observers[step] = GetContainer(step);
 
-                if (step is IDecoratorStep<T> )
+                if (step is IDecoratorStep<T>)
                 {
-                    if ( ((IDecoratorStep < T > )step).DecoratedStep is ICompositorSteps<IRequestMustBeCompleted>)
+                    if (((IDecoratorStep<T>)step).DecoratedStep is ICompositorSteps<IRequestMustBeCompleted>)
                     {
                         var reqStep = ((ICompositorSteps<IRequestMustBeCompleted>)((IDecoratorStep<T>)step).DecoratedStep).Steps;
                         while (reqStep != null)
@@ -47,8 +47,8 @@ namespace SupplyOfProducts.WF3._0
                             reqStep = reqStep.Next;
                         }
                     }
-                    
-                    
+
+
                 }
 
 
@@ -59,7 +59,7 @@ namespace SupplyOfProducts.WF3._0
         }
 
 
-        private IObserverEvent GetContainer<T>(IStep<T> step)
+        private StepControlObserver GetContainer<T>(IStep<T> step)
         {
             if (!Observers.ContainsKey(step))
             {
@@ -90,6 +90,21 @@ namespace SupplyOfProducts.WF3._0
         public void Exception<T>(T pData, IStep<T> pStep, Exception ex)
         {
             GetContainer(pStep)?.Exception(pData, pStep, ex);
+        }
+
+        public void ResizeToJustIcon()
+        {
+
+            lock (LockerCreation)
+            {
+
+                foreach (var cpm in Observers.Values)
+                {
+
+                    cpm.ResizeToJustIcon();
+                    
+                }
+            }
         }
 
     }
