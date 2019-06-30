@@ -11,7 +11,7 @@ namespace SupplyOfProducts.Test.Persistence
         public void TestGetSuppliesScheduledtoWorker_isWorkingProperly()
         {
             var _productRepository = GetRepository<ISupplyScheduledRepository>();
-            var result = _productRepository.Get("EPI1","W01","WP01", new System.DateTime(2010,10,10) );
+            var result = _productRepository.Get("EPI1","W01","WP01", new System.DateTime(2019,01,01) );
             Assert.IsNotNull(result);
             Assert.IsNotNull(result?.WorkerInWorkPlace?.Worker);
             Assert.IsNotNull(result?.WorkerInWorkPlace?.WorkPlace);

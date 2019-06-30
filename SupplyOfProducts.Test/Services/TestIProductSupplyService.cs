@@ -10,7 +10,7 @@ using System;
 namespace SupplyOfProducts.Test.Services
 {
     [TestClass]
-    public class TestProductSupplyService : UnitTestBase// UnitTestBase
+    public class TestProductSupplyService : UnitTestServiceBase// UnitTestBase
     {
         [TestMethod]
         public void TestProductSupplyService_IsWorkingProperly()
@@ -20,7 +20,7 @@ namespace SupplyOfProducts.Test.Services
             IPeriodConfigurationService serviceConfPer = Provider.GetService<IPeriodConfigurationService>();
             IWorkerInWorkPlaceService workerService = Provider.GetService<IWorkerInWorkPlaceService>();
 
-            var wInwps = workerService.GetWorkPlaceWhereWorkedTheWorker(userMocked, null);
+            var wInwps = workerService.GetWorkPlaceWhereWorkedTheWorker(workerMocked, null);
             Assert.IsTrue(wInwps.Count > 0);
             var workerInWorkPlace = wInwps[0];
 
@@ -49,7 +49,7 @@ namespace SupplyOfProducts.Test.Services
             IPeriodConfigurationService serviceConfPer = Provider.GetService<IPeriodConfigurationService>();
             IWorkerInWorkPlaceService workerService = Provider.GetService<IWorkerInWorkPlaceService>();
 
-            var wInwps = workerService.GetWorkPlaceWhereWorkedTheWorker(userMocked, null);
+            var wInwps = workerService.GetWorkPlaceWhereWorkedTheWorker(workerMocked, null);
             Assert.IsTrue(wInwps.Count > 0);
             var workerInWorkPlace = wInwps[0];
 

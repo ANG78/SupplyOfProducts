@@ -53,7 +53,7 @@ namespace SupplyOfProducts.Api
             });
 
             services.AddSwaggerExamplesFromAssemblyOf<ExampleRequestConfigSupplyViewModel>();
-            services.AddSwaggerExamplesFromAssemblyOf<ExampleRequestSupplyViewModel>();
+            //services.AddSwaggerExamplesFromAssemblyOf<ExampleRequestSupplyViewModel>();
 
             new SupplyOfProducts.Api.Common.Startup(Configuration).ConfigureRepositoryServices(services);
 

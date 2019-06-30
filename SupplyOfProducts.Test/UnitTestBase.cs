@@ -10,21 +10,20 @@ namespace SupplyOfProducts.Test
     {
         protected static ServiceProvider Provider = null;
         protected static ServiceProvider ProviderDB = null;
-        private static object referenceLocking = new object(); 
-
-        protected string userMocked = "W01";
+        private static object referenceLocking = new object();
 
         protected UnitTestBase()
         {
-            var conf = new ConfigurationBuilder();
-            conf.AddJsonFile("appsettings.json");
 
             if (Provider == null)
             {
                 lock (referenceLocking)
                 {
+                    var conf = new ConfigurationBuilder();
+                    conf.AddJsonFile("appsettings.json");
                     var services = new ServiceCollection();
-                    Startup start = new Startup(conf.Build(),false);
+
+                    Api.Common.Startup start = new SupplyOfProducts.Api.Common.Startup(conf.Build());
                     start.ConfigureRepositoryServices(services);
 
                     Provider = services.BuildServiceProvider();
@@ -35,20 +34,41 @@ namespace SupplyOfProducts.Test
             {
                 lock (referenceLocking)
                 {
+                    var conf = new ConfigurationBuilder();
+                    conf.AddJsonFile("appsettings.json");
                     var services = new ServiceCollection();
-                    Startup start = new Startup(conf.Build(), true);
+
+                    Api.Common.Startup start = new SupplyOfProducts.Api.Common.Startup(conf.Build());
                     start.ConfigureRepositoryServices(services);
 
                     ProviderDB = services.BuildServiceProvider();
+
                 }
             }
 
         }
 
 
-        protected RequestSupplyViewModel MockRequestSupplyViewModel(string codPr, string codW, string codWP, DateTime date)
+        protected ConfigSupplyViewModel MockConfigSupplyViewModel(string codPr, string codW, string codWP, DateTime date, int amount)
         {
-            return new RequestSupplyViewModel() { ProductCode = codPr, WorkerCode = codW, WorkPlaceCode = codWP, Date = date };
+            return new ConfigSupplyViewModel
+            { ProductCode = codPr,
+              WorkerCode = codW,
+              WorkPlaceCode = codWP,
+              Date = date,
+              Amount = amount
+            };
+        }
+
+        protected ProductSupplyViewModel MockProductSupplyViewModel(string codPr, string codW, string codWP, DateTime date, int amount)
+        {
+            return new ProductSupplyViewModel
+            {
+                ProductCode = codPr,
+                WorkerCode = codW,
+                WorkPlaceCode = codWP,
+                Date = date
+            };
         }
 
         protected ConfigSupplyViewModel MockRequestConfigViewModel(string codPr, string codW, string codWP, DateTime date, int amount)
@@ -61,7 +81,7 @@ namespace SupplyOfProducts.Test
             Provider.GetService<MemoryContext>()?.LoadDataConfiguration();
         }
 
-        protected T GetRepository<T>(bool database =  true)
+        protected T GetRepository<T>(bool database = true)
         {
             if (database)
             {

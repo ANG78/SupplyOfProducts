@@ -13,6 +13,7 @@ using SupplyOfProducts.Interfaces.BusinessLogic.Services.Request;
 using SupplyOfProducts.Interfaces.BusinessLogic.Entities;
 using SupplyOfProducts.BusinessLogic.Steps.Common;
 using AutoMapper;
+using System.Reflection;
 
 namespace SupplyOfProducts.Api.Common
 {
@@ -28,14 +29,18 @@ namespace SupplyOfProducts.Api.Common
 
         }
 
+       // public bool UsingDDBB { get; set; } = true;
+
         public void ConfigureRepositoryServices(IServiceCollection services)
         {
 
-            services.AddAutoMapper();
+            services.AddAutoMapper(Assembly.Load("SupplyOfProducts.Api.Common"), Assembly.Load("SupplyOfProducts.PersistanceDDBB"));
+
+           // services.AddAutoMapper();
 
 
             // Add Repositories. 
-            //if (_usingDDBB)
+         //   if (UsingDDBB)
             {
                 new PersistanceDDBB.StartupWeb(Configuration).ConfigureRepositoryServices(services);
             }

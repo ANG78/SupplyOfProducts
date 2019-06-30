@@ -7,7 +7,7 @@ namespace SupplyOfProducts.Test.Services
 {
 
     [TestClass]
-    public class TestPeriodConfigurationService : UnitTestBase
+    public class TestPeriodConfigurationService : UnitTestServiceBase
     {
         
         [TestMethod]
@@ -18,7 +18,7 @@ namespace SupplyOfProducts.Test.Services
             IWorkerInWorkPlaceService workerService = Provider.GetService<IWorkerInWorkPlaceService>();
             var currentDate = DateTime.Now;
 
-            var wks = workerService.GetWorkPlaceWhereWorkedTheWorker(userMocked, currentDate);
+            var wks = workerService.GetWorkPlaceWhereWorkedTheWorker(workerMocked, currentDate);
             Assert.IsTrue(wks.Count > 0, "wks.Count > 0");
             foreach (var it in wks)
             {

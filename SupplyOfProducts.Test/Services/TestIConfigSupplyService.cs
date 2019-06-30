@@ -9,8 +9,9 @@ using SupplyOfProducts.Interfaces.BusinessLogic.Services.Request;
 namespace SupplyOfProducts.Test.Services
 {
     [TestClass]
-    public class TestIConfigSupplyService : UnitTestBase
+    public class TestIConfigSupplyService : UnitTestServiceBase
     {
+       
 
         [TestMethod]
         public void TestConfigSupplyService_IsWorkingProperly()
@@ -20,12 +21,12 @@ namespace SupplyOfProducts.Test.Services
             IPeriodConfigurationService serviceConfPer = Provider.GetService<IPeriodConfigurationService>();
             IWorkerInWorkPlaceService workerService = Provider.GetService<IWorkerInWorkPlaceService>();
 
-            var wInwps = workerService.GetWorkPlaceWhereWorkedTheWorker(userMocked, null);
+            var wInwps = workerService.GetWorkPlaceWhereWorkedTheWorker(workerMocked, null);
             Assert.IsTrue(wInwps.Count > 0);
             var workerInWorkPlace = wInwps[0];
 
             var service = Provider.GetService<IManagementModelRequest<IConfigSupply>>();
-            ConfigSupplyViewModel req = MockRequestConfigViewModel("EPI1", userMocked, workerInWorkPlace.WorkPlace.Code, workerInWorkPlace.DateStart.AddDays(100), 5);
+            ConfigSupplyViewModel req = MockRequestConfigViewModel("EPI1", workerMocked, workerInWorkPlace.WorkPlace.Code, workerInWorkPlace.DateStart.AddDays(100), 5);
             //var reqModel = Mappers.Get<IConfigSupply>(req);
 
             //var result = service.Execute(reqModel);

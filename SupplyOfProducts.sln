@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SupplyOfProducts.Api.Common
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SupplyOfProducts.Console3.0", "SupplyOfProducts.Console3.0\SupplyOfProducts.Console3.0.csproj", "{6C77D817-7B99-4382-9E55-037E9BD054E9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SupplyOfProducts.WF3.0", "SupplyOfProducts.WF3.0\SupplyOfProducts.WF3.0.csproj", "{35B628B8-C065-4D93-87E6-43242B6ACBFA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SupplyOfProducts.WF3.0", "SupplyOfProducts.WF3.0\SupplyOfProducts.WF3.0.csproj", "{35B628B8-C065-4D93-87E6-43242B6ACBFA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SupplyOfProducts.WF_Designer", "SupplyOfProducts.WF_Designer\SupplyOfProducts.WF_Designer.csproj", "{1D057B42-B6C1-4ACD-8556-F754AEF0E702}"
 EndProject

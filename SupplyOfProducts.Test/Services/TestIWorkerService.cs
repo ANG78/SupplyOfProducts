@@ -9,8 +9,11 @@ using System;
 
 namespace SupplyOfProducts.Test.Services
 {
-    [TestClass]
-    public class TestIWorkerService : UnitTestBase
+
+
+ 
+        [TestClass]
+    public class TestIWorkerService : UnitTestServiceBase
     {
 
         [TestMethod]
@@ -19,7 +22,7 @@ namespace SupplyOfProducts.Test.Services
 
             Reset();
             IWorkerService service = Provider.GetService<IWorkerService>();
-            string codW = userMocked;
+            string codW = workerMocked;
             var resWorker = service.CheckExist(codW);
             Assert.IsTrue(resWorker != null && resWorker.ComputeResult().IsOk());
             Assert.IsTrue(resWorker.GetItem().Code == codW);

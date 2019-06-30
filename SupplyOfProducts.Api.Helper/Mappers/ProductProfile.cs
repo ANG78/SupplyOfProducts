@@ -14,11 +14,11 @@ namespace SupplyOfProducts.BusinessLogic.Mappers
         {
 
             CreateMap<IProduct, ProductViewModel>()
-                .IncludeAllDerived()
-               .ForMember(prod => prod.Class, opt => opt.MapFrom(x => EStructure.PRODUCT.String()));
+                .IncludeAllDerived();
+              // .ForMember(prod => prod.Class, opt => opt.MapFrom(x => EStructure.PRODUCT.String()));
 
             CreateMap<IPackage, ProductComplexViewModel>()
-                .ForMember(prod => prod.Class, opt => opt.MapFrom(x => EStructure.PACKAGE.String()))
+              //  .ForMember(prod => prod.Class, opt => opt.MapFrom(x => EStructure.PACKAGE.String()))
                 .ForMember(prod => prod.Parts, opt => opt.MapFrom(s => s.Parts));
 
 
@@ -26,11 +26,11 @@ namespace SupplyOfProducts.BusinessLogic.Mappers
             CreateMap<ProductComplexViewModel, IProduct>()
                 .ConstructUsing((x, ctx) =>
                 {
-                    if (x.Class == EStructure.PACKAGE.String())
-                    {
+                    //if (x.Class == EStructure.PACKAGE.String())
+                    //{
                         return ctx.Mapper.Map<Package>(x);
-                    }
-                    return ctx.Mapper.Map<Product>(x);
+                    //}
+                    //return ctx.Mapper.Map<Product>(x);
                 });
 
             CreateMap<ProductViewModel, Product>();

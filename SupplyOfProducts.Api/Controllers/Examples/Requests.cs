@@ -22,18 +22,18 @@ namespace SupplyOfProducts.Api.Controllers.Examples
         }
     }
 
-    public class ExampleRequestSupplyViewModel : IExamplesProvider<RequestSupplyViewModel>
-    {
-        public RequestSupplyViewModel GetExamples()
-        {
-            return new RequestSupplyViewModel
-            {
-                ProductCode = "EPI1",
-                WorkerCode = "W01",
-                WorkPlaceCode = "WP01",
-                Date = new DateTime(2010, 04, 12),
-            };
-        }
-    }
+    //public class ExampleRequestSupplyViewModel : IExamplesProvider<RequestSupplyViewModel>
+    //{
+    //    public RequestSupplyViewModel GetExamples()
+    //    {
+    //        return new RequestSupplyViewModel
+    //        {
+    //            ProductCode = "EPI1",
+    //            WorkerCode = "W01",
+    //            WorkPlaceCode = "WP01",
+    //            Date = new DateTime(2010, 04, 12),
+    //        };
+    //    }
+    //}
     
 }

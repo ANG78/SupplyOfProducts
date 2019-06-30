@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using AutoMapper;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SupplyOfProducts.Persistance;
 
@@ -11,7 +12,7 @@ namespace SupplyOfProducts.Test
         [TestMethod]
         public void TestConfigurationIoC()
         {
-            MemoryContext serviceMemory = Provider.GetService<MemoryContext>();
+            var serviceMemory = Provider.GetService<IMapper>();
             Assert.IsNotNull(serviceMemory);
 
 
