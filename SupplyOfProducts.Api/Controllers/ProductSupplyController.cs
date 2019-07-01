@@ -20,12 +20,6 @@ namespace SupplyOfProducts.Api.Controllers
         {
         }
 
-        //[HttpGet("{workerCode}", Name = "GetAll[controller]")]
-        //public IEnumerable<ProductSupplyViewModelExt> GetAllByWorker(string workerCode)
-        //{
-        //    var result = _retrieverBusinessLogic.Get(workerCode);
-        //    var resultMapped = _mapper.Map< IEnumerable<ProductSupplyViewModelExt> >(result);
-        //    return resultMapped;
-        //}
+
     }
 }
