@@ -11,10 +11,10 @@ namespace SupplyOfProducts.Api.Controllers
 
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductStockController : ControllerGenericBaseComplete<IProductStock, IProductStockService, ProductStockViewModel, ProductStockViewModel>
+    public class ProductStockController : ControllerGenericBaseComplete<IProductStock,  ProductStockViewModel, ProductStockViewModel>
     {
         public ProductStockController(IMapper mapper,
-                                   IProductStockService serviceBusinessLogic,
+                                   IStep<IManagementModelRetrieverRequest<IProductStock>> serviceBusinessLogic,
                                    IStep<IManagementModelRequest<IProductStock>> businessLogic)
             : base(mapper, serviceBusinessLogic, businessLogic)
         {

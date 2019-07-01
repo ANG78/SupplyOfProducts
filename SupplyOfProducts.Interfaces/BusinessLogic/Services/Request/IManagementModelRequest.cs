@@ -1,4 +1,6 @@
-﻿namespace SupplyOfProducts.Interfaces.BusinessLogic.Services.Request
+﻿using System.Collections.Generic;
+
+namespace SupplyOfProducts.Interfaces.BusinessLogic.Services.Request
 {
     public enum Operation
     {
@@ -16,5 +18,10 @@
          T Item { get; set; }
     }
 
-    
+    public interface IManagementModelRetrieverRequest<T> : IRequestMustBeCompleted
+    { 
+        string Code { get; set; }
+        IEnumerable<T>  Items { get; set; }
+    }
+
 }

@@ -10,23 +10,23 @@ namespace SupplyOfProducts.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ConfigProductController : ControllerGenericBase<IConfigSupply, IConfigSupplyService, ConfigSupplyViewModel, ConfigSupplyViewModelExt>
+    public class ConfigProductController : ControllerGenericNotSingleCodeBase<IConfigSupply, ConfigSupplyViewModel, ConfigSupplyViewModelExt>
     {
 
         public ConfigProductController(IMapper mapper,
-                                IConfigSupplyService serviceBusinessLogic,
+                                IStep<IManagementModelRetrieverRequest<IConfigSupply>> serviceBusinessLogic,
                                 IStep<IManagementModelRequest<IConfigSupply>> businessLogic)
                     : base(mapper, serviceBusinessLogic, businessLogic )
         {
         }
 
-        [HttpGet("{workerCode}", Name = "GetAll[controller]")]
-        public IEnumerable<ConfigSupplyViewModelExt> GetAllByWorker(string workerCode)
-        {
-            var result = _service.GetAll(workerCode);
-            var resultMapped = _mapper.Map<IEnumerable<ConfigSupplyViewModelExt>>(result);
-            return resultMapped;
-        }
+        //[HttpGet("{workerCode}", Name = "GetAll[controller]")]
+        //public IEnumerable<ConfigSupplyViewModelExt> GetAllByWorker(string workerCode)
+        //{
+        //    //var result = _retrieverBusinessLogic.GetAll(workerCode);
+        //    //var resultMapped = _mapper.Map<IEnumerable<ConfigSupplyViewModelExt>>(result);
+        //    //return resultMapped;
+        //}
     }
 }
 

@@ -34,7 +34,8 @@ namespace SupplyOfProducts.Api.Common
         public void ConfigureRepositoryServices(IServiceCollection services)
         {
 
-            services.AddAutoMapper(Assembly.Load("SupplyOfProducts.Api.Common"), Assembly.Load("SupplyOfProducts.PersistanceDDBB"));
+            services.AddAutoMapper(Assembly.Load("SupplyOfProducts.Api.Common"), 
+                                   Assembly.Load("SupplyOfProducts.PersistanceDDBB"));
 
            // services.AddAutoMapper();
 
@@ -71,6 +72,15 @@ namespace SupplyOfProducts.Api.Common
             services.AddScoped<IWorkPlaceService, WorkPlaceService>();
             services.AddScoped<IWorkerInWorkPlaceService, WorkerInWorkPlaceService>();
             services.AddScoped<IConfigSupplyService, ConfigSupplyService>();
+
+            /*Retrievers*/
+            services.AddScoped<IStep<IManagementModelRetrieverRequest<IWorker>> , RetrieverGeneric<IWorker, IWorkerService>> ();
+            services.AddScoped<IStep<IManagementModelRetrieverRequest<IWorkPlace>>, RetrieverGeneric<IWorkPlace, IWorkPlaceService>>();
+            services.AddScoped<IStep<IManagementModelRetrieverRequest<IProduct>>, RetrieverGeneric<IProduct, IProductService>>();
+            services.AddScoped<IStep<IManagementModelRetrieverRequest<IProductStock>>, RetrieverGeneric<IProductStock, IProductStockService>>();
+            services.AddScoped<IStep<IManagementModelRetrieverRequest<IConfigSupply>>, RetrieverByWorkerGeneric<IConfigSupply, IConfigSupplyService>>();
+            services.AddScoped<IStep<IManagementModelRetrieverRequest<IProductSupply>>, RetrieverByWorkerGeneric<IProductSupply, IProductSupplyService>>();
+
 
             // common steps in order to validate and complete the request
             services.AddScoped(sp =>

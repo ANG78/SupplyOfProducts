@@ -13,17 +13,17 @@ namespace SupplyOfProducts.Api.Controllers
 
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductController :  ControllerGenericBaseComplete<IProduct, IProductService, ProductComplexViewModel, ProductViewModel>
+    public class ProductController : ControllerGenericBaseComplete<IProduct, ProductComplexViewModel, ProductViewModel>
     {
         public ProductController(IMapper mapper,
-                                   IProductService serviceBusinessLogic,
+                                   IStep<IManagementModelRetrieverRequest<IProduct>> serviceBusinessLogic,
                                    IStep<IManagementModelRequest<IProduct>> businessLogic)
-            :base(mapper,serviceBusinessLogic,businessLogic)
+            : base(mapper, serviceBusinessLogic, businessLogic)
         {
-          
+
         }
     }
 
-     
-    }
+
+}
 

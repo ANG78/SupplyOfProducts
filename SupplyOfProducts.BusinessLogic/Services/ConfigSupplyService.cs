@@ -25,9 +25,9 @@ namespace SupplyOfProducts.BusinessLogic.Services
             return _repository.Get();
         }
 
-        public IConfigSupply Get(string code)
+        public IEnumerable<IConfigSupply> Get(string code)
         {
-            return _repository.Get(code).OrderByDescending(x=>x.Date).FirstOrDefault();
+            return _repository.Get(code).OrderByDescending(x=>x.Date);
         }
     }
 
