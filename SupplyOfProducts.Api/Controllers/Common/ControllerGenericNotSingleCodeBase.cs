@@ -7,11 +7,13 @@ using SupplyOfProducts.Interfaces.BusinessLogic.Services.Request;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 
 namespace SupplyOfProducts.Api.Controllers
 {
-    public abstract class ControllerGenericNotSingleCodeBaseRead<TModel,  TModelView, TModelViewGet> : ControllerBase 
+    public abstract class ControllerGenericNotSingleCodeBaseRead<TModel, TModelView, TModelViewGet> : AbstractControllerGenericBase
         where TModel : IId
+        where TModelViewGet : new()
     {
         protected readonly IStep<IManagementModelRetrieverRequest<TModel>> _retrieverBusinessLogic;
         protected readonly IMapper _mapper;
@@ -28,16 +30,16 @@ namespace SupplyOfProducts.Api.Controllers
         {
             var request = new ManagementModelRetrieverRequest<TModel> { };
 
-            var resut = _retrieverBusinessLogic.Execute(request);
-            if (resut.ComputeResult().IsOk())
+            var result = _retrieverBusinessLogic.Execute(request);
+            if (result.ComputeResult().IsOk())
             {
                 return _mapper.Map<IEnumerable<TModelViewGet>>(request.Items);
             }
 
-            throw new Exception(resut.Message());
-
-            //var res = _service.GetAll();
-            //return _mapper.Map<IEnumerable<TModelViewGet>>(res);
+            throw new System.Web.Http.HttpResponseException(HttpStatusCode.NotFound)
+            {
+                Source = result.Message()
+            };
         }
 
         [HttpGet("{code}", Name = "Get[controller]")]
@@ -49,12 +51,13 @@ namespace SupplyOfProducts.Api.Controllers
             };
 
 
-            var resut = _retrieverBusinessLogic.Execute(request);
-            if (!resut.ComputeResult().IsOk()
-                &&
-                request.Items?.Count() != 1)
+            var result = _retrieverBusinessLogic.Execute(request);
+            if (!result.ComputeResult().IsOk() )
             {
-                throw new Exception(resut.Message());
+                throw new System.Web.Http.HttpResponseException(HttpStatusCode.NotFound)
+                {
+                    Source = result.Message()
+                };
             }
 
             return _mapper.Map<IEnumerable<TModelViewGet>>(request.Items.ToList());
@@ -64,8 +67,10 @@ namespace SupplyOfProducts.Api.Controllers
     }
 
 
-    public abstract class ControllerGenericNotSingleCodeBase<TModel, TModelView, TModelViewGet> : 
-        ControllerGenericNotSingleCodeBaseRead<TModel, TModelView, TModelViewGet> where TModel : IId
+    public abstract class ControllerGenericNotSingleCodeBase<TModel, TModelView, TModelViewGet> :
+        ControllerGenericNotSingleCodeBaseRead<TModel, TModelView, TModelViewGet>
+        where TModel : IId
+        where TModelViewGet : new()
     {
         protected readonly IStep<IManagementModelRequest<TModel>> _businessLogic;
 
@@ -80,7 +85,7 @@ namespace SupplyOfProducts.Api.Controllers
 
         // POST: api/WorkPlace
         [HttpPost]
-        public string Post([FromBody] TModelView value)
+        public ActionResult Post([FromBody] TModelView value)
         {
 
             var request = new ManagementModelRequest<TModel>
@@ -90,7 +95,12 @@ namespace SupplyOfProducts.Api.Controllers
             };
 
             var result = _businessLogic.Execute(request);
-            return result.Message();
+            if (result.ComputeResult().IsOk())
+            {
+                return Ok(result.Message());
+            }
+
+            return BadRequest(result.Message());
         }
 
     }

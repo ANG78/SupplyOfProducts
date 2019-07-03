@@ -6,17 +6,34 @@ using SupplyOfProducts.Interfaces.BusinessLogic.Entities;
 using SupplyOfProducts.Interfaces.BusinessLogic.Services.Request;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 
 namespace SupplyOfProducts.Api.Controllers
 {
-    public abstract class ControllerGenericBaseRead<TModel, TModelView, TModelViewGet> : 
-        ControllerBase where TModel : IId
+
+    public abstract class AbstractControllerGenericBase : ControllerBase
+    {
+        protected Stream GenerateStreamFromString(string s)
+        {
+            var stream = new MemoryStream();
+            var writer = new StreamWriter(stream);
+            writer.Write(s);
+            writer.Flush();
+            stream.Position = 0;
+            return stream;
+        }
+    }
+    public abstract class ControllerGenericBaseRead<TModel, TModelView, TModelViewGet> :
+        AbstractControllerGenericBase
+        where TModel : IId
+        where TModelViewGet : new()
     {
         protected readonly IStep<IManagementModelRetrieverRequest<TModel>> _retrieverBusinessLogic;
         protected readonly IMapper _mapper;
 
-        public ControllerGenericBaseRead(IMapper mapper, 
+        public ControllerGenericBaseRead(IMapper mapper,
                                          IStep<IManagementModelRetrieverRequest<TModel>> retrieverbusinessLogic)
         {
             _retrieverBusinessLogic = retrieverbusinessLogic;
@@ -28,13 +45,16 @@ namespace SupplyOfProducts.Api.Controllers
         {
             var request = new ManagementModelRetrieverRequest<TModel> { };
 
-            var resut = _retrieverBusinessLogic.Execute(request);
-            if (resut.ComputeResult().IsOk())
+            var result = _retrieverBusinessLogic.Execute(request);
+            if (result.ComputeResult().IsOk())
             {
                 return _mapper.Map<IEnumerable<TModelViewGet>>(request.Items);
             }
 
-            throw new Exception(resut.Message());
+            throw new System.Web.Http.HttpResponseException(HttpStatusCode.NotFound)
+            {
+                Source = result.Message()
+            };
 
         }
 
@@ -47,12 +67,16 @@ namespace SupplyOfProducts.Api.Controllers
             };
 
 
-            var resut = _retrieverBusinessLogic.Execute(request);
-            if (!resut.ComputeResult().IsOk()
+            var result = _retrieverBusinessLogic.Execute(request);
+            if (!result.ComputeResult().IsOk()
                 ||
                 request.Items?.Count() != 1)
             {
-                throw new Exception(resut.Message());
+                throw new System.Web.Http.HttpResponseException(HttpStatusCode.NotFound)
+                {
+                    Source = result.Message()
+                };
+
             }
 
             return _mapper.Map<TModelViewGet>(request.Items.ToList()[0]);
@@ -60,15 +84,17 @@ namespace SupplyOfProducts.Api.Controllers
         }
     }
 
-    public abstract class ControllerGenericBase<TModel, TModelView, TModelViewGet> : 
-            ControllerGenericBaseRead<TModel, TModelView, TModelViewGet>  where TModel : IId
+    public abstract class ControllerGenericBase<TModel, TModelView, TModelViewGet> :
+            ControllerGenericBaseRead<TModel, TModelView, TModelViewGet>
+        where TModel : IId
+        where TModelViewGet : new()
     {
         protected readonly IStep<IManagementModelRequest<TModel>> _businessLogic;
 
         public ControllerGenericBase(IMapper mapper,
                                      IStep<IManagementModelRetrieverRequest<TModel>> retrieverbusinessLogic,
                                      IStep<IManagementModelRequest<TModel>> businessLogic
-                                   ):base( mapper, retrieverbusinessLogic)
+                                   ) : base(mapper, retrieverbusinessLogic)
         {
             _businessLogic = businessLogic;
 
@@ -76,7 +102,7 @@ namespace SupplyOfProducts.Api.Controllers
 
         // POST: api/WorkPlace
         [HttpPost]
-        public string Post([FromBody] TModelView value)
+        public ActionResult Post([FromBody] TModelView value)
         {
 
             var request = new ManagementModelRequest<TModel>
@@ -86,26 +112,37 @@ namespace SupplyOfProducts.Api.Controllers
             };
 
             var result = _businessLogic.Execute(request);
-            return result.Message();
+
+            if (result.ComputeResult().IsOk())
+            {
+                return Ok(result.Message());
+            }
+
+            return BadRequest(result.Message());
+
+
+
         }
-      
+
     }
-    
-    public abstract class ControllerGenericBaseComplete<TModel, TModelView, TModelViewGet> : 
-        ControllerGenericBase<TModel, TModelView, TModelViewGet> where TModel : IId
+
+    public abstract class ControllerGenericBaseComplete<TModel, TModelView, TModelViewGet> :
+        ControllerGenericBase<TModel, TModelView, TModelViewGet>
+        where TModel : IId
+        where TModelViewGet : new()
     {
 
         public ControllerGenericBaseComplete(IMapper mapper,
-                                     IStep<IManagementModelRetrieverRequest<TModel>>  serviceBusinessLogic,
+                                     IStep<IManagementModelRetrieverRequest<TModel>> serviceBusinessLogic,
                                      IStep<IManagementModelRequest<TModel>> businessLogic
                                    ) : base(mapper, serviceBusinessLogic, businessLogic)
         {
-            
+
         }
 
         // PUT: api/WorkPlace/5
         [HttpPut("{id}")]
-        public string Put(int id, [FromBody] TModelView value)
+        public ActionResult Put(int id, [FromBody] TModelView value)
         {
             var request = new ManagementModelRequest<TModel>
             {
@@ -116,9 +153,15 @@ namespace SupplyOfProducts.Api.Controllers
             request.Item.Id = id;
 
             var result = _businessLogic.Execute(request);
-            return result.Message();
+            if (result.ComputeResult().IsOk())
+            {
+                return Ok(result.Message());
+            }
+
+            return BadRequest(result.Message());
+
         }
     }
-    
+
 }
 
