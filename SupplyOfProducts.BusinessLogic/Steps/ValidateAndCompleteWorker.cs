@@ -7,7 +7,7 @@ using SupplyOfProducts.Interfaces.BusinessLogic.Services.Request;
 namespace SupplyOfProducts.BusinessLogic.Steps
 {
 
-    public class ValidateAndCompleteWorker : StepDecoratorTemplateGeneric<IRequestMustBeCompleted>
+    public class ValidateAndCompleteWorker : StepTemplateGeneric<IRequestMustBeCompleted>
     {
         readonly IWorkerService _workerRepository;
 
@@ -23,17 +23,14 @@ namespace SupplyOfProducts.BusinessLogic.Steps
 
         protected override IResult ExecuteTemplate(IRequestMustBeCompleted obj)
         {
-            IContainWorkerProperty objToProces = null;
-            obj.HelperCast(obj, ref objToProces);
+            var objToProces = obj.HelperCast<IContainWorkerProperty>(obj);
 
             if (objToProces != null)
             {
                 return ExecuteTemplate(objToProces);
             }
 
-            IContainWorkerInWorkPlaceProperty objToProces2 = null;
-            obj.HelperCast(obj, ref objToProces2);
-
+            var objToProces2 = obj.HelperCast<IContainWorkerInWorkPlaceProperty>(obj);
             if (objToProces2 != null)
             {
                 return ExecuteTemplate(objToProces2.WorkerInWorkPlace);

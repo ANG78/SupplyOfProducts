@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace SupplyOfProducts.BusinessLogic.Steps.WorkerInfo
 {
-    public class GenerateWorkerReport : StepDecoratorTemplateGeneric<IWorkerInfoRequest>
+    public class GenerateWorkerReport : StepTemplateGeneric<IWorkerInfoRequest>
     {
         readonly IWorkerInWorkPlaceService _workerService;
         readonly IProductSupplyService _productSuppliedService;

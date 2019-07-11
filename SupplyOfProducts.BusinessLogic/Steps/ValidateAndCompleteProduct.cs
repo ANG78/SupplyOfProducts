@@ -9,7 +9,7 @@ using System;
 namespace SupplyOfProducts.BusinessLogic.Steps
 {
 
-    public class ValidateAndCompleteProduct : StepDecoratorTemplateGeneric<IRequestMustBeCompleted>
+    public class ValidateAndCompleteProduct : StepTemplateGeneric<IRequestMustBeCompleted>
     {
         readonly IProductService productService;
 
@@ -28,8 +28,7 @@ namespace SupplyOfProducts.BusinessLogic.Steps
         protected override IResult ExecuteTemplate(IRequestMustBeCompleted obj)
         {
 
-            IContainProductProperty objToProces = null;
-            obj.HelperCast(obj, ref objToProces);
+            var objToProces = obj.HelperCast<IContainProductProperty>(obj);
 
             if (objToProces != null)
             {

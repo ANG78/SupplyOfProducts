@@ -50,23 +50,24 @@ namespace SupplyOfProducts.PersistanceDDBB
         public void ConfigureRepositoryServices(IServiceCollection services)
         {
 
-            services.AddDbContext<SupplyOfProductsContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")
-            ));
+            services.AddDbContext<SupplyOfProductsContext>(
+                options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")
+
+            ),ServiceLifetime.Transient);
 
             // Add Repositories. 
-            services.AddScoped<IGenericContext, SupplyOfProductsContext>();
+            services.AddTransient<IGenericContext, SupplyOfProductsContext>();
             //services.AddSingleton<IGenericContext, SupplyOfProductsContext>();
-            services.AddScoped<ICreateUoW, DecoratorICreateUoW>();
+            services.AddTransient<ICreateUoW, DecoratorICreateUoW>();
 
-            services.AddScoped<IProductRepository, ProductRepository>();
-            services.AddScoped<IProductSupplyRepository, ProductSupplyRepository>();
-            services.AddScoped<IWorkerRepository, WorkerRepository>();
-            services.AddScoped<IWorkerInWorkPlaceRepository, WorkerInWorkPlaceRepository>();
-            services.AddScoped<IWorkPlaceRepository, WorkPlaceRepository>();
-            services.AddScoped<IProductStockRepository, ProductStockRepository>();
-            services.AddScoped<ISupplyScheduledRepository, SupplyScheduledRepository>();
-            services.AddScoped<IConfigSupplyRepository, ConfigSupplyRepository>();
+            services.AddTransient<IProductRepository, ProductRepository>();
+            services.AddTransient<IProductSupplyRepository, ProductSupplyRepository>();
+            services.AddTransient<IWorkerRepository, WorkerRepository>();
+            services.AddTransient<IWorkerInWorkPlaceRepository, WorkerInWorkPlaceRepository>();
+            services.AddTransient<IWorkPlaceRepository, WorkPlaceRepository>();
+            services.AddTransient<IProductStockRepository, ProductStockRepository>();
+            services.AddTransient<ISupplyScheduledRepository, SupplyScheduledRepository>();
+            services.AddTransient<IConfigSupplyRepository, ConfigSupplyRepository>();
 
         }
 

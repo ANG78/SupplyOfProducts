@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace SupplyOfProducts.BusinessLogic.Steps.ProcessProductSupply
 {
-    public class ValidateWorkerCanBeSupplied : StepDecoratorTemplateGeneric< IManagementModelRequest<IProductSupply > >
+    public class ValidateWorkerCanBeSupplied : StepTemplateGeneric< IManagementModelRequest<IProductSupply > >
     {
         readonly IProductSupplyService _productSupplyService;
         readonly ISupplyScheduledService _supplyScheduledService;

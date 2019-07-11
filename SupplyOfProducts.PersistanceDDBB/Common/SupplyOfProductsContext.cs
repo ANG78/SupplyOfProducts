@@ -10,9 +10,21 @@ namespace SupplyOfProducts.PersistanceDDBB
 
     public class SupplyOfProductsContext : DbContext, IGenericContext
     {
+        public static int IdSupplyOfProductsContextGenerator { get; set; } = 0;
+
+        public int IdContext {get;set;}
+
+        private static object Locker = new object();
+
         /// <param name="options">The options<see cref="DbContextOptions{SupplyOfProductsContext}"/></param>
         public SupplyOfProductsContext(DbContextOptions<SupplyOfProductsContext> options) : base(options)
         {
+            lock(Locker)
+            {
+                IdSupplyOfProductsContextGenerator++;
+                IdContext = IdSupplyOfProductsContextGenerator;
+            }
+            
         }
 
 

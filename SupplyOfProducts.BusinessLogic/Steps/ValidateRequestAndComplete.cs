@@ -7,7 +7,7 @@ namespace SupplyOfProducts.BusinessLogic.Steps
 {
    
 
-    public class ValidateRequestAndComplete<T> : StepDecoratorTemplateGeneric<T>, ICompositorSteps<IRequestMustBeCompleted>
+    public class ValidateRequestAndComplete<T> : StepTemplateGeneric<T>, ICompositorSteps<IRequestMustBeCompleted>
     {
         public IStep<IRequestMustBeCompleted> Steps { get; private set; }
         public ValidateRequestAndComplete(IStep<IRequestMustBeCompleted> intialSteps, IStep<T> next = null) : base(next)

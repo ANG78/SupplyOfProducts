@@ -8,7 +8,7 @@ using System.Collections.Generic;
 namespace SupplyOfProducts.BusinessLogic.Steps
 {
     public class RetrieverGeneric<TModel, TService> :
-        StepDecoratorTemplateGeneric<IManagementModelRetrieverRequest<TModel>>
+        StepTemplateGeneric<IManagementModelRetrieverRequest<TModel>>
         where TService : IGenericService<TModel>
     {
         TService _Service;

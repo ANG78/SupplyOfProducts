@@ -107,6 +107,14 @@ namespace SupplyOfProducts.WF3._0
             }
         }
 
+        public void Run()
+        {
+            if (Container.Executor != null)
+            {
+                Container.Executor.Run();
+            }
+        }
+
     }
 
 

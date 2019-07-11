@@ -4,11 +4,11 @@ using System;
 
 namespace SupplyOfProducts.BusinessLogic.Steps.Common
 {
-    public abstract class StepDecoratorTemplateGeneric<T> : IStep<T>
+    public abstract class StepTemplateGeneric<T> : IStep<T>
     {
         public IStep<T> Next { get; set; }
 
-        public StepDecoratorTemplateGeneric(IStep<T> next = null)
+        public StepTemplateGeneric(IStep<T> next = null)
         {
             Next = next;
         }

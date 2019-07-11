@@ -9,7 +9,7 @@ using SupplyOfProducts.Interfaces.BusinessLogic.Services.Request;
 namespace SupplyOfProducts.BusinessLogic.Steps.ConfigSupply
 {
 
-    public class ScheduleConfigurationToWorker : StepDecoratorTemplateGeneric<IManagementModelRequest<IConfigSupply>>
+    public class ScheduleConfigurationToWorker : StepTemplateGeneric<IManagementModelRequest<IConfigSupply>>
     {
         readonly ISupplyScheduledService _supplyScheduledService;
 

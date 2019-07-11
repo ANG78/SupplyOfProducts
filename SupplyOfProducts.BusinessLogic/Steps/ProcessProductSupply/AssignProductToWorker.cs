@@ -9,7 +9,7 @@ using System.Linq;
 namespace SupplyOfProducts.BusinessLogic.Steps.ProcessProductSupply
 {
 
-    public class AssignProductToWorker : StepDecoratorTemplateGeneric<IManagementModelRequest<IProductSupply>>
+    public class AssignProductToWorker : StepTemplateGeneric<IManagementModelRequest<IProductSupply>>
     {
         readonly IProductSupplyService _productSupplyService;
         readonly IProductStockService _productStockService;

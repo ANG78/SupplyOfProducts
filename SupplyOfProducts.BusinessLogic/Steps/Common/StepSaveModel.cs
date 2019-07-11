@@ -5,7 +5,7 @@ using SupplyOfProducts.Interfaces.BusinessLogic.Services.Request;
 
 namespace SupplyOfProducts.BusinessLogic.Steps.Common
 {
-    public class StepSaveModel<T> : StepDecoratorTemplateGeneric< IManagementModelRequest<T> >
+    public class StepSaveModel<T> : StepTemplateGeneric< IManagementModelRequest<T> >
     {
         readonly IGenericService<T> _service;
 

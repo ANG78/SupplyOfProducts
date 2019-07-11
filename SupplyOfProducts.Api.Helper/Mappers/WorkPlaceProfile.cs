@@ -12,16 +12,10 @@ namespace SupplyOfProducts.BusinessLogic.Mappers
             CreateMap<IWorkPlace, WorkPlaceViewModel>();
 
 
-            CreateMap<WorkPlaceViewModel, IWorkPlace>()
-               .ConstructUsing((x, ctx) =>
-               {
-                   return ctx.Mapper.Map<WorkPlace>(x);
-               })
-               ;
+            CreateMap<WorkPlaceViewModel, IWorkPlace>().As<WorkPlace>();
 
 
-            CreateMap<WorkPlaceViewModel, WorkPlace>()   
-                ;
+            CreateMap<WorkPlaceViewModel, WorkPlace>();
 
         }
     }

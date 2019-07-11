@@ -7,7 +7,7 @@ using System;
 
 namespace SupplyOfProducts.BusinessLogic.Steps
 {
-    public class ValidateAndCompleteDatePeriod : StepDecoratorTemplateGeneric<IRequestMustBeCompleted>
+    public class ValidateAndCompleteDatePeriod : StepTemplateGeneric<IRequestMustBeCompleted>
     {
         readonly IPeriodConfigurationService periodConfigurationService;
 
@@ -24,13 +24,11 @@ namespace SupplyOfProducts.BusinessLogic.Steps
         protected override IResult ExecuteTemplate(IRequestMustBeCompleted obj)
         {
 
-            IContainDatePeriodProperty objPeriod = null;
-            obj.HelperCast(obj, ref objPeriod);
+            IContainDatePeriodProperty objPeriod = obj.HelperCast<IContainDatePeriodProperty>(obj);
 
             if (objPeriod != null)
             {
-                IContainWorkerInWorkPlaceProperty objCasted = null;
-                obj.HelperCast(obj, ref objCasted);
+                var objCasted = obj.HelperCast<IContainWorkerInWorkPlaceProperty>(obj);
 
                 if (objCasted!=null)
                 {

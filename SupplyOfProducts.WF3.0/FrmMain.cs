@@ -16,10 +16,11 @@ namespace SupplyOfProducts.WF3._0
 
         private Panel panel1;
         private Button button1;
-        private Button button2;
+        private Button bttExecute;
         public FlowLayoutPanel panelSteps;
-
+        private ComboBox cmbNumber;
         public NewContainerEvent CreateNewHandler;
+        public NewContainerEvent ExecuteHandler;
 
 #if NETCOREAPP3_0
         public IList<StepContainerObserver> ListObservers = new List<StepContainerObserver>();
@@ -28,14 +29,19 @@ namespace SupplyOfProducts.WF3._0
         public FrmMain()
         {
             InitializeComponent();
-
+            cmbNumber.Items.Add(1);
+            cmbNumber.Items.Add(2);
+            cmbNumber.Items.Add(3);
+            cmbNumber.Items.Add(4);
+            cmbNumber.SelectedIndex = 0;
         }
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.panelSteps = new System.Windows.Forms.FlowLayoutPanel();
             this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.bttExecute = new System.Windows.Forms.Button();
+            this.cmbNumber = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -57,7 +63,7 @@ namespace SupplyOfProducts.WF3._0
             // 
             this.panelSteps.AutoSize = true;
             this.panelSteps.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.panelSteps.BackColor = Color.LightGray;
+            this.panelSteps.BackColor = System.Drawing.Color.LightGray;
             this.panelSteps.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.panelSteps.Location = new System.Drawing.Point(12, 7);
             this.panelSteps.Name = "panelSteps";
@@ -74,20 +80,29 @@ namespace SupplyOfProducts.WF3._0
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.Button1_Click_1);
             // 
-            // button2
+            // bttExecute
             // 
-            this.button2.Location = new System.Drawing.Point(10, 59);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(49, 22);
-            this.button2.TabIndex = 4;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.Button2_Click);
+            this.bttExecute.Location = new System.Drawing.Point(12, 103);
+            this.bttExecute.Name = "bttExecute";
+            this.bttExecute.Size = new System.Drawing.Size(49, 22);
+            this.bttExecute.TabIndex = 4;
+            this.bttExecute.Text = "Run";
+            this.bttExecute.UseVisualStyleBackColor = true;
+            this.bttExecute.Click += new System.EventHandler(this.Button2_Click);
+            // 
+            // cmbNumber
+            // 
+            this.cmbNumber.FormattingEnabled = true;
+            this.cmbNumber.Location = new System.Drawing.Point(12, 59);
+            this.cmbNumber.Name = "cmbNumber";
+            this.cmbNumber.Size = new System.Drawing.Size(46, 21);
+            this.cmbNumber.TabIndex = 5;
             // 
             // FrmMain
             // 
             this.ClientSize = new System.Drawing.Size(961, 413);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.cmbNumber);
+            this.Controls.Add(this.bttExecute);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.panel1);
             this.Name = "FrmMain";
@@ -110,14 +125,17 @@ namespace SupplyOfProducts.WF3._0
         }
         private void Button1_Click_1(object sender, EventArgs e)
         {
-            CreateNewHandler?.Invoke();
+            for (int i = 0; i <= cmbNumber.SelectedIndex; i++)
+            {
+                CreateNewHandler?.Invoke();
+            }
+            
         }
 
 
         private void Button2_Click(object sender, EventArgs e)
         {
-            return;
-
+            ExecuteHandler?.Invoke();
 
         }
     }

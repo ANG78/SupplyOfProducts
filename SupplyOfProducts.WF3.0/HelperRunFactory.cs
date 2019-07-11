@@ -8,9 +8,15 @@ namespace SupplyOfProducts.WF3._0
 {
     public class FactoryHelperRun
     {
+        private static object lockReesource = new object();
         public HelperRun<TInterfaceModel> GetExecutor<TInterfaceModel, TViewModel>(EType type, string stextJson, Operation op)
         {
-            var _businessLogic = HI.GetInst().Get<IStep<IManagementModelRequest<TInterfaceModel>>>();
+            IStep<IManagementModelRequest<TInterfaceModel>> _businessLogic = null;
+            lock (lockReesource)
+            {
+                _businessLogic = HI.GetInst().Get<IStep<IManagementModelRequest<TInterfaceModel>>>();
+            }
+            
             IMapper _mapper = HI.GetInst().Get<IMapper>();
 
             TViewModel itemViewModel = JsonConvert.DeserializeObject<TViewModel>(stextJson);

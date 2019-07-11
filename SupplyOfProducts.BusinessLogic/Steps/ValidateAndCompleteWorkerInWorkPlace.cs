@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace SupplyOfProducts.BusinessLogic.Steps
 {
-    public class ValidateAndCompleteWorkerInWorkPlace : StepDecoratorTemplateGeneric<IRequestMustBeCompleted>
+    public class ValidateAndCompleteWorkerInWorkPlace : StepTemplateGeneric<IRequestMustBeCompleted>
     {
         readonly IWorkerInWorkPlaceService _workerInWorkPlaceService;
 
@@ -23,13 +23,12 @@ namespace SupplyOfProducts.BusinessLogic.Steps
 
         protected override IResult ExecuteTemplate(IRequestMustBeCompleted obj)
         {
-            IContainDatePeriodProperty objPeriod = null;
-            obj.HelperCast(obj, ref objPeriod);
+            var objPeriod = obj.HelperCast<IContainDatePeriodProperty>(obj);
 
             if (objPeriod != null)
             {
-                IContainWorkerInWorkPlaceProperty objCasted = null;
-                obj.HelperCast(obj, ref objCasted);
+                 var objCasted = obj.HelperCast<IContainWorkerInWorkPlaceProperty>(obj);
+
 
                 if (objCasted != null)
                 {

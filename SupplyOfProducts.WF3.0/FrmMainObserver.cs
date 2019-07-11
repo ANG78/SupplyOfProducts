@@ -2,6 +2,7 @@
 using SupplyOfProducts.Interfaces.BusinessLogic;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SupplyOfProducts.WF3._0
 {
@@ -12,17 +13,28 @@ namespace SupplyOfProducts.WF3._0
         FrmMain Form;
         static object LockerCreation = new object();
 
-        Dictionary<object, IObserverEvent> Containers = new Dictionary<object, IObserverEvent>();
+        Dictionary<object, StepContainerObserver> Containers = new Dictionary<object, StepContainerObserver>();
 
         public FrmMainObserver(FrmMain form)
         {
             Form = form;
             Form.CreateNewHandler += CreateContainer;
+            Form.ExecuteHandler += ExecuteContainers;
         }
 
         public void CreateContainer()
         {
             var aux = new StepContainerObserver(Form, this);
+        }
+
+        public void ExecuteContainers()
+        {
+            foreach (var aux in Containers.Values)
+            {
+                Task.Run(() => { 
+                    aux.Run();
+                });
+            }
         }
 
         public void RegisterContainer<T>( StepContainerObserver obs, T pData)

@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace SupplyOfProducts.BusinessLogic.Steps
 {
     public class RetrieverByWorkerGeneric<TModel, TService> :
-      StepDecoratorTemplateGeneric<IManagementModelRetrieverRequest<TModel>>
+      StepTemplateGeneric<IManagementModelRetrieverRequest<TModel>>
       where TService : IGenericNotSingleCodeReadService<TModel>
     {
         TService _Service;
