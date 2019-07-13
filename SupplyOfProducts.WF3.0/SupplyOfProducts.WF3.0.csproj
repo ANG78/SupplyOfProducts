@@ -13,11 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SupplyOfProducts.Api.Helper\SupplyOfProducts.Api.Common.csproj" />
-    <ProjectReference Include="..\SupplyOfProducts.BusinessLogic\SupplyOfProducts.BusinessLogic.csproj" />
-    <ProjectReference Include="..\SupplyOfProducts.Entities\SupplyOfProducts.Entities.csproj" />
-    <ProjectReference Include="..\SupplyOfProducts.Interfaces\SupplyOfProducts.Interfaces.csproj" />
-    <ProjectReference Include="..\SupplyOfProducts.PersistanceDDBB\SupplyOfProducts.PersistanceDDBB.csproj" />
+    <ProjectReference Include="..\SupplyOfProducts.Api.Common\SupplyOfProducts.Api.Common.csproj" />
   </ItemGroup>
 
   <ItemGroup>

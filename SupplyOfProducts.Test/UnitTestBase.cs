@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SupplyOfProducts.Api.Controllers.ViewModels;
-using SupplyOfProducts.Persistance;
 using System;
 
 namespace SupplyOfProducts.Test
@@ -78,7 +77,7 @@ namespace SupplyOfProducts.Test
 
         public void Reset()
         {
-            Provider.GetService<MemoryContext>()?.LoadDataConfiguration();
+          //  Provider.GetService<MemoryContext>()?.LoadDataConfiguration();
         }
 
         protected T GetRepository<T>(bool database = true)

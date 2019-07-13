@@ -321,6 +321,10 @@ namespace SupplyOfProducts.WF3._0
                 return richTextBox1.Text;
             });
 
+
+            if ( Executor != null )
+              return;
+
             object type = HelperUI.GetMethod(cmbType, () =>
             {
 

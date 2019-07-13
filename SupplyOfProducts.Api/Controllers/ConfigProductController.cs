@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SupplyOfProducts.Interfaces.BusinessLogic;
 using SupplyOfProducts.Api.Controllers.ViewModels;
-using System.Collections.Generic;
 using SupplyOfProducts.Interfaces.BusinessLogic.Services.Request;
 using AutoMapper;
-using SupplyOfProducts.Interfaces.BusinessLogic.Services;
 
 namespace SupplyOfProducts.Api.Controllers
 {

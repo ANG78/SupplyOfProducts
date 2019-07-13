@@ -29,61 +29,39 @@ namespace SupplyOfProducts.Api.Common
 
         }
 
-       // public bool UsingDDBB { get; set; } = true;
+        // public bool UsingDDBB { get; set; } = true;
 
         public void ConfigureRepositoryServices(IServiceCollection services)
         {
 
-            services.AddAutoMapper(Assembly.Load("SupplyOfProducts.Api.Common"), 
+            services.AddAutoMapper(Assembly.Load("SupplyOfProducts.Api.Common"),
                                    Assembly.Load("SupplyOfProducts.PersistanceDDBB"));
 
-           // services.AddAutoMapper();
+            new PersistanceDDBB.StartupWeb(Configuration).ConfigureRepositoryServices(services);
 
-
-            // Add Repositories. 
-         //   if (UsingDDBB)
-            {
-                new PersistanceDDBB.StartupWeb(Configuration).ConfigureRepositoryServices(services);
-            }
-            //  else
-            {
-                //    new Persistance.Startup(_configuration).ConfigureRepositoryServices(services);
-            }
-            /*
-            // Add Repositories. 
-            services.AddSingleton<MemoryContext, MemoryContext>();
-            services.AddTransient<SupplyOfProductsContext, SupplyOfProductsContext>();
-            // services.AddTransient<IProductRepository, ProductRepository>();
-            services.AddTransient<IProductRepository, SupplyOfProducts.PersistanceDDBB.Repository.ProductRepository>();
-            services.AddTransient<IProductSupplyRepository, ProductSupplyRepository>();
-            services.AddTransient<IWorkerRepository, WorkerRepository>();
-            services.AddTransient<IWorkPlaceRepository, WorkPlaceRepository>();
-            services.AddTransient<IProductStockRepository, ProductStockRepository>();
-            services.AddTransient<ISupplyScheduledRepository, SupplyScheduledRepository>();
-            */
 
             // add Services
-            services.AddTransient<IPeriodConfigurationService, PeriodConfigurationService>();
-            services.AddTransient<IProductService, ProductService>();
-            services.AddTransient<IProductSupplyService, ProductSupplyService>();
-            services.AddTransient<IWorkerService, WorkerService>();
-            services.AddTransient<IProductStockService, ProductStockService>();
-            services.AddTransient<ISupplyScheduledService, SupplyScheduledService>();
-            services.AddTransient<IWorkPlaceService, WorkPlaceService>();
-            services.AddTransient<IWorkerInWorkPlaceService, WorkerInWorkPlaceService>();
-            services.AddTransient<IConfigSupplyService, ConfigSupplyService>();
+            services.AddScoped<IPeriodConfigurationService, PeriodConfigurationService>();
+            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IProductSupplyService, ProductSupplyService>();
+            services.AddScoped<IWorkerService, WorkerService>();
+            services.AddScoped<IProductStockService, ProductStockService>();
+            services.AddScoped<ISupplyScheduledService, SupplyScheduledService>();
+            services.AddScoped<IWorkPlaceService, WorkPlaceService>();
+            services.AddScoped<IWorkerInWorkPlaceService, WorkerInWorkPlaceService>();
+            services.AddScoped<IConfigSupplyService, ConfigSupplyService>();
 
             /*Retrievers*/
-            services.AddTransient<IStep<IManagementModelRetrieverRequest<IWorker>> , RetrieverGeneric<IWorker, IWorkerService>> ();
-            services.AddTransient<IStep<IManagementModelRetrieverRequest<IWorkPlace>>, RetrieverGeneric<IWorkPlace, IWorkPlaceService>>();
-            services.AddTransient<IStep<IManagementModelRetrieverRequest<IProduct>>, RetrieverGeneric<IProduct, IProductService>>();
-            services.AddTransient<IStep<IManagementModelRetrieverRequest<IProductStock>>, RetrieverGeneric<IProductStock, IProductStockService>>();
-            services.AddTransient<IStep<IManagementModelRetrieverRequest<IConfigSupply>>, RetrieverByWorkerGeneric<IConfigSupply, IConfigSupplyService>>();
-            services.AddTransient<IStep<IManagementModelRetrieverRequest<IProductSupply>>, RetrieverByWorkerGeneric<IProductSupply, IProductSupplyService>>();
+            services.AddScoped<IStep<IManagementModelRetrieverRequest<IWorker>>, RetrieverGeneric<IWorker, IWorkerService>>();
+            services.AddScoped<IStep<IManagementModelRetrieverRequest<IWorkPlace>>, RetrieverGeneric<IWorkPlace, IWorkPlaceService>>();
+            services.AddScoped<IStep<IManagementModelRetrieverRequest<IProduct>>, RetrieverGeneric<IProduct, IProductService>>();
+            services.AddScoped<IStep<IManagementModelRetrieverRequest<IProductStock>>, RetrieverGeneric<IProductStock, IProductStockService>>();
+            services.AddScoped<IStep<IManagementModelRetrieverRequest<IConfigSupply>>, RetrieverByWorkerGeneric<IConfigSupply, IConfigSupplyService>>();
+            services.AddScoped<IStep<IManagementModelRetrieverRequest<IProductSupply>>, RetrieverByWorkerGeneric<IProductSupply, IProductSupplyService>>();
 
 
             // common steps in order to validate and complete the request
-            services.AddTransient(sp =>
+            services.AddScoped(sp =>
                     new CoRBuilder(sp).Get(
                                 new ValidateAndCompleteWorker(sp.GetService<IWorkerService>()),
                                 new ValidateAndCompleteProduct(sp.GetService<IProductService>()),
@@ -93,7 +71,7 @@ namespace SupplyOfProducts.Api.Common
                             ));
 
             /*ProductSupply*/
-            services.AddTransient(sp =>
+            services.AddScoped(sp =>
                      new CoRBuilder(sp).Get(
                                 new StepUnitOfWork<IManagementModelRequest<IProductSupply>>(sp.GetService<ICreateUoW>())
                                 , new ValidateRequestAndComplete<IManagementModelRequest<IProductSupply>>(sp.GetService<IStep<IRequestMustBeCompleted>>())
@@ -102,7 +80,7 @@ namespace SupplyOfProducts.Api.Common
                             ));
 
             /*ConfigSupply*/
-            services.AddTransient(sp =>
+            services.AddScoped(sp =>
             {
                 var helper = new CoRBuilder(sp);
                 return helper.Get(
@@ -114,7 +92,7 @@ namespace SupplyOfProducts.Api.Common
             });
 
             /*IWorkerInfo*/
-            services.AddTransient(sp =>
+            services.AddScoped(sp =>
             {
                 var helper = new CoRBuilder(sp);
                 return helper.Get(
@@ -126,7 +104,7 @@ namespace SupplyOfProducts.Api.Common
 
 
             /*IWorker*/
-            services.AddTransient(sp =>
+            services.AddScoped(sp =>
             {
                 var helper = new CoRBuilder(sp);
                 return helper.Get(
@@ -136,7 +114,7 @@ namespace SupplyOfProducts.Api.Common
             });
 
             /*IWorkPlace*/
-            services.AddTransient(sp =>
+            services.AddScoped(sp =>
             {
                 var helper = new CoRBuilder(sp);
                 return helper.Get(
@@ -146,7 +124,7 @@ namespace SupplyOfProducts.Api.Common
             });
 
             /*IProduct*/
-            services.AddTransient(sp =>
+            services.AddScoped(sp =>
             {
                 var helper = new CoRBuilder(sp);
                 return helper.Get(
@@ -157,7 +135,7 @@ namespace SupplyOfProducts.Api.Common
 
 
             /*IProductStock*/
-            services.AddTransient(sp =>
+            services.AddScoped(sp =>
             {
                 var helper = new CoRBuilder(sp);
                 return helper.Get(
