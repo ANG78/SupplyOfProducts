@@ -35,7 +35,7 @@ namespace SupplyOfProducts.Api.Common
         {
 
             services.AddAutoMapper(Assembly.Load("SupplyOfProducts.Api.Common"),
-                                   Assembly.Load("SupplyOfProducts.PersistanceDDBB"));
+                                   Assembly.Load("SupplyOfProducts.PersistenceDDBB"));
 
             new PersistanceDDBB.StartupWeb(Configuration).ConfigureRepositoryServices(services);
 

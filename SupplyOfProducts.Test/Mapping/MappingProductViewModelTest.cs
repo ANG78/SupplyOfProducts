@@ -95,6 +95,24 @@ namespace SupplyOfProducts.Test.Mapping
             Assert.IsTrue(reqPackage?.Parts.ToList()[1].Code == prod2);
         }
 
+
+
+        [TestMethod]
+        public void MappingWorker_IsWorkingProperly()
+        {
+            WorkerViewModel req = new WorkerViewModel
+            {
+                Code = "Code"
+            };
+
+            var mapper = GetRepository<IMapper>();
+
+            var reqModel = mapper.Map<IWorker>(req);
+            Assert.IsTrue(reqModel is IWorker);
+            Assert.IsTrue(reqModel?.Code == req.Code);
+            
+
+        }
     }
 
 

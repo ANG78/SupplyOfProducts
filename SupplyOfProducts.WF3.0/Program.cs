@@ -21,14 +21,14 @@ namespace SupplyOfProducts.WF3._0
             Application.SetCompatibleTextRenderingDefault(false);
 
             var conf = new ConfigurationBuilder();
-            conf.AddJsonFile("appsettings.json");
+            conf.AddJsonFile("appsettings");
 
             var services = new ServiceCollection();
 
 
             Startup start = new Startup(conf.Build());
             start.ConfigureRepositoryServices(services);
-
+            
             var helper = HI.GetInst(services.BuildServiceProvider());
 
             var mainForm = new FrmMain();
