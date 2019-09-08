@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0BB3E435-07DF-46F3-A084-B02398DF3E6B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SOP.BusinessLogic</RootNamespace>
+    <AssemblyName>SOP.BusinessLogic</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\EnumResultBL.cs" />
+    <Compile Include="Common\Result.cs" />
+    <Compile Include="Common\ResultObject.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\ConfigSupplyService.cs" />
+    <Compile Include="Services\Generics\GenericNotCodeService.cs" />
+    <Compile Include="Services\Generics\GenericService.cs" />
+    <Compile Include="Services\PeriodConfigurationService.cs" />
+    <Compile Include="Services\ProductService.cs" />
+    <Compile Include="Services\ProductStockService.cs" />
+    <Compile Include="Services\ProductSupplyService.cs" />
+    <Compile Include="Services\ResultBooking.cs" />
+    <Compile Include="Services\ResultObjects.cs" />
+    <Compile Include="Services\SupplyScheduledService.cs" />
+    <Compile Include="Services\WorkerInWorkPlaceService.cs" />
+    <Compile Include="Services\WorkerService.cs" />
+    <Compile Include="Services\WorkPlaceService.cs" />
+    <Compile Include="Steps\Common\ManagementModelRequest.cs" />
+    <Compile Include="Steps\Common\StepSaveModel.cs" />
+    <Compile Include="Steps\Common\StepTemplateGeneric.cs" />
+    <Compile Include="Steps\Common\StepUnitOfWork.cs" />
+    <Compile Include="Steps\ConfigSupply\ScheduleConfigurationToWorker.cs" />
+    <Compile Include="Steps\ConfigSupply\ValidateAndCompleteWorkerCanBeConfigured.cs" />
+    <Compile Include="Steps\ProcessProductSupply\AssignProductToWorker.cs" />
+    <Compile Include="Steps\ProcessProductSupply\ValidateWorkerCanBeSupplied.cs" />
+    <Compile Include="Steps\RetrieverByWorkerGeneric.cs" />
+    <Compile Include="Steps\RetrieverGeneric.cs" />
+    <Compile Include="Steps\ValidateAndCompleteDatePeriod.cs" />
+    <Compile Include="Steps\ValidateAndCompleteProduct.cs" />
+    <Compile Include="Steps\ValidateAndCompleteWorker.cs" />
+    <Compile Include="Steps\ValidateAndCompleteWorkerInWorkPlace.cs" />
+    <Compile Include="Steps\ValidateAndCompleteWorkPlace.cs" />
+    <Compile Include="Steps\ValidateRequestAndComplete.cs" />
+    <Compile Include="Steps\WorkerInfo\GenerateWorkerReport.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\SOP.Entities\SOP.Entities.csproj">
+      <Project>{41666dd1-2755-4c8b-8142-dd85276de7a0}</Project>
+      <Name>SOP.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SOP.Interfaces\SOP.Interfaces.csproj">
+      <Project>{81bb41c7-1199-43a6-bd86-a8f797f2e53d}</Project>
+      <Name>SOP.Interfaces</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

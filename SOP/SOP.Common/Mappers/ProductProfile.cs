@@ -1,0 +1,67 @@
+﻿using AutoMapper;
+using SupplyOfProducts.Api.Controllers.ViewModels;
+using SupplyOfProducts.Entities.BusinessLogic.Entities.Configuration;
+using SupplyOfProducts.Interfaces.BusinessLogic.Entities;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace SupplyOfProducts.BusinessLogic.Mappers
+{
+
+    public partial class ProductProfile : Profile
+    {
+        public ProductProfile()
+        {
+
+            CreateMap<IProduct, ProductViewModel>()
+                .IncludeAllDerived();
+            // .ForMember(prod => prod.Class, opt => opt.MapFrom(x => EStructure.PRODUCT.String()));
+
+            CreateMap<IPackage, ProductComplexViewModel>()
+                //  .ForMember(prod => prod.Class, opt => opt.MapFrom(x => EStructure.PACKAGE.String()))
+                .ForMember(prod => prod.Parts, opt => opt.MapFrom(s => s.Parts));
+
+
+            CreateMap<ProductViewModel, Product>();
+
+            CreateMap<ProductComplexViewModel, Package>()
+                .ForMember(prod => prod.Parts, opt => opt.Ignore() );
+            // .ForMember(prod => prod.Parts, opt => { opt.MapFrom<CustomIEnumrableResolver>(); });
+
+
+            CreateMap<ProductViewModel, ProductPart>()
+                .ForMember(prod => prod.Product, opt => { opt.MapFrom(s => s); })
+                .ForMember(prod => prod.ParentProduct, opt => { opt.MapFrom(s => s); });
+
+            //////////////////////////////
+            CreateMap<ProductComplexViewModel, IPackage>().As<Package>();
+            CreateMap<ProductComplexViewModel, IProduct>().As<Package>();
+
+            CreateMap<ProductViewModel, IProduct>().As<Product>();
+            CreateMap<ProductViewModel, Product>().As<Product>();
+        }
+
+
+        public class CustomIEnumrableResolver : IValueResolver<ProductComplexViewModel, Package, IEnumerable<IProduct>>
+        {
+
+            public IEnumerable<IProduct> Resolve(ProductComplexViewModel source, Package destination, IEnumerable<IProduct> destMember, ResolutionContext context)
+            {
+                if (source.Parts != null)
+                {
+
+                    source.Parts.ToList().ForEach(x => destination.Add(context.Mapper.Map<IProduct>(x)));
+
+                }
+                //return destination.Parts;
+                return null;
+            }
+        }
+
+
+
+    }
+
+}
+
+
