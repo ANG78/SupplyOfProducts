@@ -1,0 +1,63 @@
+<header>
+  <h2>Workers</h2>
+</header>
+<p *ngIf="!workers"><em>Loading .......</em></p>
+<section>
+
+  <!--<worker-item *ngFor="let worker of workers"
+               [item]="worker"
+               (delete)="onWorkerDelete($event)">
+  </worker-item>-->
+
+  <table class='table table-striped' *ngIf="workers">
+    <thead>
+      <tr>
+        <th>Code</th>
+        <th>Name</th>
+        <th>Id</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let worker of workers">
+        <td>{{ worker.code }}</td>
+        <td>{{ worker.name }}</td>
+        <td>{{ worker.id }}</td>
+        <td>
+          <a class="delete" [routerLink]="['worker', worker.code ]">
+            remove
+          </a>
+          <a class="details" [routerLink]="['worker', worker.code ]">
+            watch
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="column">
+    <router-outlet></router-outlet>
+  </div>
+
+  <!--<table class='table table-striped' *ngIf="workers">
+    <thead>
+      <tr>
+        <th>Code</th>
+        <th>Name</th>
+        <th>Id</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let worker of workers">
+        <td>{{ worker.code }}</td>
+        <td>{{ worker.name }}</td>
+        <td>{{ worker.id }}</td>
+      </tr>
+    </tbody>
+  </table>-->
+</section>
+<footer>
+  <a routerLink="/add/work">
+    <img src="assets/01.png" class="icon">
+  </a>
+</footer>
+

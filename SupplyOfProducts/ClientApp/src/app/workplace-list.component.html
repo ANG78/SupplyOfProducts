@@ -1,0 +1,42 @@
+<header>
+  <h2>Work Places</h2>
+</header>
+<p *ngIf="!workplaces"><em>Loading .......</em></p>
+<section>
+
+  <!--<workplace-item *ngFor="let workplace of workplaces"
+                  [item]="workplace"
+                  (delete)="onWorkPlaceDelete($event)">
+  </workplace-item>-->
+
+  <table class='table table-striped' *ngIf="workplaces">
+    <thead>
+      <tr>
+        <th>Code</th>
+        <th>Id</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let workplace of workplaces">
+        <td>{{ workplace.code }}</td>
+        <td>{{ workplace.id }}</td>
+        <td>
+          <a class="delete" [routerLink]="['workplace', workplace.code ]">
+            remove
+          </a>
+          <a class="details" [routerLink]="['workplace', workplace.code ]">
+            watch
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <router-outlet></router-outlet>
+</section>
+<footer>
+  <a routerLink="/add/workplace">
+    <img src="assets/01.png" class="icon">
+  </a>
+</footer>
+

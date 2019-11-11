@@ -1,9 +1,9 @@
-﻿using System;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using SupplyOfProducts.Interfaces.BusinessLogic.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.EntityFrameworkCore;
-using AutoMapper;
-using SupplyOfProducts.Interfaces.BusinessLogic.Entities;
 
 namespace SupplyOfProducts.PersistanceDDBB.Repository
 {
@@ -25,7 +25,7 @@ namespace SupplyOfProducts.PersistanceDDBB.Repository
         /// 
         /// </summary>
         protected readonly IMapper _Mapper;
-        
+
         /// <summary>
         /// Initializes a new instance of the <see cref="GenericRepository{TEntity}"/> class.
         /// </summary>
@@ -120,21 +120,21 @@ namespace SupplyOfProducts.PersistanceDDBB.Repository
 
     }
 
-    public class GenericRepository<TEntity, TInterface> : GenericRepository<TEntity> where TEntity : class, ICode                                                                                 
+    public class GenericRepository<TEntity, TInterface> : GenericRepository<TEntity> where TEntity : class, ICode
     {
 
         public GenericRepository(IGenericContext dbContext, IMapper mapper = null) : base(dbContext, mapper)
         {
         }
 
-        public virtual IEnumerable<TInterface>   Get()
+        public virtual IEnumerable<TInterface> Get()
         {
-            return (IEnumerable <TInterface>) GetAll();
+            return (IEnumerable<TInterface>)GetAll();
         }
 
         public virtual TInterface Get(string code)
         {
-            return (TInterface) (object)_Current.FirstOrDefault(x => x.Code == code);
+            return (TInterface)(object)_Current.FirstOrDefault(x => x.Code == code);
         }
     }
 }

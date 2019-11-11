@@ -12,6 +12,26 @@ namespace SupplyOfProducts.Persistance
         public WorkerInWorkPlaceRepository(MemoryContext context) : base(context)
         { }
 
+        public void Add(IWorkerInWorkPlace item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Edit(IWorkerInWorkPlace item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<IWorkerInWorkPlace> Get()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<IWorkerInWorkPlace> Get(string code)
+        {
+            throw new NotImplementedException();
+        }
+
         public IList<IWorkerInWorkPlace> GetWorkPlace(string sCodeWorker, DateTime? date)
         {
 

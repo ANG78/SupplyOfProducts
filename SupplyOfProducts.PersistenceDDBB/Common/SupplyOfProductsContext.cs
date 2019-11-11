@@ -12,19 +12,19 @@ namespace SupplyOfProducts.PersistanceDDBB
     {
         public static int IdSupplyOfProductsContextGenerator { get; set; } = 0;
 
-        public int IdContext {get;set;}
+        public int IdContext { get; set; }
 
         private static object Locker = new object();
 
         /// <param name="options">The options<see cref="DbContextOptions{SupplyOfProductsContext}"/></param>
         public SupplyOfProductsContext(DbContextOptions<SupplyOfProductsContext> options) : base(options)
         {
-            lock(Locker)
+            lock (Locker)
             {
                 IdSupplyOfProductsContextGenerator++;
                 IdContext = IdSupplyOfProductsContextGenerator;
             }
-            
+
         }
 
 
@@ -37,7 +37,7 @@ namespace SupplyOfProducts.PersistanceDDBB
             modelBuilder.ApplyConfiguration(new AbstractProductConfiguration());
             modelBuilder.ApplyConfiguration(new ProductConfiguration());
             modelBuilder.ApplyConfiguration(new PackageConfiguration());
-            
+
             modelBuilder.ApplyConfiguration(new ProductPartsConfiguration());
             modelBuilder.ApplyConfiguration(new WorkerConfiguration());
             modelBuilder.ApplyConfiguration(new WorkPlaceConfiguration());
@@ -131,7 +131,7 @@ namespace SupplyOfProducts.PersistanceDDBB
 
             if (_context != null)
             {
-              //  _context.Dispose();
+                //  _context.Dispose();
             }
 
             _transaction = null;

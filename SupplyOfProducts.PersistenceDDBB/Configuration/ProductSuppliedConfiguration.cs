@@ -14,9 +14,9 @@ namespace SupplyOfProducts.PersistanceDDBB.Configuration
             builder.HasKey(c => c.Id);
 
 
-          //  builder.HasOne(x => (ProductSupplied)x.ParentProductSupplied).WithMany().HasForeignKey(x => x.ParentProductSuppliedId);
+            //  builder.HasOne(x => (ProductSupplied)x.ParentProductSupplied).WithMany().HasForeignKey(x => x.ParentProductSuppliedId);
             builder.HasOne(x => (ProductStock)x.ProductStock).WithMany().HasForeignKey(x => x.ProductStockId).IsRequired();
-            builder.HasOne(x => (ProductSupply)x.ProductSupply).WithMany( x=> (IList<ProductSupplied>) x.ProductsSupplied).HasForeignKey(x => x.ProductSupplyId).IsRequired();
+            builder.HasOne(x => (ProductSupply)x.ProductSupply).WithMany(x => (IList<ProductSupplied>)x.ProductsSupplied).HasForeignKey(x => x.ProductSupplyId).IsRequired();
 
         }
     }

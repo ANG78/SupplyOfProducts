@@ -11,7 +11,7 @@ namespace SupplyOfProducts.PersistanceDDBB.Configuration
 
             builder.ToTable("Product");
             builder.Ignore(x => x.Parts);
-            
+
         }
     }
 }

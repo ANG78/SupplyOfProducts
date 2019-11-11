@@ -10,7 +10,7 @@ namespace SupplyOfProducts.PersistanceDDBB.Repository
     {
         public WorkPlaceRepository(IGenericContext dbContext, IMapper mapper) : base(dbContext, mapper)
         { }
-        
+
 
         public virtual void Add(IWorkPlace worker)
         {
@@ -24,7 +24,7 @@ namespace SupplyOfProducts.PersistanceDDBB.Repository
                 base.Add(mapped);
             }
         }
-        
+
         public virtual void Edit(IWorkPlace worker)
         {
             var copy = _Current.FirstOrDefault(x => x.Id == worker.Id);
@@ -33,6 +33,6 @@ namespace SupplyOfProducts.PersistanceDDBB.Repository
             base.Edit(copy);
 
         }
-        
+
     }
 }

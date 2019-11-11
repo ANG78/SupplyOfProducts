@@ -9,7 +9,7 @@ namespace SupplyOfProducts.PersistanceDDBB.Configuration
     {
         public void Configure(EntityTypeBuilder<AbstractProduct> builder)
         {
-            
+
             builder.ToTable("Product");
             builder.HasDiscriminator(x => x.Class)
             .HasValue<Product>(EStructure.PRODUCT.String())
@@ -23,6 +23,6 @@ namespace SupplyOfProducts.PersistanceDDBB.Configuration
             builder.Property(x => x.Class);
 
 
-        } 
+        }
     }
 }

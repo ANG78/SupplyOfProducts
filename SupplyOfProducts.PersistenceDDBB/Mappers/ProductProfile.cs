@@ -16,7 +16,7 @@ namespace SupplyOfProducts.PersistanceDDBB.Mappers
 
             CreateMap<IPackage, Package>()
                 .ForMember(prod => prod.Class, opt => opt.MapFrom(x => "PACKAGE"));
-                       
+
         }
 
 

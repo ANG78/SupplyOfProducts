@@ -1,0 +1,11 @@
+<p *ngIf="!item"><em>Loading .......</em></p>
+<h2>{{ item.code }}</h2>
+<div class="tools">
+  <span>{{ item.name }}</span>
+  <a class="delete" (click)="onDelete()">
+    remove
+  </a>
+  <a class="details">
+    watch
+  </a>
+</div>

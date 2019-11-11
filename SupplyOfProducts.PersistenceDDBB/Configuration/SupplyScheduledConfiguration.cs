@@ -15,10 +15,10 @@ namespace SupplyOfProducts.PersistanceDDBB.Configuration
             builder.Property(c => c.Amount).IsRequired();
             builder.Property(c => c.PeriodDate).IsRequired();
 
-            builder.HasOne(x => (AbstractProduct)x.Product).WithMany().HasForeignKey(x=>x.ProductId).IsRequired();
+            builder.HasOne(x => (AbstractProduct)x.Product).WithMany().HasForeignKey(x => x.ProductId).IsRequired();
             builder.HasOne(x => (WorkerInWorkPlace)x.WorkerInWorkPlace).WithMany().HasForeignKey(x => x.WorkerInWorkPlaceId).IsRequired();
 
-            
+
         }
     }
 

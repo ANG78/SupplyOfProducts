@@ -8,4 +8,3 @@ namespace SupplyOfProducts.Interfaces.BusinessLogic.Entities
         int NumYearsByPeriod { get; set; }
     }
 }
-

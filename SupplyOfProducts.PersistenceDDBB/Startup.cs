@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SupplyOfProducts.Interfaces.BusinessLogic;
@@ -49,11 +48,16 @@ namespace SupplyOfProducts.PersistanceDDBB
 
         public void ConfigureRepositoryServices(IServiceCollection services)
         {
-
+            /*
             services.AddDbContext<SupplyOfProductsContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")
 
-            ),ServiceLifetime.Transient);
+            ), ServiceLifetime.Transient);
+            */
+
+            services.AddDbContext<SupplyOfProductsContext>(options =>
+            options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")
+            ), ServiceLifetime.Transient);
 
             // Add Repositories. 
             services.AddScoped<IGenericContext, SupplyOfProductsContext>();

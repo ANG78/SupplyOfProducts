@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace SupplyOfProducts.Interfaces.Repository
 {
-    public interface IWorkerInWorkPlaceRepository
+    public interface IWorkerInWorkPlaceRepository : IGenericNotSingleCodeRepository<IWorkerInWorkPlace>
     {
         IList<IWorkerInWorkPlace> GetWorkPlace(string code, DateTime? date);
     }

@@ -2,11 +2,6 @@
 GO
 /****** Object:  Database [SupplyOfProducts]    Script Date: 04/06/2019 21:32:16 ******/
 CREATE DATABASE [SupplyOfProducts]
- CONTAINMENT = NONE
- ON  PRIMARY 
-( NAME = N'SupplyOfProducts', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL12.SQLEXPRESS\MSSQL\DATA\SupplyOfProducts.mdf' , SIZE = 5120KB , MAXSIZE = UNLIMITED, FILEGROWTH = 1024KB )
- LOG ON 
-( NAME = N'SupplyOfProducts_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL12.SQLEXPRESS\MSSQL\DATA\SupplyOfProducts_log.ldf' , SIZE = 1024KB , MAXSIZE = 2048GB , FILEGROWTH = 10%)
 GO
 ALTER DATABASE [SupplyOfProducts] SET COMPATIBILITY_LEVEL = 120
 GO

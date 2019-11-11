@@ -1,13 +1,12 @@
 ﻿using SupplyOfProducts.Entities.BusinessLogic.Entities.Configuration;
 using SupplyOfProducts.Interfaces.BusinessLogic.Entities;
 using SupplyOfProducts.Interfaces.Repository;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace SupplyOfProducts.PersistanceDDBB.Repository
 {
 
-    public class WorkerRepository : GenericRepository<Worker,IWorker>, IWorkerRepository
+    public class WorkerRepository : GenericRepository<Worker, IWorker>, IWorkerRepository
     {
         public WorkerRepository(IGenericContext dbContext) : base(dbContext)
         { }
@@ -21,7 +20,7 @@ namespace SupplyOfProducts.PersistanceDDBB.Repository
             else
             {
                 base.Add(new Worker(worker));
-            }         
+            }
         }
 
         public virtual void Edit(IWorker worker)
@@ -31,11 +30,11 @@ namespace SupplyOfProducts.PersistanceDDBB.Repository
             copy.Code = worker.Code;
 
             base.Edit(copy);
-            
+
         }
 
-       
-        
+
+
     }
 
 }

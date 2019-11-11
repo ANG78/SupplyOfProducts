@@ -4,9 +4,8 @@ namespace SupplyOfProducts.Interfaces.BusinessLogic.Entities
 {
     public interface IWorkerInWorkPlace : IContainWorkerProperty,
                                           IContainWorkPlaceProperty,
-                                          ISupplyPeriod
+                                          IPeriod,
+                                          IId
     {
-        int Id { get; set; }
-        DateTime? DateEnd { get; set; }  
     }
 }

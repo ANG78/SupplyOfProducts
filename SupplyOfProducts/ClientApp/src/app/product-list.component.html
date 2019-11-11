@@ -1,0 +1,39 @@
+<header>
+  <h2>Work Places</h2>
+</header>
+<p *ngIf="!products"><em>Loading .......</em></p>
+<section>
+
+  <table class='table table-striped' *ngIf="products">
+    <thead>
+      <tr>
+        <th>Code</th>
+        <th>Id</th>
+        <th>Type</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products">
+        <td>{{ product.code }}</td>
+        <td>{{ product.id }}</td>
+        <td>{{ product.type }}</td>
+        <td>
+          <a class="delete" [routerLink]="['product', products.id ]">
+            remove
+          </a>
+          <a class="details" [routerLink]="['product', products.id ]">
+            watch
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <router-outlet></router-outlet>
+</section>
+<footer>
+  <a routerLink="/add/product">
+    <img src="assets/01.png" class="icon">
+  </a>
+</footer>
+

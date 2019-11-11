@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SupplyOfProducts.Entities.BusinessLogic.Entities.Configuration;
 using SupplyOfProducts.Entities.BusinessLogic.Entities.Provision;
-using System.Collections.Generic;
 
 namespace SupplyOfProducts.PersistanceDDBB.Configuration
 {

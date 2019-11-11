@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SupplyOfProducts.Entities.BusinessLogic.Entities.Configuration;
-using System.Linq;
 
 namespace SupplyOfProducts.PersistanceDDBB.Configuration
 {
@@ -15,10 +14,10 @@ namespace SupplyOfProducts.PersistanceDDBB.Configuration
             builder.Property(c => c.Code)
                 .IsRequired()
                 .HasMaxLength(10);
-         
+
         }
     }
 
 
-    
+
 }

@@ -97,7 +97,7 @@ namespace SupplyOfProducts.PersistanceDDBB.Repository
         public IEnumerable<IProductSupplied> GetProductSuppliedToWorkerOnThisPeriod(string sCodeProduct, string sCodeWorker, string sCodWorkPlace, DateTime date)
         {
             var result = _Current
-                        .SelectMany(y => (IList < ProductSupplied >) y.ProductsSupplied)
+                        .SelectMany(y => (IList<ProductSupplied>)y.ProductsSupplied)
                         .Where(p => p.ProductSupply.Product.Code == sCodeProduct &&
                                     p.ProductSupply.WorkerInWorkPlace.WorkPlace.Code == sCodWorkPlace &&
                                     p.ProductSupply.WorkerInWorkPlace.Worker.Code == sCodeWorker &&
@@ -105,10 +105,10 @@ namespace SupplyOfProducts.PersistanceDDBB.Repository
                        .Include(x => x.ProductSupply)
                        .Include(x => x.ProductStock)
                        .ToList<IProductSupplied>();
-           
+
             return result;
         }
 
-        
+
     }
 }

@@ -78,12 +78,28 @@ namespace SupplyOfProducts.BusinessLogic.Services.Generics
         /// <returns></returns>
         public IEnumerable<T> GetAll()
         {
-            return _repository.Get();
+            try
+            {
+                return _repository.Get();
+            }
+            catch (Exception ex)
+            {
+                // return new Result(EnumResultBL.ERROR_EXCEPTION_PERSISTANCE, ex.Message);
+                throw new Exception(ex.Message);
+            }
         }
 
         public virtual T Get(string code)
         {
-            return _repository.Get(code);
+            try
+            {
+                return _repository.Get(code);
+            }
+            catch (Exception ex)
+            {
+                //return new Result(EnumResultBL.ERROR_EXCEPTION_PERSISTANCE, ex.Message);
+                throw new Exception(ex.Message);
+            }
         }
 
     }

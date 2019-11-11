@@ -20,7 +20,7 @@ namespace SupplyOfProducts.PersistanceDDBB.Repository
         public IEnumerable<IConfigSupply> Get(string WorkerCode)
         {
             var result = _Current
-                          .Where(x=>x.WorkerInWorkPlace.Worker.Code == WorkerCode)
+                          .Where(x => x.WorkerInWorkPlace.Worker.Code == WorkerCode)
                           .Include(x => x.Product)
                           .Include(x => x.WorkerInWorkPlace)
                           .Include(x => x.WorkerInWorkPlace.Worker)
@@ -33,7 +33,7 @@ namespace SupplyOfProducts.PersistanceDDBB.Repository
 
         public IEnumerable<IConfigSupply> Get()
         {
-            var result = _Current            
+            var result = _Current
                            .Include(x => x.Product)
                            .Include(x => x.WorkerInWorkPlace)
                            .Include(x => x.WorkerInWorkPlace.Worker)

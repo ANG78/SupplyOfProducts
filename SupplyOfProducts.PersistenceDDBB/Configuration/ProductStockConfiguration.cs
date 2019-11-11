@@ -17,12 +17,12 @@ namespace SupplyOfProducts.PersistanceDDBB.Configuration
 
             builder.Ignore(c => c.IsAvailable);
 
-            builder.HasOne(x => (Product)x.Product).WithMany().HasForeignKey(x=>x.ProductId).IsRequired();
-            
+            builder.HasOne(x => (Product)x.Product).WithMany().HasForeignKey(x => x.ProductId).IsRequired();
+
         }
     }
 
-    
+
 
 
 }

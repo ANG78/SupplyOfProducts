@@ -58,6 +58,7 @@ namespace SupplyOfProducts.Api.Common
             services.AddScoped<IStep<IManagementModelRetrieverRequest<IProductStock>>, RetrieverGeneric<IProductStock, IProductStockService>>();
             services.AddScoped<IStep<IManagementModelRetrieverRequest<IConfigSupply>>, RetrieverByWorkerGeneric<IConfigSupply, IConfigSupplyService>>();
             services.AddScoped<IStep<IManagementModelRetrieverRequest<IProductSupply>>, RetrieverByWorkerGeneric<IProductSupply, IProductSupplyService>>();
+            services.AddScoped<IStep<IManagementModelRetrieverRequest<IWorkerInWorkPlace>>, RetrieverByWorkerGeneric<IWorkerInWorkPlace, IWorkerInWorkPlaceService>>();
 
 
             // common steps in order to validate and complete the request
@@ -68,6 +69,15 @@ namespace SupplyOfProducts.Api.Common
                                 new ValidateAndCompleteWorkPlace(sp.GetService<IWorkPlaceService>()),
                                 new ValidateAndCompleteWorkerInWorkPlace(sp.GetService<IWorkerInWorkPlaceService>()),
                                 new ValidateAndCompleteDatePeriod(sp.GetService<IPeriodConfigurationService>())
+                            ));
+
+            /*IWorkerInWorkPlace*/
+            services.AddScoped(sp =>
+                     new CoRBuilder(sp).Get(
+                                new StepUnitOfWork<IManagementModelRequest<IWorkerInWorkPlace>>(sp.GetService<ICreateUoW>())
+                                , new ValidateRequestAndComplete<IManagementModelRequest<IWorkerInWorkPlace>>(sp.GetService<IStep<IRequestMustBeCompleted>>())
+                               // , new ValidateWorkerCanBeSupplied(sp.GetService<IProductSupplyService>(), sp.GetService<ISupplyScheduledService>())
+                                //, new AssignProductToWorker(sp.GetService<IProductSupplyService>(), sp.GetService<IProductStockService>())
                             ));
 
             /*ProductSupply*/

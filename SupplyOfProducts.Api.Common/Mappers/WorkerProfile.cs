@@ -10,7 +10,7 @@ namespace SupplyOfProducts.BusinessLogic.Mappers
         public WorkerProfile()
         {
             CreateMap<IWorker, WorkerViewModel>();
-            CreateMap< WorkerViewModel, IWorker>();
+            CreateMap< WorkerViewModel, IWorker>().As<Worker>();
         }
     }
 }

@@ -16,9 +16,9 @@ namespace SupplyOfProducts.PersistanceDDBB.Configuration
             builder.Property(c => c.DateEnd);
             builder.Property(c => c.NumYearsByPeriod).IsRequired();
 
-            builder.HasOne(x=> (Worker)x.Worker).WithMany().HasForeignKey(x => x.WorkerId).IsRequired();
+            builder.HasOne(x => (Worker)x.Worker).WithMany().HasForeignKey(x => x.WorkerId).IsRequired();
             builder.HasOne(x => (WorkPlace)x.WorkPlace).WithMany().HasForeignKey(x => x.WorkPlaceId).IsRequired();
-           
+
         }
     }
 }

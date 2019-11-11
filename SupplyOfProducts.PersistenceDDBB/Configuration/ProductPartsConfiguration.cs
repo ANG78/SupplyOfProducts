@@ -13,14 +13,14 @@ namespace SupplyOfProducts.PersistanceDDBB.Configuration
             builder.ToTable("ProductParts");
             builder.HasKey(e => new { e.ParentProductId, e.ProductId });
 
-            
 
-            builder.HasOne(x => (Package) x.ParentProduct)
-                .WithMany(x=>x.PartOfProducts)
+
+            builder.HasOne(x => (Package)x.ParentProduct)
+                .WithMany(x => x.PartOfProducts)
                 .HasForeignKey(x => x.ParentProductId)
               .IsRequired();
 
-            builder.HasOne(x => (Product) x.Product)
+            builder.HasOne(x => (Product)x.Product)
                .WithMany()
                .HasForeignKey(x => x.ProductId)
              .IsRequired();
