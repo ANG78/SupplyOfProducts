@@ -27,6 +27,10 @@ CREATE TABLE public."Worker"
     "Id" integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
     "Code" text COLLATE pg_catalog."default" NOT NULL,
     "Name" text COLLATE pg_catalog."default" NOT NULL,
+    "Birthday" date,
+    "City" text COLLATE pg_catalog."default",
+    "Country" text COLLATE pg_catalog."default",
+    "Street" text COLLATE pg_catalog."default",
     CONSTRAINT worker_pkey PRIMARY KEY ("Id")
 );
 
